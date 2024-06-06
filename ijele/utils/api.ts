@@ -1,2 +1,0 @@
-// Grouping hotel booking, restaurant finding, and payment processing APIs in this file for simplicity and organization.
-// Separate files may be created later if needed, but we can start here for now.
