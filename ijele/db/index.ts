@@ -1,7 +1,6 @@
-// This file sets up the database connection and exports the db instance
-
+import 'dotenv/config'; 
 import { drizzle } from 'drizzle-orm/postgres-js';
-import postgres from 'postgres'
+import postgres from 'postgres';
 
 const connectionString = process.env.DATABASE_URL!;
 
