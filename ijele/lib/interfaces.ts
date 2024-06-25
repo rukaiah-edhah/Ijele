@@ -37,12 +37,13 @@ export interface HotelDataResponse {
 
 export interface GuestInfo {
   name: string;
-  age: number;
+  email: string;
 }
 
 export interface PaymentInfo {
-  method: string;
   cardNumber: string;
+  expiryDate: string;
+  cvv: string;
 }
 
 export interface BookingResponse {
