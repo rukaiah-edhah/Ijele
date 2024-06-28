@@ -5,18 +5,18 @@
 // If you put NYC or PAR on the search bar, you will get a list of hotels in New York City or Paris, respectively.
 // If you put a city code that does not exist, you will get an error message.
 
-// "use client";
+"use client";
 
-// import { useState } from 'react';
-// import { Hotel } from '@/lib/interfaces';
-// import axios from 'axios';
+import { useState } from 'react';
+import { Hotel } from '@/lib/interfaces';
+import axios from 'axios';
 
-// const HotelPage: React.FC = () => {
+const FlightPage: React.FC = () => {
 //   const [cityCode, setCityCode] = useState<string>('');
 //   const [hotels, setHotels] = useState<Hotel[]>([]);
 //   const [error, setError] = useState<any>(null);  
 
-//   const fetchHotels = async () => {
+//   const fetchFlights = async () => {
 //     try {
 //       const response = await axios.get('/api/hotels/list', { params: { cityCode } });
 //       setHotels(response.data.data);
@@ -25,7 +25,7 @@
 //       setHotels([]); // Clear the hotels list on error
 //       setError(err.response ? err.response.data : err.message);
 //     }
-//   };
+  };
 
 //   return (
 //     <div className="p-6">
@@ -79,4 +79,4 @@
 //   );
 // };
 
-// export default HotelPage;
+export default FlightPage;
