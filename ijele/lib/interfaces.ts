@@ -50,3 +50,23 @@ export interface BookingResponse {
   confirmationNumber: string;
   status: string;
 }
+
+// Location search interface
+
+export interface LocationData {
+  subType: string;
+  name: string;
+  iataCode: string;
+  address: {
+    cityName: string;
+    countryCode: string;
+  };
+  geoCode: {
+    latitude: number;
+    longitude: number;
+  };
+}
+
+export interface LocationSearchResponse {
+  data: LocationData[];
+}
