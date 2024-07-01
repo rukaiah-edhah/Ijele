@@ -8,7 +8,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Hotel } from '@/lib/interfaces';
+import { Flight } from '@/lib/interfaces';
 import axios from 'axios';
 
 const FlightPage: React.FC = () => {
