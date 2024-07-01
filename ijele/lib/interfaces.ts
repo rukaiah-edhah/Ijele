@@ -70,3 +70,9 @@ export interface LocationData {
 export interface LocationSearchResponse {
   data: LocationData[];
 }
+
+// Flight search interface - still need to finish writing this!!  ##JLL
+
+export interface Flight {
+  
+}
