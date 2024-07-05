@@ -33,6 +33,18 @@ export interface HotelDataResponse {
   data: Hotel[];
 }
 
+// Hotel Search API interfaces
+
+export interface HotelOffer {
+  id: string;
+  checkInDate: string;
+  checkOutDate: string;
+}
+
+export interface HotelOffersResponse {
+  data: HotelOffer[];
+}
+
 // Hotel Booking API interfaces
 
 export interface GuestInfo {
