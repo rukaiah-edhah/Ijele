@@ -16,31 +16,56 @@ const getHotelOffers = async (
   checkInDate: string,
   checkOutDate: string,
   adults: number
-): Promise<HotelOffersResponse> => {
-  try {
-    const accessToken = await getAccessToken();
-    const response = await axios.get(
-      'https://test.api.amadeus.com/v3/shopping/hotel-offers',
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-        params: {
-          hotelIds: hotelIds.join(','),
-          checkInDate,
-          checkOutDate,
-          adults,
-        },
+): Promise<HotelOffersResponse[]> => {
+  const accessToken = await getAccessToken();
+  const availableHotelOffers: HotelOffersResponse[] = [];
+
+  for (const hotelId of hotelIds) {
+    try {
+      const response = await axios.get(
+        "https://test.api.amadeus.com/v3/shopping/hotel-offers",
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+          params: {
+            hotelIds: hotelId,
+            checkInDate,
+            checkOutDate,
+            adults,
+          },
+        }
+      );
+
+      if (response.data.data && response.data.data.length > 0) {
+        availableHotelOffers.push(response.data);
       }
-    );
-    return response.data;
-  } catch (error: any) {
-    console.error(
-      'Error retrieving hotel offers:',
-      error.response ? error.response.data : error.message
-    );
-    throw error;
+    } catch (error: any) {
+      const errorDetails = error.response
+        ? error.response.data.errors
+        : error.message;
+      console.error(
+        `Error retrieving hotel offers for hotel ID ${hotelId}:`,
+        errorDetails
+      );
+
+      if (
+        errorDetails.some(
+          (err: any) =>
+            err.code === 10604 ||
+            err.code === 1257 ||
+            err.code === 3664 ||
+            err.code === 3494
+        )
+      ) {
+        continue;
+      }
+
+      throw error;
+    }
   }
+
+  return availableHotelOffers;
 };
 
 export default getHotelOffers;

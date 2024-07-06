@@ -27,7 +27,6 @@ export async function GET(request: NextRequest) {
     return NextResponse.json(hotelOffers);
   } catch (error: any) {
     console.error('Error fetching hotel offers:', error);
-    console.error('Full error details:', error.response ? error.response.data.errors : error.message); 
     return NextResponse.json(
       {
         error: 'Failed to fetch hotel offers',
