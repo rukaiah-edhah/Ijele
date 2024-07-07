@@ -20,6 +20,7 @@ const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: Pay
     }, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
       },
     });
     console.log('Booking confirmation:', response.data);

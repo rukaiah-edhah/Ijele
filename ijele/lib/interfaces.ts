@@ -44,18 +44,26 @@ export interface HotelOffer {
 export interface HotelOffersResponse {
   data: HotelOffer[];
 }
-
-// Hotel Booking API interfaces
-
-export interface GuestInfo {
-  name: string;
+export interface GuestContact {
+  phone: string;
   email: string;
 }
 
-export interface PaymentInfo {
+export interface GuestInfo {
+  name: string;
+  surname: string;
+  contact: GuestContact;
+}
+
+export interface CardInfo {
+  vendorCode: string;
   cardNumber: string;
   expiryDate: string;
-  cvv: string;
+}
+
+export interface PaymentInfo {
+  method: string;
+  card: CardInfo;
 }
 
 export interface BookingResponse {
