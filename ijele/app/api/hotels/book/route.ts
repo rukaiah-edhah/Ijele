@@ -3,18 +3,17 @@ import bookHotel from '@/lib/hotel/bookHotel';
 import { GuestInfo, PaymentInfo } from '../../../../lib/interfaces';
 
 export async function POST(request: NextRequest): Promise<NextResponse> {
-  const { offerId, guestInfo, paymentInfo } = await request.json();
-
-  if (
-    !offerId ||
-    typeof offerId !== 'string' ||
-    !guestInfo ||
-    !paymentInfo
-  ) {
-    return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
-  }
-
   try {
+    const { offerId, guestInfo, paymentInfo } = await request.json();
+    if (
+      !offerId ||
+      typeof offerId !== 'string' ||
+      !guestInfo ||
+      !paymentInfo
+    ) {
+      return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
+    }
+
     const bookingConfirmation = await bookHotel(offerId, guestInfo as GuestInfo, paymentInfo as PaymentInfo);
     return NextResponse.json(bookingConfirmation);
   } catch (error: any) {

@@ -35,22 +35,91 @@ export interface HotelDataResponse {
   data: Hotel[];
 }
 
+// Hotel Search API interfaces
+
+export interface HotelOffer {
+  id: string;
+  checkInDate: string;
+  checkOutDate: string;
+}
+
+export interface HotelOffersResponse {
+  data: HotelOffer[];
+}
+
 // Hotel Booking API interfaces
 
 export interface GuestInfo {
-  name: string;
+  tid: number;
+  title: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
   email: string;
 }
 
-export interface PaymentInfo {
+export interface PaymentCardInfo {
+  vendorCode: string;
   cardNumber: string;
   expiryDate: string;
-  cvv: string;
+  holderName: string;
+}
+
+export interface PaymentInfo {
+  method: string;
+  paymentCard: {
+    paymentCardInfo: PaymentCardInfo;
+  };
+}
+
+export interface RoomAssociation {
+  guestReferences: { guestReference: string }[];
+  hotelOfferId: string;
+}
+
+export interface BookingRequest {
+  data: {
+    type: string;
+    guests: GuestInfo[];
+    travelAgent: {
+      contact: {
+        email: string;
+      };
+    };
+    roomAssociations: RoomAssociation[];
+    payment: PaymentInfo;
+  };
 }
 
 export interface BookingResponse {
-  confirmationNumber: string;
-  status: string;
+  data: {
+    type: string;
+    id: string;
+    hotelBookings: {
+      type: string;
+      id: string;
+      bookingStatus: string;
+      hotelProviderInformation: {
+        hotelProviderCode: string;
+        confirmationNumber: string;
+      }[];
+      hotelOffer: {
+        id: string;
+        type: string;
+        checkInDate: string;
+        checkOutDate: string;
+        guests: { adults: number };
+        price: {
+          total: string;
+        };
+      };
+      hotel: {
+        hotelId: string;
+        name: string;
+      };
+    }[];
+    guests: GuestInfo[];
+  };
 }
 
 // Location search interface

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import getAccessToken from '../getAccessToken';
-import { GuestInfo, PaymentInfo, BookingResponse } from '../interfaces';
+import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest } from '../interfaces';
 
 /**
  * Function to book a hotel using Amadeus API.
@@ -13,13 +13,29 @@ import { GuestInfo, PaymentInfo, BookingResponse } from '../interfaces';
 const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: PaymentInfo): Promise<BookingResponse> => {
   try {
     const accessToken = await getAccessToken();
-    const response = await axios.post<BookingResponse>('https://test.api.amadeus.com/v1/booking/hotel-bookings', {
-      offerId,
-      guests: [guestInfo],
-      payments: [paymentInfo],
-    }, {
+    const bookingRequest: BookingRequest = {
+      data: {
+        type: 'hotel-order',
+        guests: [guestInfo],
+        travelAgent: {
+          contact: {
+            email: guestInfo.email,
+          },
+        },
+        roomAssociations: [
+          {
+            guestReferences: [{ guestReference: '1' }],
+            hotelOfferId: offerId,
+          },
+        ],
+        payment: paymentInfo,
+      },
+    };
+
+    const response = await axios.post<BookingResponse>('https://test.api.amadeus.com/v2/booking/hotel-orders', bookingRequest, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/vnd.amadeus+json',
       },
     });
     console.log('Booking confirmation:', response.data);
