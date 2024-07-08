@@ -1,5 +1,7 @@
 // Token response interface
 
+import internal from "stream";
+
 export interface TokenResponse {
   access_token: string;
   token_type: string;
@@ -138,4 +140,18 @@ export interface LocationData {
 
 export interface LocationSearchResponse {
   data: LocationData[];
+}
+
+// Flight search interface - still need to finish writing this!!  ##JLL
+
+export interface Flight {
+  origin: string;
+  destination: string;
+  departDate: string;
+  adults: string;
+  returnDate: string;
+}
+
+export interface FlightDataResponse{
+ data: Flight[];
 }

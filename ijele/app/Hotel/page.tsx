@@ -1,6 +1,6 @@
 // This is a simple frontend page that displays a list of hotels (for test purposes). Feel free to modify/delete it later.
 
-// To access this page in the browser, go to http://localhost:3000/hotel, after you have started the dev server.
+// To access this page in the browser, go to http://localhost:3000/Hotel, after you have started the dev server.
 
 // If you put NYC or PAR on the search bar, you will get a list of hotels in New York City or Paris, respectively.
 // If you put a city code that does not exist, you will get an error message.
