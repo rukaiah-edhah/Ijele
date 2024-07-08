@@ -5,7 +5,6 @@ import { GuestInfo, PaymentInfo } from '../../../../lib/interfaces';
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const { offerId, guestInfo, paymentInfo } = await request.json();
-
     if (
       !offerId ||
       typeof offerId !== 'string' ||
