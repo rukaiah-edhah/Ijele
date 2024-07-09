@@ -1,5 +1,6 @@
 // Token response interface
 
+import { Key } from "react";
 import internal from "stream";
 
 export interface TokenResponse {
@@ -145,6 +146,7 @@ export interface LocationSearchResponse {
 // Flight search interface - still need to finish writing this!!  ##JLL
 
 export interface Flight {
+  id: Key | null | undefined;
   origin: string;
   destination: string;
   departDate: string;
