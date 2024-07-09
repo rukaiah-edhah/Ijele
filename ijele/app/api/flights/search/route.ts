@@ -1,39 +1,37 @@
-// Flight Search API
+import getFlightsByAirportCode from "@/lib/flight/searchFlightByAirportCode";
+import { NextRequest } from "next/dist/server/web/spec-extension/request";
+import { NextResponse } from "next/server";
 
-import { NextRequest, NextResponse } from "next/server";
-import getFlightOffers from "@/lib/Flight/getFlightOffers";
-
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(request.url);
-  const hotelIdsParam = searchParams.get('hotelIds');
-  const checkInDate = searchParams.get('checkInDate');
-  const checkOutDate = searchParams.get('checkOutDate');
+  const originLocationCode = searchParams.get('originLocationCode');
+  const destination = searchParams.get('destination');
+  const departureDate = searchParams.get('departureDate');
+  const returnDate = searchParams.get('returnDate');
   const adults = searchParams.get('adults');
+  const max = searchParams.get('max');
 
-  if (!hotelIdsParam || !checkInDate || !checkOutDate || !adults) {
+  if (!originLocationCode || !destination || !departureDate || !returnDate || !adults) {
     return NextResponse.json(
-      { error: 'Missing required parameters', details: { hotelIdsParam, checkInDate, checkOutDate, adults } },
+      { error: 'Missing required parameters' },
       { status: 400 }
     );
   }
 
-  const hotelIds = hotelIdsParam.split(',');
-
   try {
-    const hotelOffers = await getHotelOffers(
-      hotelIds,
-      checkInDate,
-      checkOutDate,
-      parseInt(adults)
+    const flights = await getFlightsByAirportCode(
+      originLocationCode,
+      destination,
+      departureDate,
+      returnDate,
+      adults,
+      max || '3'
     );
-    return NextResponse.json(hotelOffers);
+    return NextResponse.json(flights);
   } catch (error: any) {
-    console.error('Error fetching hotel offers:', error);
+    console.error('Error fetching flights:', error);
     return NextResponse.json(
-      {
-        error: 'Failed to fetch hotel offers',
-        details: error.response ? error.response.data : error.message,
-      },
+      { error: 'Failed to fetch flights', details: error.message },
       { status: 500 }
     );
   }
