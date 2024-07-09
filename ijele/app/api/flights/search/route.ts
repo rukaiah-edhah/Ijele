@@ -1,4 +1,4 @@
-import getFlightsByAirportCode from "@/lib/flight/searchFlightByAirportCode";
+import getFlightsByAirportCode from "@/lib/flight/getFlightByAirportCode";
 import { NextRequest } from "next/dist/server/web/spec-extension/request";
 import { NextResponse } from "next/server";
 
