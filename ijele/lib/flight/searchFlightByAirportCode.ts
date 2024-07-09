@@ -3,16 +3,6 @@ import getAccessToken from '../getAccessToken';
 import { FlightDataResponse } from '../interfaces';
 import { FlightData } from 'next/dist/server/app-render/types';
 
-// const FlightOfferSearch: any[] flights: any(String origin, String destination, String departDate, String adults, String returnDate) throws ResponseException {
-//     return amadeus.shopping.flightOffersSearch.get(
-//               Params.with("originLocationCode", origin)
-//                       .and("destinationLocationCode", destination)
-//                       .and("departureDate", departDate)
-//                       .and("returnDate", returnDate)
-//                       .and("adults", adults)
-//                       .and("max", 3));
-// }
-
 /**
  * Function to get flights by airport code from Amadeus API.
  * @param {string} originLocationCode - The code of the airport to search flights from.
