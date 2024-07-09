@@ -155,3 +155,22 @@ export interface Flight {
 export interface FlightDataResponse{
  data: Flight[];
 }
+
+enum FeeType {
+  TICKETING = "TICKETING",
+  SERVICE = "SERVICE",
+  SHIPPING = "SHIPPING"
+}
+
+
+export interface Fee {
+  amount: string;
+  type: FeeType;
+}
+
+export interface FlightOffersPrice {
+  currency: string;
+  total: string;
+  base: string;
+  fees: Fee[];
+}
