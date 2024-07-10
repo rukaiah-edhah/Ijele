@@ -14,10 +14,10 @@ const FlightPage: React.FC = () => {
 
   const fetchFlights = async () => {
     try {
-      const response = await axios.get('/api/flights/list', {
+      const response = await axios.get('/api/flights/search', {
         params: {
-          origin,
-          destination,
+          originLocationCode: origin,
+          destinationLocationCode: destination,
           departureDate,
           returnDate,
           adults,
@@ -85,7 +85,8 @@ const FlightPage: React.FC = () => {
           <ul className="list-disc pl-5">
             {flights.map((flight) => (
               <li key={flight.id} className="mb-2">
-                {flight.origin} to {flight.destination} - {flight.departDate} to {flight.returnDate}
+                {flight.itineraries[0].segments[0].departure.iataCode} to {flight.itineraries[0].segments[0].arrival.iataCode} - 
+                {flight.itineraries[0].segments[0].departure.at} to {flight.itineraries[0].segments[flight.itineraries[0].segments.length - 1].arrival.at}
               </li>
             ))}
           </ul>

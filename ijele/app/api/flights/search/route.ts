@@ -4,14 +4,14 @@ import { NextResponse } from "next/server";
 
 export async function GET(request: NextRequest): Promise<NextResponse> {
   const { searchParams } = new URL(request.url);
-  const originLocationCode = searchParams.get('originLocationCode');
-  const destination = searchParams.get('destination');
+  const originLocationCode = searchParams.get('originLocationCode'); 
+  const destinationLocationCode = searchParams.get('destinationLocationCode');
   const departureDate = searchParams.get('departureDate');
   const returnDate = searchParams.get('returnDate');
   const adults = searchParams.get('adults');
   const max = searchParams.get('max');
 
-  if (!originLocationCode || !destination || !departureDate || !returnDate || !adults) {
+  if (!originLocationCode || !destinationLocationCode || !departureDate || !returnDate || !adults) {
     return NextResponse.json(
       { error: 'Missing required parameters' },
       { status: 400 }
@@ -21,7 +21,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   try {
     const flights = await getFlightsByAirportCode(
       originLocationCode,
-      destination,
+      destinationLocationCode,
       departureDate,
       returnDate,
       adults,
