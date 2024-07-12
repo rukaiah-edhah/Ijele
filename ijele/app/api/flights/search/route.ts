@@ -1,4 +1,4 @@
-import getFlightsByAirportCode from "@/lib/flight/getFlightByAirportCode";
+import getFlightOffers from "@/lib/flight/getFlightOffers";
 import { NextRequest } from "next/dist/server/web/spec-extension/request";
 import { NextResponse } from "next/server";
 
@@ -19,7 +19,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
   }
 
   try {
-    const flights = await getFlightsByAirportCode(
+    const flights = await getFlightOffers(
       originLocationCode,
       destinationLocationCode,
       departureDate,

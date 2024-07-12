@@ -171,6 +171,7 @@ export interface Fee {
 }
 
 export interface FlightOffersPrice {
+  data: Flight[];
   currency: string;
   total: string;
   base: string;

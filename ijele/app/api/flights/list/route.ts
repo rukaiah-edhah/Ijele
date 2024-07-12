@@ -1,7 +1,7 @@
 // pages/api/flights/list/route.ts
 
 import { NextApiRequest, NextApiResponse } from 'next';
-import getFlightsByAirportCode from '@/lib/flight/getFlightByAirportCode';
+import getFlightOffers from '@/lib/flight/getFlightOffers';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== 'GET') {
@@ -15,7 +15,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   try {
-    const flights = await getFlightsByAirportCode(
+    const flights = await getFlightOffers(
       origin as string,
       destination as string,
       departureDate as string,
