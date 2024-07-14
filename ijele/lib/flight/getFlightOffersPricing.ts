@@ -21,7 +21,7 @@ const getFlightOffersPrice = async (
         headers: {
           Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
-          "X-HTTP-Method-Override": "GET", // Include this header
+          "X-HTTP-Method-Override": "GET", // Include this header (required parameter) to override the POST method.
         },
       }
     );
