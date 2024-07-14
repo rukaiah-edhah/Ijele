@@ -1,6 +1,7 @@
 import axios from "axios";
 import getAccessToken from "../getAccessToken";
 import { FlightOffersPrice } from "../interfaces";
+import getFlightOffers from "./getFlightOffers";
 
 /**
  * Function to get flight offers pricing from Amadeus API.
@@ -8,7 +9,7 @@ import { FlightOffersPrice } from "../interfaces";
  * @throws an error if unable to retrieve the flight offers pricing.
  */
 const getFlightOffersPrice = async (
-  flightOffers: any[]
+  getFlightOffers: any[]
 ): Promise<FlightOffersPrice> => {
   try {
     const accessToken = await getAccessToken();
@@ -18,7 +19,7 @@ const getFlightOffersPrice = async (
       {
         data: {
           type: "flight-offers-pricing",
-          flightOffers: flightOffers,
+          flightOffers: getFlightOffers,
         },
       }, 
       {

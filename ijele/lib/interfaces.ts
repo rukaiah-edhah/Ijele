@@ -143,7 +143,7 @@ export interface LocationSearchResponse {
   data: LocationData[];
 }
 
-// Flight search interface - still need to finish writing this!!  ##JLL
+// Flight search interface 
 
 export interface Flight {
   id: Key | null | undefined;
@@ -171,6 +171,7 @@ export interface Fee {
 }
 
 export interface FlightOffersPrice {
+  data: Flight[];
   currency: string;
   total: string;
   base: string;
