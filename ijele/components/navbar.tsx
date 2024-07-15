@@ -4,6 +4,9 @@ import Link from 'next/link';
 
 import { useState } from 'react';
 
+import UserAuth from "@/components/UserAuth";
+
+
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
@@ -61,7 +64,8 @@ export default function Navbar() {
                   <Link href="/Flight" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Flights</Link>
                   <Link href="/Hotel" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Hotels</Link>
                   <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Payments</a>
-                  <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Login</a>
+                  <Link href="/Login" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Login</Link>
+
                 </div>
               </div>
             </div>
