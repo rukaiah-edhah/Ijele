@@ -10,15 +10,20 @@
 import { useState } from 'react';
 import { Hotel } from '@/lib/interfaces';
 import axios from 'axios';
+import LocationSearch from '@/components/LocationSearch';
 
 const HotelPage: React.FC = () => {
-  const [cityCode, setCityCode] = useState<string>('');
+  const [selectedLocation, setSelectedLocation] = useState<{ name: string; iataCode: string } | null>(null);
   const [hotels, setHotels] = useState<Hotel[]>([]);
-  const [error, setError] = useState<any>(null);  
+  const [error, setError] = useState<any>(null);
 
   const fetchHotels = async () => {
+    if (!selectedLocation) {
+      setError({ error: 'Please select a location.' });
+      return;
+    }
     try {
-      const response = await axios.get('/api/hotels/list', { params: { cityCode } });
+      const response = await axios.get('/api/hotels/list', { params: { cityCode: selectedLocation.iataCode } });
       setHotels(response.data.data);
       setError(null); // Clear any previous errors
     } catch (err: any) {
@@ -31,21 +36,11 @@ const HotelPage: React.FC = () => {
     <div className="p-6">
       <h1 className="text-3xl font-bold mb-4">Hotel Page</h1>
 
-      <div className="mb-6">
-        <h2 className="text-2xl font-semibold mb-2">Search Hotels</h2>
-        <div className="flex items-center">
-          <input
-            type="text"
-            value={cityCode}
-            onChange={(e) => setCityCode(e.target.value)}
-            placeholder="Enter city code"
-            className="input input-bordered w-full max-w-xs"
-          />
-          <button onClick={fetchHotels} className="btn btn-primary ml-2">
-            Search
-          </button>
-        </div>
-      </div>
+      <LocationSearch onSelect={setSelectedLocation} />
+
+      <button onClick={fetchHotels} className="btn btn-primary ml-2">
+        Search
+      </button>
 
       {hotels.length > 0 && (
         <div className="mb-6">
