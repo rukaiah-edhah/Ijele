@@ -143,7 +143,7 @@ export interface LocationSearchResponse {
   data: LocationData[];
 }
 
-// Flight search interface 
+// Flight search interface
 
 export interface Flight {
   id: Key | null | undefined;
@@ -158,6 +158,8 @@ export interface FlightDataResponse{
  data: Flight[];
 }
 
+// Flight Offers Price interface
+
 enum FeeType {
   TICKETING = "TICKETING",
   SERVICE = "SERVICE",
@@ -171,9 +173,61 @@ export interface Fee {
 }
 
 export interface FlightOffersPrice {
-  data: Flight[];
   currency: string;
   total: string;
   base: string;
   fees: Fee[];
+}
+
+// Flight Create Order API interface
+
+export interface FlightOrderRequest {
+  data: {
+    type: string;
+    flightOffers: any[];
+    travelers: Traveler[];
+    remarks?: any[];
+    ticketingAgreement?: any;
+    contacts?: any[];
+    travelersList?: any;
+    contactsList?: any;
+  };
+}
+
+export interface Traveler {
+  id: string;
+  dateOfBirth: string;
+  name: {
+    firstName: string;
+    lastName: string;
+  };
+  gender: string;
+  contact: {
+    emailAddress: string;
+    phones: Phone[];
+  };
+  documents?: Document[];
+}
+
+export interface Phone {
+  deviceType: string;
+  countryCallingCode: string;
+  number: string;
+}
+
+export interface Document {
+  documentType: string;
+  birthPlace: string;
+  issuanceLocation: string;
+  issuanceDate: string;
+  number: string;
+  expiryDate: string;
+  issuanceCountry: string;
+  validityCountry: string;
+  nationality: string;
+  holder: boolean;
+}
+
+export interface FlightOrderResponse {
+  data: any;
 }

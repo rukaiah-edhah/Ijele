@@ -1,8 +1,12 @@
 import axios from "axios";
+import https from "https";
+import fs from "fs";
+import path from "path";
 import getAccessToken from "./getAccessToken";
 import { LocationSearchResponse, LocationData } from "./interfaces";
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // This line ignores certificate errors (not safe for production). We will fix this later.
+// still not sure why this endpoint requires us to explicitly include the CA certificates
+const ca = fs.readFileSync(path.resolve(process.cwd(), 'ca-certificates.pem'));
 
 /**
  * Function to search for locations using Amadeus API.
@@ -13,6 +17,9 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'; // This line ignores certificate
 const locationSearch = async (query: string): Promise<LocationData[]> => {
   try {
     const accessToken = await getAccessToken();
+    const httpsAgent = new https.Agent({
+      ca: ca,
+    });
     const response = await axios.get<LocationSearchResponse>(
       "https://test.api.amadeus.com/v1/reference-data/locations",
       {
@@ -23,6 +30,7 @@ const locationSearch = async (query: string): Promise<LocationData[]> => {
           keyword: query,
           subType: "CITY",
         },
+        httpsAgent: httpsAgent,
       }
     );
     return response.data.data;

@@ -1,5 +1,6 @@
+import Navbar from "@/components/navbar";
 import UserAuth from "@/components/UserAuth";
-import Navbar from "@/components/Navbar";
+
 
 
 export default function Home() {
