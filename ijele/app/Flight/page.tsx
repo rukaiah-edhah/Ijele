@@ -88,10 +88,19 @@ const FlightPage: React.FC = () => {
             <ul className="list-disc pl-5">
               {flights.map((flight) => (
                 <li key={flight.id} className="mb-2">
-                  <p>
-                    {flight.itineraries[0].segments[0].departure.iataCode} to {flight.itineraries[0].segments[0].arrival.iataCode} -
-                    {flight.itineraries[0].segments[0].departure.at} to {flight.itineraries[0].segments[flight.itineraries[0].segments.length - 1].arrival.at}
-                  </p>
+                  <p>Flight ID: {flight.id}</p>
+                  {flight.itineraries.map((itinerary: any, index: number) => (
+                    <div key={index} className="mb-4">
+                      <h3 className="text-xl font-semibold mb-1">Itinerary {index + 1}</h3>
+                      <ul className="list-disc pl-5">
+                        {itinerary.segments.map((segment: any, idx: number) => (
+                          <li key={idx} className="mb-2">
+                            {segment.departure.iataCode} to {segment.arrival.iataCode} - {segment.departure.at} to {segment.arrival.at}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
                   <p>Price: {flight.price.total} {flight.price.currency}</p>
                   <p>Pricing Options: {flight.pricingOptions.includedCheckedBags ? 'Included Checked Bags' : 'No Checked Bags Included'}</p>
                 </li>
