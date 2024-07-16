@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
@@ -34,7 +33,8 @@ const FlightPage: React.FC = () => {
   };
 
   return (
-    <div> <Navbar />
+    <div>
+      <Navbar />
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-4">Flight Page</h1>
 
@@ -88,8 +88,12 @@ const FlightPage: React.FC = () => {
             <ul className="list-disc pl-5">
               {flights.map((flight) => (
                 <li key={flight.id} className="mb-2">
-                  {flight.itineraries[0].segments[0].departure.iataCode} to {flight.itineraries[0].segments[0].arrival.iataCode} -
-                  {flight.itineraries[0].segments[0].departure.at} to {flight.itineraries[0].segments[flight.itineraries[0].segments.length - 1].arrival.at}
+                  <p>
+                    {flight.itineraries[0].segments[0].departure.iataCode} to {flight.itineraries[0].segments[0].arrival.iataCode} -
+                    {flight.itineraries[0].segments[0].departure.at} to {flight.itineraries[0].segments[flight.itineraries[0].segments.length - 1].arrival.at}
+                  </p>
+                  <p>Price: {flight.price.total} {flight.price.currency}</p>
+                  <p>Pricing Options: {flight.pricingOptions.includedCheckedBags ? 'Included Checked Bags' : 'No Checked Bags Included'}</p>
                 </li>
               ))}
             </ul>
