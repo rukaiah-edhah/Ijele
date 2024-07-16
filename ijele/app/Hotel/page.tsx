@@ -39,7 +39,7 @@ const HotelPage: React.FC = () => {
         <h1 className="text-3xl font-bold mb-4">Hotel Page</h1>
     
       <LocationSearch onSelect={setSelectedLocation} />
-
+        
       <button onClick={fetchHotels} className="btn btn-primary ml-2">
         Search
       </button>
