@@ -9,6 +9,7 @@
 
 import { useState } from 'react';
 import { Hotel } from '@/lib/interfaces';
+import Navbar from '@/components/navbar';
 import axios from 'axios';
 import LocationSearch from '@/components/LocationSearch';
 
@@ -33,11 +34,12 @@ const HotelPage: React.FC = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Hotel Page</h1>
-
+    <div><Navbar />
+      <div className="p-6">
+        <h1 className="text-3xl font-bold mb-4">Hotel Page</h1>
+    
       <LocationSearch onSelect={setSelectedLocation} />
-
+        
       <button onClick={fetchHotels} className="btn btn-primary ml-2">
         Search
       </button>
@@ -71,7 +73,10 @@ const HotelPage: React.FC = () => {
         </div>
       )}
     </div>
+    </div>
   );
 };
 
 export default HotelPage;
+
+

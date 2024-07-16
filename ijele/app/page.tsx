@@ -1,10 +1,9 @@
-import UserAuth from "@/components/UserAuth";
+import Navbar from "@/components/navbar"
 
 export default function Home() {
   return (
     <>
-    <UserAuth />
+    <Navbar />
     </>
   );
 }
-
