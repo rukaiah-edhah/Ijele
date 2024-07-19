@@ -1,7 +1,6 @@
 // Token response interface
 
 import { Key } from "react";
-import internal from "stream";
 
 export interface TokenResponse {
   access_token: string;
@@ -37,11 +36,47 @@ export interface HotelDataResponse {
 }
 
 // Hotel Search API interfaces
+ 
+// ___________________________
+// export interface HotelOffer {
+//   id: string;
+//   checkInDate: string;
+//   checkOutDate: string;
+// }
 
-export interface HotelOffer {
+// export interface HotelOffersResponse {
+//   data: HotelOffer[];
+// }
+// ____________________________
+
+export interface Room {
+  description: string;
+}
+
+export interface Guests {
+  adults: number;
+}
+
+export interface Price {
+  currency: string;
+  total: string;
+}
+
+export interface Offer {
   id: string;
   checkInDate: string;
   checkOutDate: string;
+  room: Room;
+  guests: Guests;
+  price: Price;
+}
+
+export interface HotelOffer {
+  hotel: {
+    name: string;
+    hotelId: string;
+  };
+  offers: Offer[];
 }
 
 export interface HotelOffersResponse {

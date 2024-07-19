@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from 'react';
-import { Hotel } from '@/lib/interfaces';
+import { Hotel, HotelOffer, Offer } from '@/lib/interfaces'; 
 import Navbar from '@/components/navbar';
 import axios from 'axios';
 import LocationSearch from '@/components/LocationSearch';
@@ -9,6 +9,7 @@ import LocationSearch from '@/components/LocationSearch';
 const HotelPage: React.FC = () => {
   const [selectedLocation, setSelectedLocation] = useState<{ name: string; iataCode: string } | null>(null);
   const [hotels, setHotels] = useState<Hotel[]>([]);
+  const [offers, setOffers] = useState<Offer[]>([]); 
   const [error, setError] = useState<any>(null);
   const [checkInDate, setCheckInDate] = useState<string>(''); 
   const [checkOutDate, setCheckOutDate] = useState<string>(''); 
@@ -29,30 +30,29 @@ const HotelPage: React.FC = () => {
     }
   };
 
-  const fetchHotelOffers = async (hotelIds: string[]) => {
+  const fetchHotelOffers = async (hotelId: string) => {
     try {
       const response = await axios.get('/api/hotels/search', {
         params: {
-          hotelIds: hotelIds.join(','),
+          hotelIds: hotelId, 
           checkInDate, 
           checkOutDate, 
           adults, 
         },
       });
-      return response.data.data;
+      setOffers(response.data.data.offers); 
+      setError(null); 
     } catch (err: any) {
       setError(err.response ? err.response.data : err.message);
-      return [];
     }
   };
 
   const handleSearch = async () => { 
     await fetchHotels();
-    if (hotels.length > 0) {
-      const hotelIds = hotels.map(hotel => hotel.hotelId);
-      const offers = await fetchHotelOffers(hotelIds);
-      console.log('Hotel Offers:', offers);
-    }
+  };
+
+  const handleViewOffers = async (hotelId: string) => {
+    await fetchHotelOffers(hotelId);
   };
 
   return (
@@ -63,7 +63,7 @@ const HotelPage: React.FC = () => {
         <LocationSearch onSelect={setSelectedLocation} />
         <input
           type="date"
-          value={checkInDate}
+          value={checkInDate} 
           onChange={(e) => setCheckInDate(e.target.value)} 
           placeholder="Check-in Date"
           className="input input-bordered ml-2"
@@ -72,7 +72,6 @@ const HotelPage: React.FC = () => {
           type="date"
           value={checkOutDate} 
           onChange={(e) => setCheckOutDate(e.target.value)} 
-          placeholder="Check-out Date"
           className="input input-bordered ml-2"
         />
         <input
@@ -94,6 +93,22 @@ const HotelPage: React.FC = () => {
               {hotels.map((hotel) => (
                 <li key={hotel.hotelId} className="mb-2">
                   {hotel.name} - {hotel.address?.countryCode || 'N/A'}
+                  <button onClick={() => handleViewOffers(hotel.hotelId)} className="btn btn-secondary ml-2">
+                    View Offers
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {offers.length > 0 && ( 
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold mb-2">Hotel Offers</h2>
+            <ul className="list-disc pl-5">
+              {offers.map((offer) => (
+                <li key={offer.id} className="mb-2">
+                  Room: {offer.room.description} - Price: {offer.price.total} {offer.price.currency}
                 </li>
               ))}
             </ul>
