@@ -9,7 +9,7 @@
 
 import { useState } from 'react';
 import { Hotel } from '@/lib/interfaces';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/Navbar';
 import axios from 'axios';
 import LocationSearch from '@/components/LocationSearch';
 
@@ -78,5 +78,3 @@ const HotelPage: React.FC = () => {
 };
 
 export default HotelPage;
-
-

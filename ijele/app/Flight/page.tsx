@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import axios from 'axios';
-import Navbar from '@/components/navbar';
+import Navbar from '@/components/Navbar';
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
