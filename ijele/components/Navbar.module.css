@@ -1,0 +1,23 @@
+/* navbar.module.css */
+@import url('https://fonts.googleapis.com/css2?family=Junge&display=swap');
+
+.fontJunge {
+  font-family: 'Junge', cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.navbarLink {
+    background-color: white; 
+    color: #153B4F; /* Set text color */
+    text-decoration: none; /* Remove underline from links */
+    padding: 8px 16px; 
+    border-radius: 4px; 
+    font-family: "Junge", cursive; 
+}
+
+.navbarLink:hover {
+    color: #FF69B4; 
+  }
+
+  
