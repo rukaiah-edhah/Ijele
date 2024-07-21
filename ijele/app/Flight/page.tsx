@@ -11,6 +11,16 @@ const FlightPage: React.FC = () => {
   const [returnDate, setReturnDate] = useState<string>('');
   const [adults, setAdults] = useState<string>('1');
   const [flights, setFlights] = useState<any[]>([]);
+  const [selectedFlight, setSelectedFlight] = useState<any>(null);
+  const [travelerDetails, setTravelerDetails] = useState({
+    name: '',
+    email: '',
+    dateOfBirth: '',
+    passportNumber: '',
+    passportExpiryDate: '',
+    passportIssuanceCountry: '',
+    nationality: ''
+  });
   const [error, setError] = useState<any>(null);
 
   const fetchFlights = async () => {
@@ -29,6 +39,49 @@ const FlightPage: React.FC = () => {
     } catch (err: any) {
       setFlights([]); // Clear the flights list on error
       setError(err.response ? err.response.data : err.message);
+    }
+  };
+
+  const handleBooking = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      const bookingDetails = {
+        data: {
+          flightOffers: [selectedFlight],
+          travelers: [
+            {
+              id: '1',
+              dateOfBirth: travelerDetails.dateOfBirth,
+              name: {
+                firstName: travelerDetails.name.split(' ')[0],
+                lastName: travelerDetails.name.split(' ')[1] || '',
+              },
+              contact: {
+                emailAddress: travelerDetails.email,
+              },
+              documents: [
+                {
+                  documentType: 'PASSPORT',
+                  number: travelerDetails.passportNumber,
+                  expiryDate: travelerDetails.passportExpiryDate,
+                  issuanceCountry: travelerDetails.passportIssuanceCountry,
+                  nationality: travelerDetails.nationality,
+                  holder: true,
+                },
+              ],
+            },
+          ],
+        },
+      };
+
+      console.log('Sending booking details:', bookingDetails);
+      const response = await axios.post('/api/flights/book', bookingDetails);
+      alert('Flight booked successfully!');
+      setSelectedFlight(null); // Clear the selected flight
+    } catch (err: any) {
+      console.error('Booking error:', err);
+      alert('Failed to book flight. Please try again.');
     }
   };
 
@@ -108,7 +161,7 @@ const FlightPage: React.FC = () => {
                             <p>Carrier Code: {segment.carrierCode}</p>
                             <p>Flight Number: {segment.number}</p>
                             <p>Aircraft: {segment.aircraft.code}</p>
-                            <p>Operating Carrier: {segment.operating.carrierCode}</p>
+                            <p>Operating Carrier: {segment.operating ? segment.operating.carrierCode : 'N/A'}</p>
                             <p>Duration: {segment.duration}</p>
                             <p>Number of Stops: {segment.numberOfStops}</p>
                             <p>Blacklisted in EU: {segment.blacklistedInEU ? 'Yes' : 'No'}</p>
@@ -151,9 +204,84 @@ const FlightPage: React.FC = () => {
                       </ul>
                     </div>
                   ))}
+                  <button
+                    onClick={() => setSelectedFlight(flight)}
+                    className="btn btn-secondary mt-2"
+                  >
+                    Book Flight
+                  </button>
                 </li>
               ))}
             </ul>
+          </div>
+        )}
+
+        {selectedFlight && (
+          <div className="mb-6">
+            <h2 className="text-2xl font-semibold mb-2">Traveler Details</h2>
+            <form onSubmit={handleBooking}>
+              <div className="flex flex-col space-y-2">
+                <input
+                  type="text"
+                  value={travelerDetails.name}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, name: e.target.value })}
+                  placeholder="Enter full name"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="email"
+                  value={travelerDetails.email}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, email: e.target.value })}
+                  placeholder="Enter email address"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="date"
+                  value={travelerDetails.dateOfBirth}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, dateOfBirth: e.target.value })}
+                  placeholder="Enter date of birth"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="text"
+                  value={travelerDetails.passportNumber}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportNumber: e.target.value })}
+                  placeholder="Enter passport number"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="date"
+                  value={travelerDetails.passportExpiryDate}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportExpiryDate: e.target.value })}
+                  placeholder="Enter passport expiry date"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="text"
+                  value={travelerDetails.passportIssuanceCountry}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportIssuanceCountry: e.target.value })}
+                  placeholder="Enter passport issuance country"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="text"
+                  value={travelerDetails.nationality}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, nationality: e.target.value })}
+                  placeholder="Enter nationality"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <button type="submit" className="btn btn-primary mt-2">
+                  Confirm Booking
+                </button>
+              </div>
+            </form>
           </div>
         )}
 
