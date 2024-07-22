@@ -1,58 +1,45 @@
 "use client";
 
-import { useState } from 'react';
-import { Hotel, HotelOffer, Offer } from '@/lib/interfaces'; 
+import { useState, useCallback } from 'react';
+import { Hotel } from '@/lib/interfaces'; 
 import Navbar from '@/components/navbar';
 import axios from 'axios';
 import LocationSearch from '@/components/LocationSearch';
+import { useRouter } from 'next/navigation'; 
 
 const HotelPage: React.FC = () => {
+  const router = useRouter();
   const [selectedLocation, setSelectedLocation] = useState<{ name: string; iataCode: string } | null>(null);
   const [hotels, setHotels] = useState<Hotel[]>([]);
-  const [offers, setOffers] = useState<Offer[]>([]); 
   const [error, setError] = useState<any>(null);
   const [checkInDate, setCheckInDate] = useState<string>(''); 
   const [checkOutDate, setCheckOutDate] = useState<string>(''); 
   const [adults, setAdults] = useState<number>(1); 
 
-  const fetchHotels = async () => {
+  const fetchHotels = useCallback(async () => {
     if (!selectedLocation) {
       setError({ error: 'Please select a location.' });
       return;
     }
     try {
       const response = await axios.get('/api/hotels/list', { params: { cityCode: selectedLocation.iataCode } });
-      setHotels(response.data.data);
+      const validHotels = response.data.data.filter((hotel: Hotel) => hotel.hotelId && hotel.name);
+  
+      setHotels(validHotels);
       setError(null); 
     } catch (err: any) {
       setHotels([]);
       setError(err.response ? err.response.data : err.message);
     }
-  };
-
-  const fetchHotelOffers = async (hotelId: string) => {
-    try {
-      const response = await axios.get('/api/hotels/search', {
-        params: {
-          hotelIds: hotelId, 
-          checkInDate, 
-          checkOutDate, 
-          adults, 
-        },
-      });
-      setOffers(response.data.data.offers); 
-      setError(null); 
-    } catch (err: any) {
-      setError(err.response ? err.response.data : err.message);
-    }
-  };
+  }, [selectedLocation]);
+  
 
   const handleSearch = async () => { 
     await fetchHotels();
   };
 
-  const handleViewOffers = async (hotelId: string) => {
-    await fetchHotelOffers(hotelId);
+  const handleViewOffers = (hotelId: string) => {
+    router.push(`/Hotel/${hotelId}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&adults=${adults}`);
   };
 
   return (
@@ -96,19 +83,6 @@ const HotelPage: React.FC = () => {
                   <button onClick={() => handleViewOffers(hotel.hotelId)} className="btn btn-secondary ml-2">
                     View Offers
                   </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {offers.length > 0 && ( 
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Hotel Offers</h2>
-            <ul className="list-disc pl-5">
-              {offers.map((offer) => (
-                <li key={offer.id} className="mb-2">
-                  Room: {offer.room.description} - Price: {offer.price.total} {offer.price.currency}
                 </li>
               ))}
             </ul>
