@@ -5,11 +5,15 @@ import { FlightOrderRequest } from '@/lib/interfaces';
 export async function POST(request: NextRequest): Promise<NextResponse> {
   try {
     const flightOrderRequest: FlightOrderRequest = await request.json();
+    console.log('Received booking request:', flightOrderRequest);
+
     if (!flightOrderRequest.data.flightOffers || !flightOrderRequest.data.travelers) {
+      console.error('Missing required parameters', flightOrderRequest);
       return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
     }
 
     const orderResponse = await createFlightOrder(flightOrderRequest);
+    console.log('Order response:', orderResponse);
     return NextResponse.json(orderResponse);
   } catch (error: any) {
     console.error('Error creating flight order:', error);

@@ -1,5 +1,4 @@
 // Token response interface
-
 import { Key } from "react";
 
 export interface TokenResponse {
@@ -10,7 +9,6 @@ export interface TokenResponse {
 }
 
 // Hotel List API interfaces
-
 export interface GeoCode {
   latitude: number;
   longitude: number;
@@ -36,19 +34,6 @@ export interface HotelDataResponse {
 }
 
 // Hotel Search API interfaces
- 
-// ___________________________
-// export interface HotelOffer {
-//   id: string;
-//   checkInDate: string;
-//   checkOutDate: string;
-// }
-
-// export interface HotelOffersResponse {
-//   data: HotelOffer[];
-// }
-// ____________________________
-
 export interface Room {
   description: string;
 }
@@ -63,7 +48,7 @@ export interface Price {
 }
 
 export interface Offer {
-  id: string;
+  // id: string;
   checkInDate: string;
   checkOutDate: string;
   room: Room;
@@ -74,7 +59,7 @@ export interface Offer {
 export interface HotelOffer {
   hotel: {
     name: string;
-    hotelId: string;
+    // hotelId: string;
   };
   offers: Offer[];
 }
@@ -84,7 +69,6 @@ export interface HotelOffersResponse {
 }
 
 // Hotel Booking API interfaces
-
 export interface GuestInfo {
   tid: number;
   title: string;
@@ -159,7 +143,6 @@ export interface BookingResponse {
 }
 
 // Location search interface
-
 export interface LocationData {
   subType: string;
   name: string;
@@ -179,7 +162,6 @@ export interface LocationSearchResponse {
 }
 
 // Flight search interface
-
 export interface Flight {
   id: Key | null | undefined;
   origin: string;
@@ -189,18 +171,16 @@ export interface Flight {
   returnDate: string;
 }
 
-export interface FlightDataResponse{
- data: Flight[];
+export interface FlightDataResponse {
+  data: Flight[];
 }
 
 // Flight Offers Price interface
-
 enum FeeType {
   TICKETING = "TICKETING",
   SERVICE = "SERVICE",
   SHIPPING = "SHIPPING"
 }
-
 
 export interface Fee {
   amount: string;
@@ -215,17 +195,14 @@ export interface FlightOffersPrice {
 }
 
 // Flight Create Order API interface
-
 export interface FlightOrderRequest {
   data: {
     type: string;
     flightOffers: any[];
     travelers: Traveler[];
-    remarks?: any[];
-    ticketingAgreement?: any;
-    contacts?: any[];
-    travelersList?: any;
-    contactsList?: any;
+    remarks?: Remark[];
+    ticketingAgreement?: TicketingAgreement;
+    contacts?: Contact[];
   };
 }
 
@@ -261,6 +238,33 @@ export interface Document {
   validityCountry: string;
   nationality: string;
   holder: boolean;
+}
+
+export interface Remark {
+  subType: string;
+  text: string;
+}
+
+export interface TicketingAgreement {
+  option: string;
+  delay: string;
+}
+
+export interface Contact {
+  addresseeName: {
+    firstName: string;
+    lastName: string;
+  };
+  companyName: string;
+  purpose: string;
+  phones: Phone[];
+  emailAddress: string;
+  address: {
+    lines: string[];
+    postalCode: string;
+    cityName: string;
+    countryCode: string;
+  };
 }
 
 export interface FlightOrderResponse {
