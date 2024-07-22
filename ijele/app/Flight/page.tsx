@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
+import { Phone, Document } from '@/lib/interfaces';
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -13,14 +14,20 @@ const FlightPage: React.FC = () => {
   const [flights, setFlights] = useState<any[]>([]);
   const [selectedFlight, setSelectedFlight] = useState<any>(null);
   const [travelerDetails, setTravelerDetails] = useState({
-    name: '',
-    email: '',
+    id: '',
     dateOfBirth: '',
-    passportNumber: '',
-    passportExpiryDate: '',
-    passportIssuanceCountry: '',
-    nationality: ''
+    name: {
+      firstName: '',
+      lastName: ''
+    },
+    gender: '',
+    contact: {
+      emailAddress: '',
+      phones: [] as Phone[],  // Assuming Phone interface is defined elsewhere
+    },
+    documents: [] as Document[]  // Type the documents array
   });
+  
   const [error, setError] = useState<any>(null);
 
   const fetchFlights = async () => {
@@ -54,16 +61,16 @@ const FlightPage: React.FC = () => {
               id: '1',
               dateOfBirth: travelerDetails.dateOfBirth,
               name: {
-                firstName: travelerDetails.name.split(' ')[0],
-                lastName: travelerDetails.name.split(' ')[1] || '',
+                firstName: travelerDetails.name.firstName,
+                lastName: travelerDetails.name.lastName,
               },
               contact: {
-                emailAddress: travelerDetails.email,
+                emailAddress: travelerDetails.contact.emailAddress,
               },
               documents: [
                 {
                   documentType: 'PASSPORT',
-                  number: travelerDetails.passportNumber,
+                  number: travelerDetails.documents.number,
                   expiryDate: travelerDetails.passportExpiryDate,
                   issuanceCountry: travelerDetails.passportIssuanceCountry,
                   nationality: travelerDetails.nationality,
@@ -208,7 +215,7 @@ const FlightPage: React.FC = () => {
                     onClick={() => setSelectedFlight(flight)}
                     className="btn btn-secondary mt-2"
                   >
-                    Book Flight
+                    Select Flight
                   </button>
                 </li>
               ))}
@@ -223,9 +230,29 @@ const FlightPage: React.FC = () => {
               <div className="flex flex-col space-y-2">
                 <input
                   type="text"
-                  value={travelerDetails.name}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, name: e.target.value })}
-                  placeholder="Enter full name"
+                  value={travelerDetails.name.firstName}
+                  onChange={(e) => setTravelerDetails({
+                    ...travelerDetails,
+                    name: {
+                      ...travelerDetails.name,
+                      firstName: e.target.value
+                    }
+                  })}
+                  placeholder="First Name"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="text"
+                  value={travelerDetails.name.lastName}
+                  onChange={(e) => setTravelerDetails({
+                    ...travelerDetails,
+                    name: {
+                      ...travelerDetails.name,
+                      lastName: e.target.value
+                    }
+                  })}
+                  placeholder="Last Name"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
@@ -278,7 +305,7 @@ const FlightPage: React.FC = () => {
                   required
                 />
                 <button type="submit" className="btn btn-primary mt-2">
-                  Confirm Booking
+                  Book Flight
                 </button>
               </div>
             </form>
