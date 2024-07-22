@@ -48,7 +48,7 @@ export interface Price {
 }
 
 export interface Offer {
-  id: string;
+  // id: string;
   checkInDate: string;
   checkOutDate: string;
   room: Room;
@@ -59,7 +59,7 @@ export interface Offer {
 export interface HotelOffer {
   hotel: {
     name: string;
-    hotelId: string;
+    // hotelId: string;
   };
   offers: Offer[];
 }
