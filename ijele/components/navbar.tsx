@@ -18,7 +18,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="bg-gray-800">
+      <nav className="">
         <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -53,15 +53,20 @@ export default function Navbar() {
                 </svg>
               </button>
             </div>
-            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+            {/* logo container */}
+            <div className=" flex justify-center items-center h-full w-1/2 border-dashed border-b-2 border-blue-900">
+                <img className="object-contained" src="./ijelebgrm.png" alt="ijele logo" />
+            </div>
+            {/* navigation (desktop) */}
+            <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
               <div className="flex flex-shrink-0 items-center"></div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                  <a href="/" className="rounded-md bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Home</a>
-                  <Link href="/Flight" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Flights</Link>
-                  <Link href="/Hotel" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Hotels</Link>
-                  <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Payments</a>
-                  <a href="/Login" className="rounded-md px-3 py-2 text-sm font-medium text-gray-300 hover:bg-gray-700 hover:text-white">Login</a>
+                  <a href="/" className="font-junge rounded-md  bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Home</a>
+                  <Link href="/Flight" className="font-junge rounded-md px-3 py-2 text-sm font-medium text-black-300 hover:bg-gray-700 hover:text-white">Flights</Link>
+                  <Link href="/Hotel" className="font-junge rounded-md px-3 py-2 text-sm font-medium text-black-300 hover:bg-gray-700 hover:text-white">Hotels</Link>
+                  <a href="#" className="font-junge rounded-md px-3 py-2 text-sm font-medium text-black-300 hover:bg-gray-700 hover:text-white">Payments</a>
+                  <a href="/Login" className="font-junge  rounded-md px-3 py-2 text-sm font-medium text-black-300 hover:bg-gray-700 hover:text-white">Login</a>
                 </div>
               </div>
             </div>
@@ -106,7 +111,7 @@ export default function Navbar() {
             </div>
           </div>
         </div>
-
+        {/* Mobile Responsiveness  */}
         <div className={`${mobileMenuOpen ? 'block' : 'hidden'} sm:hidden`} id="mobile-menu">
           <div className="space-y-1 px-2 pb-3 pt-2">
             <a href="/" className="block rounded-md bg-gray-900 px-3 py-2 text-base font-medium text-white" aria-current="page">Home</a>

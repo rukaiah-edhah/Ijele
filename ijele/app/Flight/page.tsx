@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
+import SearchNav from '@/components/Hotel/search-nav';
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -35,6 +36,7 @@ const FlightPage: React.FC = () => {
   return (
     <div>
       <Navbar />
+      <SearchNav/>
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-4">Flight Page</h1>
 

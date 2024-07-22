@@ -12,6 +12,7 @@ import { Hotel } from '@/lib/interfaces';
 import Navbar from '@/components/navbar';
 import axios from 'axios';
 import LocationSearch from '@/components/LocationSearch';
+import SearchNav from '@/components/Hotel/search-nav';
 
 const HotelPage: React.FC = () => {
   const [selectedLocation, setSelectedLocation] = useState<{ name: string; iataCode: string } | null>(null);
@@ -34,7 +35,9 @@ const HotelPage: React.FC = () => {
   };
 
   return (
-    <div><Navbar />
+    <div>
+      <Navbar/>
+      <SearchNav />
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-4">Hotel Page</h1>
     

@@ -1,3 +1,22 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Junge&display=swap');
+@font-face {
+    font-family: "Junge";
+    src: url("../components/fonts/Junge/Junge-Regular.ttf");
+}
+@font-face {
+    font-family: "Work\\ Sans";
+    src: url("../components/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf");
+}
+@font-face {
+    font-family: "Inter";
+    src: url("../components/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
+}
+@font-face {
+    font-family: "Kite\\ One";
+    src: url("../components/fonts/Kite_One/KiteOne-Regular.ttf");
+}

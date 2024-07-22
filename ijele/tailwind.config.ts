@@ -13,6 +13,13 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontFamily: {
+        junge: ["Junge", "cursive"],
+        work_sans: ["Work\\ Sans", "sans-serif"],
+        inter:["Inter", "sans-serif"],
+        kite_one:["Kite\\ One", "sans-serif"]
+
+      }
     },
   },
   plugins: [
