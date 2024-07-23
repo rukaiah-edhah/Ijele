@@ -6,6 +6,7 @@ import Navbar from '@/components/navbar';
 import axios from 'axios';
 import LocationSearch from '@/components/LocationSearch';
 import { useRouter } from 'next/navigation'; 
+import SearchNav from '@/components/Hotel/search-nav';
 
 const HotelPage: React.FC = () => {
   const router = useRouter();
@@ -44,7 +45,8 @@ const HotelPage: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar/>
+      <SearchNav />
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-4">Hotel Page</h1>
         <LocationSearch onSelect={setSelectedLocation} />
