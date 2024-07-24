@@ -1,5 +1,7 @@
 "use client";
 
+// Making this comment as a change to see if my teammates can get the Search button of the flight page to work 
+
 import { useState, useCallback } from "react";
 import { Hotel } from "@/lib/interfaces";
 import Navbar from "@/components/navbar";
