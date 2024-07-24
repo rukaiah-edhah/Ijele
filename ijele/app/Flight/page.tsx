@@ -3,8 +3,6 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
-import { Phone, Document } from '@/lib/interfaces';
-import SearchNav from '@/components/Hotel/search-nav';
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -15,20 +13,14 @@ const FlightPage: React.FC = () => {
   const [flights, setFlights] = useState<any[]>([]);
   const [selectedFlight, setSelectedFlight] = useState<any>(null);
   const [travelerDetails, setTravelerDetails] = useState({
-    id: '',
+    name: '',
+    email: '',
     dateOfBirth: '',
-    name: {
-      firstName: '',
-      lastName: ''
-    },
-    gender: '',
-    contact: {
-      emailAddress: '',
-      phones: [] as Phone[],  // Assuming Phone interface is defined elsewhere
-    },
-    documents: [] as Document[]  // Type the documents array
+    passportNumber: '',
+    passportExpiryDate: '',
+    passportIssuanceCountry: '',
+    nationality: ''
   });
-  
   const [error, setError] = useState<any>(null);
 
   const fetchFlights = async () => {
@@ -62,16 +54,16 @@ const FlightPage: React.FC = () => {
               id: '1',
               dateOfBirth: travelerDetails.dateOfBirth,
               name: {
-                firstName: travelerDetails.name.firstName,
-                lastName: travelerDetails.name.lastName,
+                firstName: travelerDetails.name.split(' ')[0],
+                lastName: travelerDetails.name.split(' ')[1] || '',
               },
               contact: {
-                emailAddress: travelerDetails.contact.emailAddress,
+                emailAddress: travelerDetails.email,
               },
               documents: [
                 {
                   documentType: 'PASSPORT',
-                  number: travelerDetails.documents.number,
+                  number: travelerDetails.passportNumber,
                   expiryDate: travelerDetails.passportExpiryDate,
                   issuanceCountry: travelerDetails.passportIssuanceCountry,
                   nationality: travelerDetails.nationality,
@@ -96,7 +88,6 @@ const FlightPage: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <SearchNav/>
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-4">Flight Page</h1>
 
@@ -217,7 +208,7 @@ const FlightPage: React.FC = () => {
                     onClick={() => setSelectedFlight(flight)}
                     className="btn btn-secondary mt-2"
                   >
-                    Select Flight
+                    Book Flight
                   </button>
                 </li>
               ))}
@@ -232,29 +223,9 @@ const FlightPage: React.FC = () => {
               <div className="flex flex-col space-y-2">
                 <input
                   type="text"
-                  value={travelerDetails.name.firstName}
-                  onChange={(e) => setTravelerDetails({
-                    ...travelerDetails,
-                    name: {
-                      ...travelerDetails.name,
-                      firstName: e.target.value
-                    }
-                  })}
-                  placeholder="First Name"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <input
-                  type="text"
-                  value={travelerDetails.name.lastName}
-                  onChange={(e) => setTravelerDetails({
-                    ...travelerDetails,
-                    name: {
-                      ...travelerDetails.name,
-                      lastName: e.target.value
-                    }
-                  })}
-                  placeholder="Last Name"
+                  value={travelerDetails.name}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, name: e.target.value })}
+                  placeholder="Enter full name"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
@@ -307,7 +278,7 @@ const FlightPage: React.FC = () => {
                   required
                 />
                 <button type="submit" className="btn btn-primary mt-2">
-                  Book Flight
+                  Confirm Booking
                 </button>
               </div>
             </form>
