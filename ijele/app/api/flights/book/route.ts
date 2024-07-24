@@ -7,7 +7,9 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     const flightOrderRequest: FlightOrderRequest = await request.json();
     console.log('Received booking request:', flightOrderRequest);
 
-    if (!flightOrderRequest.data.flightOffers || !flightOrderRequest.data.travelers) {
+    const { flightOffers, travelers } = flightOrderRequest.data;
+
+    if (!flightOffers || !travelers) {
       console.error('Missing required parameters', flightOrderRequest);
       return NextResponse.json({ error: 'Missing required parameters' }, { status: 400 });
     }
