@@ -8,7 +8,8 @@ export interface TokenResponse {
   scope: string;
 }
 
-// Hotel List API interfaces
+// Combined Hotel Interface ✈️
+
 export interface GeoCode {
   latitude: number;
   longitude: number;
@@ -18,24 +19,21 @@ export interface Address {
   countryCode: string;
 }
 
-export interface Hotel {
-  chainCode: string;
-  iataCode: string;
-  dupeId: number;
-  name: string;
-  hotelId: string;
-  geoCode: GeoCode;
-  address: Address;
-  lastUpdate: string;
+export interface RoomDescription {
+  text: string;
+  lang: string;
 }
 
-export interface HotelDataResponse {
-  data: Hotel[];
+export interface RoomTypeEstimated {
+  category: string;
+  beds: number;
+  bedType: string;
 }
 
-// Hotel Search API interfaces
 export interface Room {
-  description: string;
+  type: string;
+  typeEstimated: RoomTypeEstimated;
+  description: RoomDescription;
 }
 
 export interface Guests {
@@ -44,23 +42,54 @@ export interface Guests {
 
 export interface Price {
   currency: string;
+  base: string;
   total: string;
 }
 
+export interface CancellationPolicy {
+  deadline: string;
+  amount: string;
+}
+
+export interface Policies {
+  cancellations: CancellationPolicy[];
+  paymentType: string;
+}
+
 export interface Offer {
-  // id: string;
+  id: string;
   checkInDate: string;
   checkOutDate: string;
+  rateCode: string;
   room: Room;
   guests: Guests;
   price: Price;
+  policies: Policies;
+  self: string;
+}
+
+export interface Hotel {
+  type: string;
+  hotelId: string;
+  chainCode: string;
+  dupeId: string;
+  name: string;
+  cityCode: string;
+  latitude: number;
+  longitude: number;
+  geoCode: GeoCode;
+  address: Address;
+  lastUpdate?: string;
+  offers: Offer[];
+  available: boolean;
+}
+
+export interface HotelDataResponse {
+  data: Hotel[];
 }
 
 export interface HotelOffer {
-  hotel: {
-    name: string;
-    // hotelId: string;
-  };
+  hotel: Hotel;
   offers: Offer[];
 }
 
@@ -68,7 +97,6 @@ export interface HotelOffersResponse {
   data: HotelOffer[];
 }
 
-// Hotel Booking API interfaces
 export interface GuestInfo {
   tid: number;
   title: string;
@@ -179,7 +207,7 @@ export interface FlightDataResponse {
 enum FeeType {
   TICKETING = "TICKETING",
   SERVICE = "SERVICE",
-  SHIPPING = "SHIPPING"
+  SHIPPING = "SHIPPING",
 }
 
 export interface Fee {

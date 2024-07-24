@@ -61,7 +61,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onSelect }) => {
               onClick={() => handleSelect(suggestion)}
               className="p-2 cursor-pointer hover:bg-gray-200"
             >
-              {suggestion.name} ({suggestion.iataCode})
+              {suggestion.name}
             </div>
           ))}
         </div>
