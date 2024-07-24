@@ -13,9 +13,11 @@ const FlightPage: React.FC = () => {
   const [flights, setFlights] = useState<any[]>([]);
   const [selectedFlight, setSelectedFlight] = useState<any>(null);
   const [travelerDetails, setTravelerDetails] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     dateOfBirth: '',
+    documentType: '',
     passportNumber: '',
     passportExpiryDate: '',
     passportIssuanceCountry: '',
@@ -54,8 +56,8 @@ const FlightPage: React.FC = () => {
               id: '1',
               dateOfBirth: travelerDetails.dateOfBirth,
               name: {
-                firstName: travelerDetails.name.split(' ')[0],
-                lastName: travelerDetails.name.split(' ')[1] || '',
+                firstName: travelerDetails.firstName,
+                lastName: travelerDetails.lastName,
               },
               contact: {
                 emailAddress: travelerDetails.email,
@@ -108,6 +110,7 @@ const FlightPage: React.FC = () => {
               placeholder="Enter destination airport code"
               className="input input-bordered w-full max-w-xs"
             />
+            <label>Enter departure date</label>
             <input
               type="date"
               value={departureDate}
@@ -115,6 +118,7 @@ const FlightPage: React.FC = () => {
               placeholder="Enter departure date"
               className="input input-bordered w-full max-w-xs"
             />
+            <label>Enter return date</label>
             <input
               type="date"
               value={returnDate}
@@ -208,7 +212,7 @@ const FlightPage: React.FC = () => {
                     onClick={() => setSelectedFlight(flight)}
                     className="btn btn-secondary mt-2"
                   >
-                    Book Flight
+                    Select Flight
                   </button>
                 </li>
               ))}
@@ -223,9 +227,17 @@ const FlightPage: React.FC = () => {
               <div className="flex flex-col space-y-2">
                 <input
                   type="text"
-                  value={travelerDetails.name}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, name: e.target.value })}
-                  placeholder="Enter full name"
+                  value={travelerDetails.firstName}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, firstName: e.target.value })}
+                  placeholder="Enter first name"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="text"
+                  value={travelerDetails.lastName}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, lastName: e.target.value })}
+                  placeholder="Enter last name"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
@@ -237,6 +249,7 @@ const FlightPage: React.FC = () => {
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
+                <label>Enter traveler Date of Birth</label>
                 <input
                   type="date"
                   value={travelerDetails.dateOfBirth}
@@ -247,17 +260,26 @@ const FlightPage: React.FC = () => {
                 />
                 <input
                   type="text"
-                  value={travelerDetails.passportNumber}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportNumber: e.target.value })}
-                  placeholder="Enter passport number"
+                  value={travelerDetails.documentType}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, documentType: e.target.value })}
+                  placeholder="Enter document type"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
                 <input
+                  type="text"
+                  value={travelerDetails.passportNumber}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportNumber: e.target.value })}
+                  placeholder="Enter document number"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <label>Enter document expiration date</label>
+                <input
                   type="date"
                   value={travelerDetails.passportExpiryDate}
                   onChange={(e) => setTravelerDetails({ ...travelerDetails, passportExpiryDate: e.target.value })}
-                  placeholder="Enter passport expiry date"
+                  placeholder="Enter document expiry date"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
@@ -265,7 +287,7 @@ const FlightPage: React.FC = () => {
                   type="text"
                   value={travelerDetails.passportIssuanceCountry}
                   onChange={(e) => setTravelerDetails({ ...travelerDetails, passportIssuanceCountry: e.target.value })}
-                  placeholder="Enter passport issuance country"
+                  placeholder="Enter document issuance country code"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
@@ -273,12 +295,12 @@ const FlightPage: React.FC = () => {
                   type="text"
                   value={travelerDetails.nationality}
                   onChange={(e) => setTravelerDetails({ ...travelerDetails, nationality: e.target.value })}
-                  placeholder="Enter nationality"
+                  placeholder="Enter nationality code"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
                 <button type="submit" className="btn btn-primary mt-2">
-                  Confirm Booking
+                  Book Flight
                 </button>
               </div>
             </form>

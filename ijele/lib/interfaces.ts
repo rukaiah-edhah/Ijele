@@ -228,12 +228,21 @@ export interface FlightOrderRequest {
     type: string;
     flightOffers: any[];
     travelers: Traveler[];
+    documents: Document[];
     remarks?: Remark[];
     ticketingAgreement?: TicketingAgreement;
     contacts?: Contact[];
   };
 }
 
+export interface Phone {
+  deviceType: string;
+  countryCallingCode: string;
+  number: string;
+}
+
+
+// Traveler interface
 export interface Traveler {
   id: string;
   dateOfBirth: string;
@@ -249,12 +258,7 @@ export interface Traveler {
   documents?: Document[];
 }
 
-export interface Phone {
-  deviceType: string;
-  countryCallingCode: string;
-  number: string;
-}
-
+// Document interface
 export interface Document {
   documentType: string;
   birthPlace: string;
@@ -268,16 +272,19 @@ export interface Document {
   holder: boolean;
 }
 
+// Remark interface
 export interface Remark {
   subType: string;
   text: string;
 }
 
+// TicketingAgreement interface
 export interface TicketingAgreement {
   option: string;
   delay: string;
 }
 
+// Contact interface
 export interface Contact {
   addresseeName: {
     firstName: string;
@@ -295,6 +302,17 @@ export interface Contact {
   };
 }
 
+// FlightOrderRequest interface
+export interface FlightOrderRequest {
+  data: {
+    type: string;
+    flightOffers: any[];
+    travelers: Traveler[];
+    remarks?: Remark[];
+    ticketingAgreement?: TicketingAgreement;
+    contacts?: Contact[];
+  };
+}
 export interface FlightOrderResponse {
   data: any;
 }
