@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Offer, Hotel } from "@/lib/interfaces";
 import Navbar from "@/components/navbar";
+import SearchNav from "@/components/Hotel/search-nav";
 
 const HotelDetailsPage: React.FC = () => {
   const pathname = usePathname();
@@ -58,6 +59,7 @@ const HotelDetailsPage: React.FC = () => {
   return (
     <div>
       <Navbar />
+      <SearchNav />
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-4">Hotel Details</h1>
 
