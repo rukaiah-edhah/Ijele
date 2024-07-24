@@ -24,7 +24,7 @@ const Navbar: React.FC = () => {
   return (
     <>
       <nav className="">
-        <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-10xl px-2 sm:px-6 lg:px-8">
           <div className="relative flex h-16 items-center justify-between">
             <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
               <button
@@ -59,19 +59,19 @@ const Navbar: React.FC = () => {
               </button>
             </div>
             {/* logo container */}
-            <div className="flex-shrink-0 flex justify-center items-center h-full w-1/2 border-dashed border-b-2 border-blue-900">
-              <img className="object-contained h-16 w-16" src="/Images/logo.png" alt="ijele logo" />
+            <div className="logo-container flex-shrink-0 flex justify-center items-center h-full w-1/2">
+              <img className="logo object-contained" src="/Images/logo.png" alt="ijele logo" />
             </div>
             {/* navigation (desktop) */}
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
               <div className="flex flex-shrink-0 items-center"></div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                  <a href="/" className="font-junge rounded-md  bg-gray-900 px-3 py-2 text-sm font-medium text-white" aria-current="page">Home</a>
-                  <a href="/Flight" className={styles.navbarLink}>Flight</a>
-                  <a href="/Hotel" className={styles.navbarLink}>Hotel</a>
-                  <a href="/Payment" className={styles.navbarLink}>Payments</a>
-                  <a href="/Login" className={styles.navbarLink}>Login</a></div>
+                  <a href="/" className="hoveredHome" aria-current="page">Home</a>
+                  <a href="/Flight" className="navbarLink">Flight</a>
+                  <a href="/Hotel" className="navbarLink">Hotel</a>
+                  <a href="/Payment" className="navbarLink">Payments</a>
+                  <a href="/Login" className="navbarLink">Login</a></div>
               </div>
             </div>
           </div>
