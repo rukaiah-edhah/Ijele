@@ -4,8 +4,9 @@ import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
 import SearchNav from '@/components/Hotel/search-nav'
-import FlightList from '@/components/Flight/FlightList'
-import '@/components/Flight/flightList.css'
+// /import FlightList from '@/components/Flight/FlightList'/ 
+// import '@/components/Flight/flightList.css';
+import FlightDetails from '@/components/Flight/FlightDetails'
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -144,125 +145,130 @@ const FlightPage: React.FC = () => {
         </div>
 
         <div>
-          <FlightList flights={flights} />
-        </div>
+          {/* <FlightList flights={flights} /> */}
+          <div className="container mx-auto p-4">
+            <h1 className="text-2xl font-semibold mb-4">Flight Search Results</h1>
+            {/* Use FlightDetails here to test */}
+            <FlightDetails />
+          </div>
 
 
- 
-        <button
-          onClick={() => setSelectedFlight(flights)}
-          className="btn btn-secondary mt-2"
-        >
-          Select Flight
-        </button>
 
-
-{
-  selectedFlight && (
-    <div className="mb-6">
-      <h2 className="text-2xl font-semibold mb-2">Traveler Details</h2>
-      <form onSubmit={handleBooking}>
-        <div className="flex flex-col space-y-2">
-          <input
-            type="text"
-            value={travelerDetails.firstName}
-            onChange={(e) => setTravelerDetails({ ...travelerDetails, firstName: e.target.value })}
-            placeholder="Enter first name"
-            className="input input-bordered w-full max-w-xs"
-            required
-          />
-          <input
-            type="text"
-            value={travelerDetails.lastName}
-            onChange={(e) => setTravelerDetails({ ...travelerDetails, lastName: e.target.value })}
-            placeholder="Enter last name"
-            className="input input-bordered w-full max-w-xs"
-            required
-          />
-          <input
-            type="email"
-            value={travelerDetails.email}
-            onChange={(e) => setTravelerDetails({ ...travelerDetails, email: e.target.value })}
-            placeholder="Enter email address"
-            className="input input-bordered w-full max-w-xs"
-            required
-          />
-          <label>Enter traveler Date of Birth</label>
-          <input
-            type="date"
-            value={travelerDetails.dateOfBirth}
-            onChange={(e) => setTravelerDetails({ ...travelerDetails, dateOfBirth: e.target.value })}
-            placeholder="Enter date of birth"
-            className="input input-bordered w-full max-w-xs"
-            required
-          />
-          <input
-            type="text"
-            value={travelerDetails.documentType}
-            onChange={(e) => setTravelerDetails({ ...travelerDetails, documentType: e.target.value })}
-            placeholder="Enter document type"
-            className="input input-bordered w-full max-w-xs"
-            required
-          />
-          <input
-            type="text"
-            value={travelerDetails.passportNumber}
-            onChange={(e) => setTravelerDetails({ ...travelerDetails, passportNumber: e.target.value })}
-            placeholder="Enter document number"
-            className="input input-bordered w-full max-w-xs"
-            required
-          />
-          <label>Enter document expiration date</label>
-          <input
-            type="date"
-            value={travelerDetails.passportExpiryDate}
-            onChange={(e) => setTravelerDetails({ ...travelerDetails, passportExpiryDate: e.target.value })}
-            placeholder="Enter document expiry date"
-            className="input input-bordered w-full max-w-xs"
-            required
-          />
-          <input
-            type="text"
-            value={travelerDetails.passportIssuanceCountry}
-            onChange={(e) => setTravelerDetails({ ...travelerDetails, passportIssuanceCountry: e.target.value })}
-            placeholder="Enter document issuance country code"
-            className="input input-bordered w-full max-w-xs"
-            required
-          />
-          <input
-            type="text"
-            value={travelerDetails.nationality}
-            onChange={(e) => setTravelerDetails({ ...travelerDetails, nationality: e.target.value })}
-            placeholder="Enter nationality code"
-            className="input input-bordered w-full max-w-xs"
-            required
-          />
-          <button type="submit" className="btn btn-primary mt-2">
-            Book Flight
+          <button
+            onClick={() => setSelectedFlight(flights)}
+            className="btn btn-secondary mt-2"
+          >
+            Select Flight
           </button>
         </div>
-      </form>
-    </div>
-  )
-}
 
-{
-  error && (
-    <div className="mb-6">
-      <h2 className="text-2xl font-semibold mb-2">Error</h2>
-      <div className="bg-red-100 p-4 rounded">
-        <p>{error.error}</p>
-        {error.details?.errors?.map((errDetail: any, index: number) => (
-          <div key={index}>
-            <p><strong>{errDetail.title}</strong></p>
-            <p>Code: {errDetail.code}</p>
-            <p>{errDetail.detail}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
+
+        {
+          selectedFlight && (
+            <div className="mb-6">
+              <h2 className="text-2xl font-semibold mb-2">Traveler Details</h2>
+              <form onSubmit={handleBooking}>
+                <div className="flex flex-col space-y-2">
+                  <input
+                    type="text"
+                    value={travelerDetails.firstName}
+                    onChange={(e) => setTravelerDetails({ ...travelerDetails, firstName: e.target.value })}
+                    placeholder="Enter first name"
+                    className="input input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <input
+                    type="text"
+                    value={travelerDetails.lastName}
+                    onChange={(e) => setTravelerDetails({ ...travelerDetails, lastName: e.target.value })}
+                    placeholder="Enter last name"
+                    className="input input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <input
+                    type="email"
+                    value={travelerDetails.email}
+                    onChange={(e) => setTravelerDetails({ ...travelerDetails, email: e.target.value })}
+                    placeholder="Enter email address"
+                    className="input input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <label>Enter traveler Date of Birth</label>
+                  <input
+                    type="date"
+                    value={travelerDetails.dateOfBirth}
+                    onChange={(e) => setTravelerDetails({ ...travelerDetails, dateOfBirth: e.target.value })}
+                    placeholder="Enter date of birth"
+                    className="input input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <input
+                    type="text"
+                    value={travelerDetails.documentType}
+                    onChange={(e) => setTravelerDetails({ ...travelerDetails, documentType: e.target.value })}
+                    placeholder="Enter document type"
+                    className="input input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <input
+                    type="text"
+                    value={travelerDetails.passportNumber}
+                    onChange={(e) => setTravelerDetails({ ...travelerDetails, passportNumber: e.target.value })}
+                    placeholder="Enter document number"
+                    className="input input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <label>Enter document expiration date</label>
+                  <input
+                    type="date"
+                    value={travelerDetails.passportExpiryDate}
+                    onChange={(e) => setTravelerDetails({ ...travelerDetails, passportExpiryDate: e.target.value })}
+                    placeholder="Enter document expiry date"
+                    className="input input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <input
+                    type="text"
+                    value={travelerDetails.passportIssuanceCountry}
+                    onChange={(e) => setTravelerDetails({ ...travelerDetails, passportIssuanceCountry: e.target.value })}
+                    placeholder="Enter document issuance country code"
+                    className="input input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <input
+                    type="text"
+                    value={travelerDetails.nationality}
+                    onChange={(e) => setTravelerDetails({ ...travelerDetails, nationality: e.target.value })}
+                    placeholder="Enter nationality code"
+                    className="input input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <button type="submit" className="btn btn-primary mt-2">
+                    Book Flight
+                  </button>
+                </div>
+              </form>
+            </div>
+          )
+        }
+
+        {
+          error && (
+            <div className="mb-6">
+              <h2 className="text-2xl font-semibold mb-2">Error</h2>
+              <div className="bg-red-100 p-4 rounded">
+                <p>{error.error}</p>
+                {error.details?.errors?.map((errDetail: any, index: number) => (
+                  <div key={index}>
+                    <p><strong>{errDetail.title}</strong></p>
+                    <p>Code: {errDetail.code}</p>
+                    <p>{errDetail.detail}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )
+        }
       </div >
     </div >
   );
