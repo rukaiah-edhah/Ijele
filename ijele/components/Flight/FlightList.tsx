@@ -1,11 +1,6 @@
 import React from 'react';
+import { format } from 'date-fns-tz';
 import '@/components/Flight/flightList.css';
-
-// FUNCTION TO FORMAT DATE AND TIME
-const formatDateTime = (isoString: string) => {
-  const date = new Date(isoString);
-  return `${date.toLocaleDateString()} at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
-};
 
 type Flight = {
   id: string;
@@ -53,6 +48,11 @@ type Props = {
   flights: Flight[];
 };
 
+// FORMAT DATE AND TIME WITH TIME ZONE
+const formatDateTime = (dateTime: string, timeZone: string = 'UTC') => {
+  return format(new Date(dateTime), 'yyyy-MM-dd HH:mm:ssXXX', { timeZone });
+};
+
 const FlightList: React.FC<Props> = ({ flights }) => {
   return (
     <div className="flights-container">
@@ -73,8 +73,8 @@ const FlightList: React.FC<Props> = ({ flights }) => {
                     <ul className="segments-list">
                       {itinerary.segments.map((segment, idx) => (
                         <li key={idx} className="segment">
-                          <p>Departure: {segment.departure.iataCode} at {formatDateTime(segment.departure.at)}</p>
-                          <p>Arrival: {segment.arrival.iataCode} at {formatDateTime(segment.arrival.at)}</p>
+                          <p>Departure: {segment.departure.iataCode} at {formatDateTime(segment.departure.at, 'America/Chicago')}</p>
+                          <p>Arrival: {segment.arrival.iataCode} at {formatDateTime(segment.arrival.at, 'America/Chicago')}</p>
                           <p>Carrier Code: {segment.carrierCode}</p>
                           <p>Flight Number: {segment.number}</p>
                           <p>Aircraft: {segment.aircraft.code}</p>

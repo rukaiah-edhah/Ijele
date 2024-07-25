@@ -148,18 +148,14 @@ const FlightPage: React.FC = () => {
         </div>
 
 
-{/* 
+ 
         <button
-          onClick={() => setSelectedFlight(flight)}
+          onClick={() => setSelectedFlight(flights)}
           className="btn btn-secondary mt-2"
         >
           Select Flight
         </button>
-      </li>
-              ))}
-    </ul>
-          </div >
-        )} */}
+
 
 {
   selectedFlight && (
