@@ -1,5 +1,11 @@
 import React from 'react';
-import '@/components/Flight/flightList.css'
+import '@/components/Flight/flightList.css';
+
+// FUNCTION TO FORMAT DATE AND TIME
+const formatDateTime = (isoString: string) => {
+  const date = new Date(isoString);
+  return `${date.toLocaleDateString()} at ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
+};
 
 type Flight = {
   id: string;
@@ -67,8 +73,8 @@ const FlightList: React.FC<Props> = ({ flights }) => {
                     <ul className="segments-list">
                       {itinerary.segments.map((segment, idx) => (
                         <li key={idx} className="segment">
-                          <p>Departure: {segment.departure.iataCode} at {segment.departure.at}</p>
-                          <p>Arrival: {segment.arrival.iataCode} at {segment.arrival.at}</p>
+                          <p>Departure: {segment.departure.iataCode} at {formatDateTime(segment.departure.at)}</p>
+                          <p>Arrival: {segment.arrival.iataCode} at {formatDateTime(segment.arrival.at)}</p>
                           <p>Carrier Code: {segment.carrierCode}</p>
                           <p>Flight Number: {segment.number}</p>
                           <p>Aircraft: {segment.aircraft.code}</p>
