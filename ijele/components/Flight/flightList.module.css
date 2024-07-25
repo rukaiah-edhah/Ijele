@@ -1,0 +1,60 @@
+.flights-container {
+    margin-bottom: 1.5rem;
+  }
+  
+  .flights-title {
+    @apply text-2xl font-semibold mb-2;
+  }
+  
+  .flights-list {
+    @apply list-disc pl-5;
+  }
+  
+  .flight-item {
+    @apply mb-6 p-4 bg-white shadow-md rounded-lg border border-black;
+  }
+  
+  .flight-header {
+    @apply mb-4;
+  }
+  
+  .flight-id {
+    @apply text-xl font-semibold mb-2;
+  }
+  
+  .itinerary {
+    @apply mb-4 p-4 bg-gray-100 rounded-lg;
+  }
+  
+  .itinerary-title {
+    @apply text-lg font-semibold mb-2;
+  }
+  
+  .segments-list {
+    @apply list-disc pl-5;
+  }
+  
+  .segment {
+    @apply mb-2;
+  }
+  
+  .price-title {
+    @apply text-lg font-semibold mb-1;
+  }
+  
+  .pricing-options-title {
+    @apply text-lg font-semibold mb-1;
+  }
+  
+  .traveler-pricings-title {
+    @apply text-lg font-semibold mb-1;
+  }
+  
+  .traveler-pricing {
+    @apply mb-4;
+  }
+  
+  .fare-detail {
+    @apply mb-2;
+  }
+  
