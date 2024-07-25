@@ -1,6 +1,5 @@
-
 import React from 'react';
-import styles from './FlightList.module.css'; 
+import '@/components/Flight/flightList.css'
 
 type Flight = {
   id: string;
@@ -50,24 +49,24 @@ type Props = {
 
 const FlightList: React.FC<Props> = ({ flights }) => {
   return (
-    <div className={styles.flightList}>
+    <div className="flights-container">
       {flights.length > 0 && (
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">Flights</h2>
-          <ul className="list-disc pl-5">
+        <div>
+          <h2 className="flights-title">Flights</h2>
+          <ul className="flights-list">
             {flights.map((flight) => (
-              <li key={flight.id} className="mb-6 p-4 bg-white shadow-md rounded-lg border border-black">
-                <div className="mb-4">
-                  <h3 className="text-xl font-semibold mb-2">Flight ID: {flight.id}</h3>
+              <li key={flight.id} className="flight-item">
+                <div className="flight-header">
+                  <h3 className="flight-id">Flight ID: {flight.id}</h3>
                   <p>Number of Bookable Seats: {flight.numberOfBookableSeats}</p>
                 </div>
                 {flight.itineraries.map((itinerary, index) => (
-                  <div key={index} className="mb-4 p-4 bg-gray-100 rounded-lg">
-                    <h4 className="text-lg font-semibold mb-2">Itinerary {index + 1}</h4>
+                  <div key={index} className="itinerary">
+                    <h4 className="itinerary-title">Itinerary {index + 1}</h4>
                     <p>Duration: {itinerary.duration}</p>
-                    <ul className="list-disc pl-5">
+                    <ul className="segments-list">
                       {itinerary.segments.map((segment, idx) => (
-                        <li key={idx} className="mb-2">
+                        <li key={idx} className="segment">
                           <p>Departure: {segment.departure.iataCode} at {segment.departure.at}</p>
                           <p>Arrival: {segment.arrival.iataCode} at {segment.arrival.at}</p>
                           <p>Carrier Code: {segment.carrierCode}</p>
@@ -81,16 +80,16 @@ const FlightList: React.FC<Props> = ({ flights }) => {
                     </ul>
                   </div>
                 ))}
-                <h4 className="text-lg font-semibold mb-1">Price</h4>
+                <h4 className="price-title">Price</h4>
                 <p>Total: {flight.price.total} {flight.price.currency}</p>
                 <p>Base: {flight.price.base}</p>
                 <p>Grand Total: {flight.price.grandTotal}</p>
-                <h4 className="text-lg font-semibold mb-1">Pricing Options</h4>
+                <h4 className="pricing-options-title">Pricing Options</h4>
                 <p>Included Checked Bags Only: {flight.pricingOptions.includedCheckedBagsOnly ? 'Yes' : 'No'}</p>
                 <p>Validating Airline Codes: {flight.validatingAirlineCodes.join(', ')}</p>
-                <h4 className="text-lg font-semibold mb-1">Traveler Pricings</h4>
+                <h4 className="traveler-pricings-title">Traveler Pricings</h4>
                 {flight.travelerPricings.map((travelerPricing, idx) => (
-                  <div key={idx} className="mb-4">
+                  <div key={idx} className="traveler-pricing">
                     <p>Traveler ID: {travelerPricing.travelerId}</p>
                     <p>Fare Option: {travelerPricing.fareOption}</p>
                     <p>Traveler Type: {travelerPricing.travelerType}</p>
@@ -98,7 +97,7 @@ const FlightList: React.FC<Props> = ({ flights }) => {
                     <p>Base Price: {travelerPricing.price.base}</p>
                     <ul>
                       {travelerPricing.fareDetailsBySegment.map((fareDetail, idx) => (
-                        <li key={idx}>
+                        <li key={idx} className="fare-detail">
                           <p>Cabin: {fareDetail.cabin}</p>
                           <p>Included Checked Bags: {fareDetail.includedCheckedBags ? fareDetail.includedCheckedBags.quantity : 'N/A'}</p>
                         </li>

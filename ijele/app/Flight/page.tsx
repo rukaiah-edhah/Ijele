@@ -5,6 +5,7 @@ import axios from 'axios';
 import Navbar from '@/components/navbar';
 import SearchNav from '@/components/Hotel/search-nav'
 import FlightList from '@/components/Flight/FlightList'
+import '@/components/Flight/flightList.css'
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
