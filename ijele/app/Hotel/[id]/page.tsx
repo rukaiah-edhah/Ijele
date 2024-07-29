@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Offer, Hotel } from "@/lib/interfaces";
 import Navbar from "@/components/navbar";
-import SearchNav from "@/components/search-nav";
+import SearchNav from "@/components/SearchPage/search-nav";
 import GuestInfoForm from "@/components/HotelDetailsPage/GuestInfoForm";
 import PaymentInfoForm from "@/components/HotelDetailsPage/PaymentInfoForm";
 import HotelOffers from "@/components/HotelDetailsPage/HotelOffers";

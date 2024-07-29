@@ -3,12 +3,13 @@
 import { useState, useCallback } from "react";
 import { Hotel } from "@/lib/interfaces";
 import Navbar from "@/components/navbar";
-import SearchNav from "@/components/search-nav";
 import axios from "axios";
 import LocationSearch from "@/components/HotelListPage/LocationSearch";
 import { useRouter } from "next/navigation";
+import SearchNav from "@/components/SearchPage/search-nav";
 import HotelList from "@/components/HotelListPage/HotelList";
 import SearchErrorMessage from "@/components/HotelListPage/SearchErrorMessage";
+
 
 const HotelPage: React.FC = () => {
   const router = useRouter();
