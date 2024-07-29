@@ -18,7 +18,15 @@ const config: Config = {
         inter:["Inter", "sans-serif"],
         work_sans: ["WorkSans", "sans-serif"],
         kite_one:["KiteOne", "sans-serif"]
-
+      },
+      colors: {
+        'ijele_navy': '#153B4F',
+        'ijele_teal': '#249295',
+        'ijele_red': '#851316',
+        'ijele_lightTeal': '#94DBB6',
+        'ijele_deepGold': '#CF903F',
+        'ijele_gold': '#F2BE5C',
+        'ijele_cream': '#FFF6EE' //opacity set to 50% over the sidebar styling
       }
     },
   },

@@ -7,11 +7,11 @@ export default function SearchNav() {
     return (
       <>
       <nav className="w-full flex items-center justify-start">
-        <div className="flex">
-            <p className="">Search |</p>
-            <Link href="/Flight"  aria-current="page" className="rounded-md px-3 py-2 text-sm font-small text-yellow-300 hover:text-yellow">Flights</Link>
-            <Link href="/Hotel" className="rounded-md px-3 py-2 text-sm font-small text-black-300 hover:bg-yellow-700 hover:text-white">Hotels</Link>
-            <a href="#" className="rounded-md px-3 py-2 text-sm font-medium text-black-300 hover:bg-yellow-700 hover:text-white">Excursions</a>
+        <div className="flex items-center">
+            <p className="font-work_sans">Search |</p>
+            <Link href="/Flight"  aria-current="page" className=" search-nav-links text-yellow-300">Flights</Link>
+            <Link href="/Hotel" className="search-nav-links ">Hotels</Link>
+            <a href="#" className="search-nav-links">Excursions</a>
         </div>
       </nav>
       
