@@ -228,7 +228,7 @@ export interface FlightOrderRequest {
     type: string;
     flightOffers: any[];
     travelers: Traveler[];
-    documents: Document[];
+    // documents: Document[];   Document[] is inside Traveler[]
     remarks?: Remark[];
     ticketingAgreement?: TicketingAgreement;
     contacts?: Contact[];
@@ -302,17 +302,17 @@ export interface Contact {
   };
 }
 
-// FlightOrderRequest interface
-export interface FlightOrderRequest {
-  data: {
-    type: string;
-    flightOffers: any[];
-    travelers: Traveler[];
-    remarks?: Remark[];
-    ticketingAgreement?: TicketingAgreement;
-    contacts?: Contact[];
-  };
-}
 export interface FlightOrderResponse {
-  data: any;
+  data: {
+    type: string,
+    id: string,
+    queuingOfficeId: string,
+    associatedRecords: [
+      {
+        reference: string,
+        creationDateTime: number,
+        originSystemCode: string,
+        flightOfferId: number
+      }
+    ]}
 }

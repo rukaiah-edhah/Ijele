@@ -4,6 +4,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
 import SearchNav from '@/components/Hotel/search-nav';
+import { data } from 'autoprefixer';
+import { Traveler, Document, Phone, TicketingAgreement } from '@/lib/interfaces';
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -16,14 +18,25 @@ const FlightPage: React.FC = () => {
   const [travelerDetails, setTravelerDetails] = useState({
     firstName: '',
     lastName: '',
+    gender: '',
     email: '',
+    deviceType: '',
+    countryCallingCode: '',
+    number: '',
     dateOfBirth: '',
     documentType: '',
+    birthPlace: '',
+    issuanceLocation: '',
+    issuanceDate: '',
     passportNumber: '',
     passportExpiryDate: '',
     passportIssuanceCountry: '',
-    nationality: ''
+    validityCountry: '',
+    nationality: '',
+    holder: true,
+                  
   });
+  
   const [error, setError] = useState<any>(null);
 
   const fetchFlights = async () => {
@@ -66,18 +79,26 @@ const FlightPage: React.FC = () => {
               documents: [
                 {
                   documentType: 'PASSPORT',
+                  birthPlace: travelerDetails.birthPlace,
+                  issuanceLocation: travelerDetails.issuanceLocation,
+                  issuanceDate: travelerDetails.issuanceDate,
                   number: travelerDetails.passportNumber,
                   expiryDate: travelerDetails.passportExpiryDate,
                   issuanceCountry: travelerDetails.passportIssuanceCountry,
+                  validityCountry: travelerDetails.validityCountry,
                   nationality: travelerDetails.nationality,
                   holder: true,
+                  ticketingAgreement: {
+                    option: 'DELAY_TO_CANCEL',
+                    delay: '6D'
+                  }
                 },
               ],
             },
           ],
         },
       };
-
+      console.log(data);
       console.log('Sending booking details:', bookingDetails);
       const response = await axios.post('/api/flights/book', bookingDetails);
       alert('Flight booked successfully!');
@@ -128,6 +149,7 @@ const FlightPage: React.FC = () => {
               placeholder="Enter return date"
               className="input input-bordered w-full max-w-xs"
             />
+            <label>Enter number of Adults</label>
             <input
               type="number"
               value={adults}
@@ -151,6 +173,7 @@ const FlightPage: React.FC = () => {
                   <p>Source: {flight.source}</p>
                   <p>Instant Ticketing Required: {flight.instantTicketingRequired ? 'Yes' : 'No'}</p>
                   <p>Non-Homogeneous: {flight.nonHomogeneous ? 'Yes' : 'No'}</p>
+                  <p>paymentCardRequired: {flight.paymentCardRequired ? 'Yes' : 'No'}</p>
                   <p>One Way: {flight.oneWay ? 'Yes' : 'No'}</p>
                   <p>Is Upsell Offer: {flight.isUpsellOffer ? 'Yes' : 'No'}</p>
                   <p>Last Ticketing Date: {flight.lastTicketingDate}</p>
@@ -221,7 +244,7 @@ const FlightPage: React.FC = () => {
             </ul>
           </div>
         )}
-
+       
         {selectedFlight && (
           <div className="mb-6">
             <h2 className="text-2xl font-semibold mb-2">Traveler Details</h2>
@@ -244,10 +267,41 @@ const FlightPage: React.FC = () => {
                   required
                 />
                 <input
+                  type="text"
+                  value={travelerDetails.gender}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, gender: e.target.value })}
+                  placeholder="Enter gender"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
                   type="email"
                   value={travelerDetails.email}
                   onChange={(e) => setTravelerDetails({ ...travelerDetails, email: e.target.value })}
                   placeholder="Enter email address"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                /><input
+                type="text"
+                value={travelerDetails.deviceType}
+                onChange={(e) => setTravelerDetails({ ...travelerDetails, deviceType: e.target.value })}
+                placeholder="Enter Device Type"
+                className="input input-bordered w-full max-w-xs"
+                required
+              />
+              <input
+                  type="text"
+                  value={travelerDetails.countryCallingCode}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, countryCallingCode: e.target.value })}
+                  placeholder="Enter Country Calling Code"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="number"
+                  value={travelerDetails.number}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, number: e.target.value })}
+                  placeholder="Enter device number"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
@@ -270,18 +324,43 @@ const FlightPage: React.FC = () => {
                 />
                 <input
                   type="text"
-                  value={travelerDetails.passportNumber}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportNumber: e.target.value })}
-                  placeholder="Enter document number"
+                  value={travelerDetails.birthPlace}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, birthPlace: e.target.value })}
+                  placeholder="Enter Birth Place"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
-                <label>Enter document expiration date</label>
+                <input
+                  type="text"
+                  value={travelerDetails.issuanceLocation}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, issuanceLocation: e.target.value })}
+                  placeholder="Enter Issuance Location"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <label>Enter Date of Issuance</label>
+                <input
+                  type="date"
+                  value={travelerDetails.issuanceDate}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, issuanceDate: e.target.value })}
+                  placeholder="Enter date of Issuance"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="text"
+                  value={travelerDetails.passportNumber}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportNumber: e.target.value })}
+                  placeholder="Enter passport number"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <label>Enter passport expiration date</label>
                 <input
                   type="date"
                   value={travelerDetails.passportExpiryDate}
                   onChange={(e) => setTravelerDetails({ ...travelerDetails, passportExpiryDate: e.target.value })}
-                  placeholder="Enter document expiry date"
+                  placeholder="Enter passport expiry date"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />
@@ -289,7 +368,15 @@ const FlightPage: React.FC = () => {
                   type="text"
                   value={travelerDetails.passportIssuanceCountry}
                   onChange={(e) => setTravelerDetails({ ...travelerDetails, passportIssuanceCountry: e.target.value })}
-                  placeholder="Enter document issuance country code"
+                  placeholder="Enter issuance country code"
+                  className="input input-bordered w-full max-w-xs"
+                  required
+                />
+                <input
+                  type="text"
+                  value={travelerDetails.validityCountry}
+                  onChange={(e) => setTravelerDetails({ ...travelerDetails, validityCountry: e.target.value })}
+                  placeholder="Enter issuance country code"
                   className="input input-bordered w-full max-w-xs"
                   required
                 />

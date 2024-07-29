@@ -1,0 +1,188 @@
+{
+    "data": {
+        "flightOffers": [
+            {
+                "type": "flight-offer",
+                "id": "3",
+                "source": "GDS",
+                "instantTicketingRequired": false,
+                "nonHomogeneous": false,
+                "oneWay": false,
+                "isUpsellOffer": false,
+                "lastTicketingDate": "2024-07-30",
+                "lastTicketingDateTime": "2024-07-30",
+                "numberOfBookableSeats": 9,
+                "itineraries": [
+                    {
+                        "duration": "PT16H55M",
+                        "segments": [
+                            {
+                                "departure": {
+                                    "iataCode": "CDG",
+                                    "at": "2024-07-30T19:25:00"
+                                },
+                                "arrival": {
+                                    "iataCode": "LHR",
+                                    "at": "2024-07-30T19:35:00"
+                                },
+                                "carrierCode": "6X",
+                                "number": "3857",
+                                "aircraft": {
+                                    "code": "332"
+                                },
+                                "operating": {
+                                    "carrierCode": "6X"
+                                },
+                                "duration": "PT1H10M",
+                                "id": "1",
+                                "numberOfStops": 0,
+                                "blacklistedInEU": false
+                            },
+                            {
+                                "departure": {
+                                    "iataCode": "LHR",
+                                    "at": "2024-07-31T07:00:00"
+                                },
+                                "arrival": {
+                                    "iataCode": "ICN",
+                                    "at": "2024-07-31T19:20:00"
+                                },
+                                "carrierCode": "6X",
+                                "number": "869",
+                                "aircraft": {
+                                    "code": "343"
+                                },
+                                "operating": {
+                                    "carrierCode": "6X"
+                                },
+                                "duration": "PT4H20M",
+                                "id": "2",
+                                "numberOfStops": 0,
+                                "blacklistedInEU": false
+                            }
+                        ]
+                    },
+                    {
+                        "duration": "PT11H17M",
+                        "segments": [
+                            {
+                                "departure": {
+                                    "iataCode": "ICN",
+                                    "at": "2024-08-01T09:53:00"
+                                },
+                                "arrival": {
+                                    "iataCode": "CDG",
+                                    "at": "2024-08-01T14:10:00"
+                                },
+                                "carrierCode": "6X",
+                                "number": "957",
+                                "aircraft": {
+                                    "code": "332"
+                                },
+                                "operating": {
+                                    "carrierCode": "6X"
+                                },
+                                "duration": "PT11H17M",
+                                "id": "7",
+                                "numberOfStops": 0,
+                                "blacklistedInEU": false
+                            }
+                        ]
+                    }
+                ],
+                "price": {
+                    "currency": "EUR",
+                    "total": "279.67",
+                    "base": "134.00",
+                    "fees": [
+                        {
+                            "amount": "0.00",
+                            "type": "SUPPLIER"
+                        },
+                        {
+                            "amount": "0.00",
+                            "type": "TICKETING"
+                        }
+                    ],
+                    "grandTotal": "279.67"
+                },
+                "pricingOptions": {
+                    "fareType": [
+                        "PUBLISHED"
+                    ],
+                    "includedCheckedBagsOnly": true
+                },
+                "validatingAirlineCodes": [
+                    "6X"
+                ],
+                "travelerPricings": [
+                    {
+                        "travelerId": "1",
+                        "fareOption": "STANDARD",
+                        "travelerType": "ADULT",
+                        "price": {
+                            "currency": "EUR",
+                            "total": "279.67",
+                            "base": "134.00"
+                        },
+                        "fareDetailsBySegment": [
+                            {
+                                "segmentId": "1",
+                                "cabin": "ECONOMY",
+                                "fareBasis": "YCNV1",
+                                "class": "Y",
+                                "includedCheckedBags": {
+                                    "quantity": 9
+                                }
+                            },
+                            {
+                                "segmentId": "2",
+                                "cabin": "ECONOMY",
+                                "fareBasis": "YCNV1",
+                                "class": "Y",
+                                "includedCheckedBags": {
+                                    "quantity": 9
+                                }
+                            },
+                            {
+                                "segmentId": "7",
+                                "cabin": "ECONOMY",
+                                "fareBasis": "YCNV1",
+                                "class": "Y",
+                                "includedCheckedBags": {
+                                    "quantity": 9
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "travelers": [
+            {
+                "id": "1",
+                "dateOfBirth": "1982-01-16",
+                "name": {
+                    "firstName": "Jorge",
+                    "lastName": "Gonzales"
+                },
+                "contact": {
+                    "emailAddress": "jorgegonzales833@telefonica.es"
+                },
+                "documents": [
+                    {
+                        "documentType": "PASSPORT",
+                        "birthPlace": "Madrid",
+                        "issuanceLocation": "Madrid",
+                        "number": "00000000",
+                        "expiryDate": "2025-04-14",
+                        "issuanceCountry": "ES",
+                        "validityCountry": "ES",
+                        "nationality": "ES",
+                        "holder": true
+                    }
+                ]
+            }
+        ]
+    }
+}
