@@ -244,7 +244,6 @@ export interface Phone {
 
 // Traveler interface
 export interface Traveler {
-  id: string;
   dateOfBirth: string;
   name: {
     firstName: string;
@@ -255,11 +254,11 @@ export interface Traveler {
     emailAddress: string;
     phones: Phone[];
   };
-  documents?: Document[];
+  documents?: Documents[];
 }
 
 // Document interface
-export interface Document {
+export interface Documents {
   documentType: string;
   birthPlace: string;
   issuanceLocation: string;

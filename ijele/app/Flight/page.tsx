@@ -7,7 +7,7 @@ import SearchNav from '@/components/search-nav';
 import FlightList from '@/components/Flight/FlightList'
 import '@/components/Flight/flightList.css'
 import { data } from 'autoprefixer';
-import { Traveler, Document, Phone, TicketingAgreement } from '@/lib/interfaces';
+import { Traveler, Documents, Phone, TicketingAgreement } from '@/lib/interfaces';
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');

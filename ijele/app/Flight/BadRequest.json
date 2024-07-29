@@ -3,7 +3,7 @@
         "flightOffers": [
             {
                 "type": "flight-offer",
-                "id": "3",
+                "id": "1",
                 "source": "GDS",
                 "instantTicketingRequired": false,
                 "nonHomogeneous": false,
@@ -14,48 +14,48 @@
                 "numberOfBookableSeats": 9,
                 "itineraries": [
                     {
-                        "duration": "PT16H55M",
+                        "duration": "PT33H55M",
                         "segments": [
                             {
                                 "departure": {
                                     "iataCode": "CDG",
-                                    "at": "2024-07-30T19:25:00"
+                                    "at": "2024-07-30T15:25:00"
                                 },
                                 "arrival": {
-                                    "iataCode": "LHR",
-                                    "at": "2024-07-30T19:35:00"
+                                    "iataCode": "HEL",
+                                    "at": "2024-07-30T19:20:00"
                                 },
                                 "carrierCode": "6X",
-                                "number": "3857",
+                                "number": "3618",
                                 "aircraft": {
-                                    "code": "332"
+                                    "code": "733"
                                 },
                                 "operating": {
                                     "carrierCode": "6X"
                                 },
-                                "duration": "PT1H10M",
+                                "duration": "PT2H55M",
                                 "id": "1",
                                 "numberOfStops": 0,
                                 "blacklistedInEU": false
                             },
                             {
                                 "departure": {
-                                    "iataCode": "LHR",
-                                    "at": "2024-07-31T07:00:00"
+                                    "iataCode": "HEL",
+                                    "at": "2024-07-31T17:30:00"
                                 },
                                 "arrival": {
                                     "iataCode": "ICN",
-                                    "at": "2024-07-31T19:20:00"
+                                    "at": "2024-08-01T08:20:00"
                                 },
                                 "carrierCode": "6X",
-                                "number": "869",
+                                "number": "3605",
                                 "aircraft": {
-                                    "code": "343"
+                                    "code": "733"
                                 },
                                 "operating": {
                                     "carrierCode": "6X"
                                 },
-                                "duration": "PT4H20M",
+                                "duration": "PT8H50M",
                                 "id": "2",
                                 "numberOfStops": 0,
                                 "blacklistedInEU": false
@@ -68,11 +68,11 @@
                             {
                                 "departure": {
                                     "iataCode": "ICN",
-                                    "at": "2024-08-01T09:53:00"
+                                    "at": "2024-08-13T09:53:00"
                                 },
                                 "arrival": {
                                     "iataCode": "CDG",
-                                    "at": "2024-08-01T14:10:00"
+                                    "at": "2024-08-13T14:10:00"
                                 },
                                 "carrierCode": "6X",
                                 "number": "957",
@@ -83,7 +83,7 @@
                                     "carrierCode": "6X"
                                 },
                                 "duration": "PT11H17M",
-                                "id": "7",
+                                "id": "5",
                                 "numberOfStops": 0,
                                 "blacklistedInEU": false
                             }
@@ -92,7 +92,7 @@
                 ],
                 "price": {
                     "currency": "EUR",
-                    "total": "279.67",
+                    "total": "199.54",
                     "base": "134.00",
                     "fees": [
                         {
@@ -104,7 +104,7 @@
                             "type": "TICKETING"
                         }
                     ],
-                    "grandTotal": "279.67"
+                    "grandTotal": "199.54"
                 },
                 "pricingOptions": {
                     "fareType": [
@@ -122,7 +122,7 @@
                         "travelerType": "ADULT",
                         "price": {
                             "currency": "EUR",
-                            "total": "279.67",
+                            "total": "199.54",
                             "base": "134.00"
                         },
                         "fareDetailsBySegment": [
@@ -145,7 +145,7 @@
                                 }
                             },
                             {
-                                "segmentId": "7",
+                                "segmentId": "5",
                                 "cabin": "ECONOMY",
                                 "fareBasis": "YCNV1",
                                 "class": "Y",
@@ -163,25 +163,35 @@
                 "id": "1",
                 "dateOfBirth": "1982-01-16",
                 "name": {
-                    "firstName": "Jorge",
-                    "lastName": "Gonzales"
+                    "firstName": "JORGE",
+                    "lastName": "GONZALES"
                 },
+                // Gender needs to be here.
                 "contact": {
-                    "emailAddress": "jorgegonzales833@telefonica.es"
+                    "emailAddress": "jorge.gonzales833@telefonica.es"
+                    // Phones need to be here inside contacts
                 },
                 "documents": [
                     {
                         "documentType": "PASSPORT",
                         "birthPlace": "Madrid",
                         "issuanceLocation": "Madrid",
+                        "issuanceDate": "2015-04-14",
                         "number": "00000000",
                         "expiryDate": "2025-04-14",
                         "issuanceCountry": "ES",
                         "validityCountry": "ES",
                         "nationality": "ES",
-                        "holder": true
+                        "holder": true,
+                        // Ticketing agreement needs to be its own section outside of documents
+                        "ticketingAgreement": {
+                            "option": "DELAY_TO_CANCEL",
+                            "delay": "6D"
+                        }
                     }
                 ]
+                // Remarks section goes here
+                // Ticketing agreement goes here
             }
         ]
     }
