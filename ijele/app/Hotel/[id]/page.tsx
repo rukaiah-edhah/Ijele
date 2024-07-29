@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Offer, Hotel } from "@/lib/interfaces";
 import Navbar from "@/components/navbar";
-import SearchNav from "@/components/Hotel/search-nav";
+import SearchNav from "@/components/SearchPage/search-nav";
 
 const HotelDetailsPage: React.FC = () => {
   const pathname = usePathname();

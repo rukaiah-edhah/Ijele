@@ -15,9 +15,9 @@ const config: Config = {
       },
       fontFamily: {
         junge: ["Junge", "cursive"],
-        work_sans: ["Work\\ Sans", "sans-serif"],
         inter:["Inter", "sans-serif"],
-        kite_one:["Kite\\ One", "sans-serif"]
+        work_sans: ["WorkSans", "sans-serif"],
+        kite_one:["KiteOne", "sans-serif"]
 
       }
     },

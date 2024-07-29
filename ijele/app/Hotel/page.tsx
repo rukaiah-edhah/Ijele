@@ -8,7 +8,7 @@ import Navbar from "@/components/navbar";
 import axios from "axios";
 import LocationSearch from "@/components/LocationSearch";
 import { useRouter } from "next/navigation";
-import SearchNav from "@/components/Hotel/search-nav";
+import SearchNav from "@/components/SearchPage/search-nav";
 
 const HotelPage: React.FC = () => {
   const router = useRouter();
