@@ -9,15 +9,15 @@
     src: url("../components/fonts/Junge/Junge-Regular.ttf");
 }
 @font-face {
-    font-family: "Work\\ Sans";
+    font-family: "Work_Sans";
     src: url("../components/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf");
 }
 @font-face {
     font-family: "Inter";
-    src: url("../components/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
+    src: url("../components/fonts/Inter/Inter-VariableFont_slntwght.ttf");
 }
 @font-face {
-    font-family: "Kite\\ One";
+    font-family: "Kite_One";
     src: url("../components/fonts/Kite_One/KiteOne-Regular.ttf");
 }
 
@@ -36,6 +36,7 @@
         top: 10px;
     }
     .navbarLink {
+        /* @apply hover:text- */
         background-color: white; 
         color: #153B4F; /* Set text color */
         text-decoration: none; /* Remove underline from links */
@@ -44,9 +45,12 @@
         font-family: "Junge", cursive; 
     }
     
-    .navbarLink:hover {
+    .search-nav-links{
+        @apply font-kite_one
+    }
+    /* .navbarLink:hover {
         color: #FF69B4; 
-      }
+      } */
 
     
 }
