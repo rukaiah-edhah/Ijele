@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
-import SearchNav from '@/components/Hotel/search-nav'
+import SearchNav from '@/components/search-nav';
 import FlightList from '@/components/Flight/FlightList'
 import '@/components/Flight/flightList.css'
 

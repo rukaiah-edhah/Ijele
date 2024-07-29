@@ -5,13 +5,13 @@ import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Offer, Hotel } from "@/lib/interfaces";
 import Navbar from "@/components/navbar";
-import SearchNav from "@/components/Hotel/search-nav";
-import GuestInfoForm from "@/components/Hotel/GuestInfoForm";
-import PaymentInfoForm from "@/components/Hotel/PaymentInfoForm";
-import HotelOffers from "@/components/Hotel/HotelOffers";
-import ErrorMessage from "@/components/Hotel/ErrorMessage";
-import SuccessMessage from "@/components/Hotel/SuccessMessage";
-import BookingErrorMessage from "@/components/Hotel/BookingErrorMessage";
+import SearchNav from "@/components/search-nav";
+import GuestInfoForm from "@/components/HotelDetailsPage/GuestInfoForm";
+import PaymentInfoForm from "@/components/HotelDetailsPage/PaymentInfoForm";
+import HotelOffers from "@/components/HotelDetailsPage/HotelOffers";
+import ErrorMessage from "@/components/HotelDetailsPage/ErrorMessage";
+import SuccessMessage from "@/components/HotelDetailsPage/SuccessMessage";
+import BookingErrorMessage from "@/components/HotelDetailsPage/BookingErrorMessage";
 
 const HotelDetailsPage: React.FC = () => {
   const pathname = usePathname();

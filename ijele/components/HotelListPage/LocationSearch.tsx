@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import debounce from 'lodash.debounce';
-import axios from 'axios';
+import { useState } from "react";
+import debounce from "lodash.debounce";
+import axios from "axios";
 
 interface Suggestion {
   name: string;
@@ -12,15 +12,20 @@ interface LocationSearchProps {
 }
 
 const LocationSearch: React.FC<LocationSearchProps> = ({ onSelect }) => {
-  const [query, setQuery] = useState<string>('');
+  const [query, setQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
 
   const fetchSuggestions = async (value: string) => {
     try {
-      const response = await axios.get<Suggestion[]>(`/api/location-search?query=${value}`);
+      const response = await axios.get<Suggestion[]>(
+        `/api/location-search?query=${value}`
+      );
       setSuggestions(response.data);
     } catch (error: any) {
-      console.error('Error fetching location suggestions:', error.response ? error.response.data : error.message);
+      console.error(
+        "Error fetching location suggestions:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
