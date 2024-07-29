@@ -1,14 +1,15 @@
 "use client";
 
-// Making this comment as a change to see if my teammates can get the Search button of the flight page to work 
-
 import { useState, useCallback } from "react";
 import { Hotel } from "@/lib/interfaces";
 import Navbar from "@/components/navbar";
 import axios from "axios";
-import LocationSearch from "@/components/LocationSearch";
+import LocationSearch from "@/components/HotelListPage/LocationSearch";
 import { useRouter } from "next/navigation";
 import SearchNav from "@/components/SearchPage/search-nav";
+import HotelList from "@/components/HotelListPage/HotelList";
+import SearchErrorMessage from "@/components/HotelListPage/SearchErrorMessage";
+
 
 const HotelPage: React.FC = () => {
   const router = useRouter();
@@ -31,12 +32,7 @@ const HotelPage: React.FC = () => {
       const response = await axios.get("/api/hotels/list", {
         params: { cityCode: selectedLocation.iataCode },
       });
-
-      const validHotels = response.data.data.filter(
-        (hotel: Hotel) => hotel.hotelId && hotel.name
-      );
-
-      setHotels(validHotels);
+      setHotels(response.data.data);
       setError(null);
     } catch (err: any) {
       setHotels([]);
@@ -87,41 +83,10 @@ const HotelPage: React.FC = () => {
         </button>
 
         {hotels.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Hotels</h2>
-            <ul className="list-disc pl-5">
-              {hotels.map((hotel) => (
-                <li key={hotel.hotelId} className="mb-2">
-                  {hotel.name} - {hotel.address?.countryCode || "N/A"}
-                  <button
-                    onClick={() => handleViewOffers(hotel.hotelId)}
-                    className="btn btn-secondary ml-2"
-                  >
-                    View Offers
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <HotelList hotels={hotels} handleViewOffers={handleViewOffers} />
         )}
 
-        {error && (
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Error</h2>
-            <div className="bg-red-100 p-4 rounded">
-              <p>{error.error}</p>
-              {error.details?.errors?.map((errDetail: any, index: number) => (
-                <div key={index}>
-                  <p>
-                    <strong>{errDetail.title}</strong>
-                  </p>
-                  <p>Code: {errDetail.code}</p>
-                  <p>{errDetail.detail}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        {error && <SearchErrorMessage error={error} />}
       </div>
     </div>
   );

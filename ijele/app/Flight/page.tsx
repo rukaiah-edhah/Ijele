@@ -4,6 +4,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
 import SearchNav from '@/components/SearchPage/search-nav';
+import FlightList from '@/components/Flight/FlightList'
+import '@/components/Flight/flightList.css'
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -141,191 +143,128 @@ const FlightPage: React.FC = () => {
           </div>
         </div>
 
-        {flights.length > 0 && (
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Flights</h2>
-            <ul className="list-disc pl-5">
-              {flights.map((flight) => (
-                <li key={flight.id} className="mb-2">
-                  <p>Flight ID: {flight.id}</p>
-                  <p>Source: {flight.source}</p>
-                  <p>Instant Ticketing Required: {flight.instantTicketingRequired ? 'Yes' : 'No'}</p>
-                  <p>Non-Homogeneous: {flight.nonHomogeneous ? 'Yes' : 'No'}</p>
-                  <p>One Way: {flight.oneWay ? 'Yes' : 'No'}</p>
-                  <p>Is Upsell Offer: {flight.isUpsellOffer ? 'Yes' : 'No'}</p>
-                  <p>Last Ticketing Date: {flight.lastTicketingDate}</p>
-                  <p>Number of Bookable Seats: {flight.numberOfBookableSeats}</p>
-                  {flight.itineraries.map((itinerary: any, index: number) => (
-                    <div key={index} className="mb-4">
-                      <h3 className="text-xl font-semibold mb-1">Itinerary {index + 1}</h3>
-                      <p>Duration: {itinerary.duration}</p>
-                      <ul className="list-disc pl-5">
-                        {itinerary.segments.map((segment: any, idx: number) => (
-                          <li key={idx} className="mb-2">
-                            <p>Departure: {segment.departure.iataCode} at {segment.departure.at}</p>
-                            <p>Arrival: {segment.arrival.iataCode} at {segment.arrival.at}</p>
-                            <p>Carrier Code: {segment.carrierCode}</p>
-                            <p>Flight Number: {segment.number}</p>
-                            <p>Aircraft: {segment.aircraft.code}</p>
-                            <p>Operating Carrier: {segment.operating ? segment.operating.carrierCode : 'N/A'}</p>
-                            <p>Duration: {segment.duration}</p>
-                            <p>Number of Stops: {segment.numberOfStops}</p>
-                            <p>Blacklisted in EU: {segment.blacklistedInEU ? 'Yes' : 'No'}</p>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                  <h4 className="text-lg font-semibold mb-1">Price</h4>
-                  <p>Total: {flight.price.total} {flight.price.currency}</p>
-                  <p>Base: {flight.price.base}</p>
-                  <ul>
-                    {flight.price.fees.map((fee: any, idx: number) => (
-                      <li key={idx}>{fee.type}: {fee.amount}</li>
-                    ))}
-                  </ul>
-                  <p>Grand Total: {flight.price.grandTotal}</p>
-                  <h4 className="text-lg font-semibold mb-1">Pricing Options</h4>
-                  <p>Fare Type: {flight.pricingOptions.fareType.join(', ')}</p>
-                  <p>Included Checked Bags Only: {flight.pricingOptions.includedCheckedBagsOnly ? 'Yes' : 'No'}</p>
-                  <p>Validating Airline Codes: {flight.validatingAirlineCodes.join(', ')}</p>
-                  <h4 className="text-lg font-semibold mb-1">Traveler Pricings</h4>
-                  {flight.travelerPricings.map((travelerPricing: any, idx: number) => (
-                    <div key={idx} className="mb-4">
-                      <p>Traveler ID: {travelerPricing.travelerId}</p>
-                      <p>Fare Option: {travelerPricing.fareOption}</p>
-                      <p>Traveler Type: {travelerPricing.travelerType}</p>
-                      <p>Total Price: {travelerPricing.price.total} {travelerPricing.price.currency}</p>
-                      <p>Base Price: {travelerPricing.price.base}</p>
-                      <ul>
-                        {travelerPricing.fareDetailsBySegment.map((fareDetail: any, idx: number) => (
-                          <li key={idx}>
-                            <p>Segment ID: {fareDetail.segmentId}</p>
-                            <p>Cabin: {fareDetail.cabin}</p>
-                            <p>Fare Basis: {fareDetail.fareBasis}</p>
-                            <p>Class: {fareDetail.class}</p>
-                            <p>Included Checked Bags: {fareDetail.includedCheckedBags ? fareDetail.includedCheckedBags.quantity : 'N/A'}</p>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                  <button
-                    onClick={() => setSelectedFlight(flight)}
-                    className="btn btn-secondary mt-2"
-                  >
-                    Select Flight
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
+        <div>
+          <FlightList flights={flights} />
+        </div>
 
-        {selectedFlight && (
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Traveler Details</h2>
-            <form onSubmit={handleBooking}>
-              <div className="flex flex-col space-y-2">
-                <input
-                  type="text"
-                  value={travelerDetails.firstName}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, firstName: e.target.value })}
-                  placeholder="Enter first name"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <input
-                  type="text"
-                  value={travelerDetails.lastName}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, lastName: e.target.value })}
-                  placeholder="Enter last name"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <input
-                  type="email"
-                  value={travelerDetails.email}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, email: e.target.value })}
-                  placeholder="Enter email address"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <label>Enter traveler Date of Birth</label>
-                <input
-                  type="date"
-                  value={travelerDetails.dateOfBirth}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, dateOfBirth: e.target.value })}
-                  placeholder="Enter date of birth"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <input
-                  type="text"
-                  value={travelerDetails.documentType}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, documentType: e.target.value })}
-                  placeholder="Enter document type"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <input
-                  type="text"
-                  value={travelerDetails.passportNumber}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportNumber: e.target.value })}
-                  placeholder="Enter document number"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <label>Enter document expiration date</label>
-                <input
-                  type="date"
-                  value={travelerDetails.passportExpiryDate}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportExpiryDate: e.target.value })}
-                  placeholder="Enter document expiry date"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <input
-                  type="text"
-                  value={travelerDetails.passportIssuanceCountry}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, passportIssuanceCountry: e.target.value })}
-                  placeholder="Enter document issuance country code"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <input
-                  type="text"
-                  value={travelerDetails.nationality}
-                  onChange={(e) => setTravelerDetails({ ...travelerDetails, nationality: e.target.value })}
-                  placeholder="Enter nationality code"
-                  className="input input-bordered w-full max-w-xs"
-                  required
-                />
-                <button type="submit" className="btn btn-primary mt-2">
-                  Book Flight
-                </button>
-              </div>
-            </form>
-          </div>
-        )}
 
-        {error && (
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Error</h2>
-            <div className="bg-red-100 p-4 rounded">
-              <p>{error.error}</p>
-              {error.details?.errors?.map((errDetail: any, index: number) => (
-                <div key={index}>
-                  <p><strong>{errDetail.title}</strong></p>
-                  <p>Code: {errDetail.code}</p>
-                  <p>{errDetail.detail}</p>
-                </div>
-              ))}
-            </div>
+ 
+        <button
+          onClick={() => setSelectedFlight(flights)}
+          className="btn btn-secondary mt-2"
+        >
+          Select Flight
+        </button>
+
+
+{
+  selectedFlight && (
+    <div className="mb-6">
+      <h2 className="text-2xl font-semibold mb-2">Traveler Details</h2>
+      <form onSubmit={handleBooking}>
+        <div className="flex flex-col space-y-2">
+          <input
+            type="text"
+            value={travelerDetails.firstName}
+            onChange={(e) => setTravelerDetails({ ...travelerDetails, firstName: e.target.value })}
+            placeholder="Enter first name"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+          <input
+            type="text"
+            value={travelerDetails.lastName}
+            onChange={(e) => setTravelerDetails({ ...travelerDetails, lastName: e.target.value })}
+            placeholder="Enter last name"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+          <input
+            type="email"
+            value={travelerDetails.email}
+            onChange={(e) => setTravelerDetails({ ...travelerDetails, email: e.target.value })}
+            placeholder="Enter email address"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+          <label>Enter traveler Date of Birth</label>
+          <input
+            type="date"
+            value={travelerDetails.dateOfBirth}
+            onChange={(e) => setTravelerDetails({ ...travelerDetails, dateOfBirth: e.target.value })}
+            placeholder="Enter date of birth"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+          <input
+            type="text"
+            value={travelerDetails.documentType}
+            onChange={(e) => setTravelerDetails({ ...travelerDetails, documentType: e.target.value })}
+            placeholder="Enter document type"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+          <input
+            type="text"
+            value={travelerDetails.passportNumber}
+            onChange={(e) => setTravelerDetails({ ...travelerDetails, passportNumber: e.target.value })}
+            placeholder="Enter document number"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+          <label>Enter document expiration date</label>
+          <input
+            type="date"
+            value={travelerDetails.passportExpiryDate}
+            onChange={(e) => setTravelerDetails({ ...travelerDetails, passportExpiryDate: e.target.value })}
+            placeholder="Enter document expiry date"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+          <input
+            type="text"
+            value={travelerDetails.passportIssuanceCountry}
+            onChange={(e) => setTravelerDetails({ ...travelerDetails, passportIssuanceCountry: e.target.value })}
+            placeholder="Enter document issuance country code"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+          <input
+            type="text"
+            value={travelerDetails.nationality}
+            onChange={(e) => setTravelerDetails({ ...travelerDetails, nationality: e.target.value })}
+            placeholder="Enter nationality code"
+            className="input input-bordered w-full max-w-xs"
+            required
+          />
+          <button type="submit" className="btn btn-primary mt-2">
+            Book Flight
+          </button>
+        </div>
+      </form>
+    </div>
+  )
+}
+
+{
+  error && (
+    <div className="mb-6">
+      <h2 className="text-2xl font-semibold mb-2">Error</h2>
+      <div className="bg-red-100 p-4 rounded">
+        <p>{error.error}</p>
+        {error.details?.errors?.map((errDetail: any, index: number) => (
+          <div key={index}>
+            <p><strong>{errDetail.title}</strong></p>
+            <p>Code: {errDetail.code}</p>
+            <p>{errDetail.detail}</p>
           </div>
-        )}
+        ))}
       </div>
     </div>
+  )
+}
+      </div >
+    </div >
   );
 };
 
