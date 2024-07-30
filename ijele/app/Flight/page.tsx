@@ -4,10 +4,11 @@ import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
 import SearchNav from '@/components/SearchPage/search-nav';
-import FlightList from '@/components/Flight/FlightList'
-import '@/components/Flight/flightList.css'
+import FlightList from '@/components/Flight/FlightList';
+import '@/components/Flight/flightList.css';
 import { data } from 'autoprefixer';
 import { Traveler, Documents, Phone, TicketingAgreement } from '@/lib/interfaces';
+import FlightSideBar from '@/components/SearchPage/flight-sidebar';
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -115,6 +116,7 @@ const FlightPage: React.FC = () => {
     <div>
       <Navbar />
       <SearchNav />
+      <FlightSideBar/>
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-4">Flight Page</h1>
 

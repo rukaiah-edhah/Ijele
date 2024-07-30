@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import SearchNav from "@/components/SearchPage/search-nav";
 import HotelList from "@/components/HotelListPage/HotelList";
 import SearchErrorMessage from "@/components/HotelListPage/SearchErrorMessage";
+import HotelSideBar from "@/components/SearchPage/hotel-sidebar";
 
 
 const HotelPage: React.FC = () => {
@@ -54,6 +55,7 @@ const HotelPage: React.FC = () => {
     <div>
       <Navbar />
       <SearchNav />
+      <HotelSideBar/>
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-4">Hotel Page</h1> {/*delete later*/}
         <LocationSearch onSelect={setSelectedLocation} />
