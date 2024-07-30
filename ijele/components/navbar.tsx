@@ -1,6 +1,11 @@
 "use client";
 import { useState } from 'react';
 import styles from './Navbar.module.css';
+import {
+  RegisterLink,
+  LoginLink,
+  LogoutLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
 
 const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -67,11 +72,12 @@ const Navbar: React.FC = () => {
               <div className="flex flex-shrink-0 items-center"></div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                  <a href="/" className="hoveredHome" aria-current="page">Home</a>
+                  <a href="/Homepage" className="hoveredHome" aria-current="page">Home</a>
                   <a href="/Flight" className="navbarLink">Flight</a>
                   <a href="/Hotel" className="navbarLink">Hotel</a>
                   <a href="/Payment" className="navbarLink">Payments</a>
-                  <a href="/Login" className="navbarLink">Login</a></div>
+                  <LoginLink className="navbarLink">Login </LoginLink>
+                </div>
               </div>
             </div>
           </div>
@@ -140,11 +146,11 @@ const Navbar: React.FC = () => {
 
         {/* Mobile Navigation Links */}
         <div className={`md:hidden ${isOpen ? 'block' : 'hidden'} bg-white shadow-md`}>
-          <a href="/" className={styles.navbarLink}>Home</a>
-          <a href="/Flight" className={styles.navbarLink}>Flight</a>
-          <a href="/Hotel" className={styles.navbarLink}>Hotel</a>
-          <a href="/Payment" className={styles.navbarLink}>Payments</a>
-          <a href="/Login" className={styles.navbarLink}>Login</a>
+          <a href="/" className='navbarLink'>Home</a>
+          <a href="/Flight" className='navbarLink'>Flight</a>
+          <a href="/Hotel" className='navbarLink'>Hotel</a>
+          <a href="/Payment" className='navbarLink'>Payments</a>
+          <a href="/Login" className='navbarLink'>Login</a>
         </div>
       </nav>
     </>

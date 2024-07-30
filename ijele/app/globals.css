@@ -48,4 +48,10 @@
     .search-nav-links{
         @apply rounded-md px-3 py-2 text-sm font-kite_one  font-kite_one hover:text-ijele_gold
     }
+
+    .sidebar-container {
+        float: right;
+        position:static;
+        @apply bg-ijele_teal min-h-screen w-80
+    }
 }
