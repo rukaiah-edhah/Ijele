@@ -23,12 +23,12 @@
 
 @layer components{
    .hoveredHome{
-        @apply font-junge rounded-md  bg-green-900 px-3 py-2 text-sm font-medium text-white
+        @apply font-junge rounded-md bg-green-900 px-3 py-2 text-sm font-medium text-white
     
     } 
     .logo-container{
         /* cutom border image from: https://kovart.github.io/dashed-border-generator/ */
-        background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23CF903FFF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='15' stroke-linecap='square'/%3e%3c/svg%3e");
+        /* background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23CF903FFF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='15' stroke-linecap='square'/%3e%3c/svg%3e"); */
     }
     .logo{
         position: relative;
@@ -46,11 +46,12 @@
     }
     
     .search-nav-links{
-        @apply font-kite_one
+        @apply rounded-md px-3 py-2 text-sm font-kite_one  font-kite_one hover:text-ijele_gold
     }
-    /* .navbarLink:hover {
-        color: #FF69B4; 
-      } */
 
-    
+    .sidebar-container {
+        float: right;
+        position:static;
+        @apply bg-ijele_teal min-h-screen w-80
+    }
 }

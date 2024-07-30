@@ -55,7 +55,7 @@ const HotelPage: React.FC = () => {
       <Navbar />
       <SearchNav />
       <div className="p-6">
-        <h1 className="text-3xl font-bold mb-4">Hotel Page</h1>
+        <h1 className="text-3xl font-bold mb-4">Hotel Page</h1> {/*delete later*/}
         <LocationSearch onSelect={setSelectedLocation} />
         <input
           type="date"
