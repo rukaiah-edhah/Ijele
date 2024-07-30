@@ -228,7 +228,7 @@ export interface FlightOrderRequest {
     type: string;
     flightOffers: any[];
     travelers: Traveler[];
-    documents: Document[];
+    // documents: Document[];   Document[] is inside Traveler[]
     remarks?: Remark[];
     ticketingAgreement?: TicketingAgreement;
     contacts?: Contact[];
@@ -244,7 +244,6 @@ export interface Phone {
 
 // Traveler interface
 export interface Traveler {
-  id: string;
   dateOfBirth: string;
   name: {
     firstName: string;
@@ -255,11 +254,11 @@ export interface Traveler {
     emailAddress: string;
     phones: Phone[];
   };
-  documents?: Document[];
+  documents?: Documents[];
 }
 
 // Document interface
-export interface Document {
+export interface Documents {
   documentType: string;
   birthPlace: string;
   issuanceLocation: string;
@@ -302,17 +301,17 @@ export interface Contact {
   };
 }
 
-// FlightOrderRequest interface
-export interface FlightOrderRequest {
-  data: {
-    type: string;
-    flightOffers: any[];
-    travelers: Traveler[];
-    remarks?: Remark[];
-    ticketingAgreement?: TicketingAgreement;
-    contacts?: Contact[];
-  };
-}
 export interface FlightOrderResponse {
-  data: any;
+  data: {
+    type: string,
+    id: string,
+    queuingOfficeId: string,
+    associatedRecords: [
+      {
+        reference: string,
+        creationDateTime: number,
+        originSystemCode: string,
+        flightOfferId: number
+      }
+    ]}
 }
