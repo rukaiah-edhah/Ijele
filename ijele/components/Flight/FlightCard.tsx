@@ -69,9 +69,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
           </div>
         </div>
       </div>
-      <div className="flex justify-between items-center p-4 bg-gray-100">
-        <p className="text-sm text-gray-500">{details}</p>
-        <button onClick={toggleExpansion} className="text-sm text-blue-500 focus:outline-none">
+      <div className="flex justify-between items-center p-4 bg-ijele_navy">
+        <p className="text-sm text-white">{details}</p>
+        <button onClick={toggleExpansion} className="text-sm text-ijele_gold focus:outline-none">
           {isExpanded ? '▲' : '▼'}
         </button>
       </div>
