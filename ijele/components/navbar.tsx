@@ -77,6 +77,7 @@ const Navbar: React.FC = () => {
                   <a href="/Hotel" className="navbarLink">Hotel</a>
                   <a href="/Payment" className="navbarLink">Payments</a>
                   <LoginLink className="navbarLink">Login </LoginLink>
+                  {/* <LogoutLink className="navbarLink">Log out </LogoutLink> */}
                 </div>
               </div>
             </div>
