@@ -3,6 +3,14 @@ import '@/components/Flight/flightList.css';
 import FlightCard from './FlightCard';
 import { Flight } from './FlightType';
 
+// Mapping airline codes to local logo paths
+const airlineLogos: Record<string, string> = {
+  'AA': '/Images/AA.png',
+  'DL': '/Images/Delta.png',
+  'UA': '/Images/UA.png',
+  'SW': '/Images/SW.png'
+};
+
 type Props = {
   flights: Flight[];
 };
@@ -43,7 +51,7 @@ const FlightList: React.FC<Props> = ({ flights }) => {
               return (
                 <FlightCard
                   key={index}
-                  airline={flight.validatingAirlineCodes[0]} // Example usage, adjust as needed
+                  airline={flight.validatingAirlineCodes[0]} // Use the airline code to get the logo path
                   departureTime={new Date(itinerary.segments[0].departure.at).toLocaleTimeString('en-US', {
                     hour: '2-digit',
                     minute: '2-digit',
@@ -54,7 +62,7 @@ const FlightList: React.FC<Props> = ({ flights }) => {
                   })}
                   stops={itinerary.segments.length > 1 ? `${itinerary.segments.length - 1} ${itinerary.segments.length - 1 === 1 ? 'stop' : 'stops'}` : 'Direct'}
                   route={`${itinerary.segments[0].departure.iataCode} - ${itinerary.segments[itinerary.segments.length - 1].arrival.iataCode}`}
-                  logo={`https://picsum.photos/seed/${index}/200/200`} // Example logo URL
+                  logo={airlineLogos[flight.validatingAirlineCodes[0]] || '/Images/Default.png'} // Fallback logo
                   details={`Total duration: ${formatDuration(itinerary.duration)}`}
                   currency={flight.price.currency}
                   price={flight.price.total}
