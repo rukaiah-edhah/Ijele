@@ -1,141 +1,67 @@
-
-import { useState } from 'react';
-import { format } from 'date-fns-tz';
+import React from 'react';
 import '@/components/Flight/flightList.css';
-// import { format } from 'util';
-
-type Flight = {
-  id: string;
-  numberOfBookableSeats: number;
-  itineraries: Array<{
-    duration: string;
-    segments: Array<{
-      departure: { iataCode: string; at: string };
-      arrival: { iataCode: string; at: string };
-      carrierCode: string;
-      number: string;
-      aircraft: { code: string };
-      operating?: { carrierCode: string };
-      duration: string;
-      numberOfStops: number;
-    }>;
-  }>;
-  price: {
-    total: string;
-    currency: string;
-    base: string;
-    grandTotal: string;
-  };
-  pricingOptions: {
-    includedCheckedBagsOnly: boolean;
-  };
-  validatingAirlineCodes: string[];
-  travelerPricings: Array<{
-    travelerId: string;
-    fareOption: string;
-    travelerType: string;
-    price: {
-      total: string;
-      currency: string;
-      base: string;
-    };
-    fareDetailsBySegment: Array<{
-      cabin: string;
-      includedCheckedBags?: { quantity: number };
-    }>;
-  }>;
-};
+import FlightCard from './FlightCard';
+import { Flight } from './FlightType';
 
 type Props = {
   flights: Flight[];
 };
 
-// FORMAT DATE AND TIME WITH TIME ZONE
-const formatDateTime = (dateTime: string, timeZone: string = 'UTC') => {
-  return format(new Date(dateTime), 'MM/dd/yyyy hh:mm a', { timeZone });
+const formatDuration = (duration: string): string => {
+  const match = duration.match(/PT(?:(\d+)H)?(?:(\d+)M)?/);
+  if (!match) return duration;
+
+  const hours = match[1] ? parseInt(match[1], 10) : 0;
+  const minutes = match[2] ? parseInt(match[2], 10) : 0;
+
+  return `${hours}h ${minutes}m`;
 };
 
 const FlightList: React.FC<Props> = ({ flights }) => {
-  const [expandedFlight, setExpandedFlight] = useState<string | null>(null);
-
-  const handleExpandToggle = (flightId: string) => {
-    setExpandedFlight(expandedFlight === flightId ? null : flightId);
-  };
-
   return (
     <div className="flights-container">
       {flights.length > 0 && (
         <div>
           <h2 className="flights-title">Flights</h2>
           <ul className="flights-list">
-            {flights.map((flight) => (
-              <li key={flight.id} className="flight-item">
-                <div className="flight-header">
-                  <h3 className="flight-id">Flight ID: {flight.id}</h3>
-                  <p>Number of Bookable Seats: {flight.numberOfBookableSeats}</p>
-                </div>
-                <div className="flight-summary">
-                  <p>Carrier Code: {flight.itineraries[0]?.segments[0]?.carrierCode}</p>
-                  <p>Departure: {flight.itineraries[0]?.segments[0]?.departure.iataCode} at {formatDateTime(flight.itineraries[0]?.segments[0]?.departure.at)}</p>
-                  <p>Arrival: {flight.itineraries[0]?.segments[0]?.arrival.iataCode} at {formatDateTime(flight.itineraries[0]?.segments[0]?.arrival.at)}</p>
-                  <p>Flight Number: {flight.itineraries[0]?.segments[0]?.number}</p>
-                  <p>Total Price: {flight.price.total} {flight.price.currency}</p>
-                  <p>Number of Stops: {flight.itineraries[0]?.segments[0]?.numberOfStops}</p>
-                </div>
-                {expandedFlight === flight.id && (
-                  <div className="expandable-content">
-                    {flight.itineraries.map((itinerary, index) => (
-                      <div key={index} className="itinerary">
-                        <h4>Itinerary {index + 1}</h4>
-                        <p>Duration: {itinerary.duration}</p>
-                        <ul>
-                          {itinerary.segments.map((segment, idx) => (
-                            <li key={idx}>
-                              <p>Departure: {segment.departure.iataCode} at {formatDateTime(segment.departure.at)}</p>
-                              <p>Arrival: {segment.arrival.iataCode} at {formatDateTime(segment.arrival.at)}</p>
-                              <p>Carrier Code: {segment.carrierCode}</p>
-                              <p>Flight Number: {segment.number}</p>
-                              <p>Aircraft: {segment.aircraft.code}</p>
-                              <p>Operating Carrier: {segment.operating ? segment.operating.carrierCode : 'N/A'}</p>
-                              <p>Duration: {segment.duration}</p>
-                              <p>Number of Stops: {segment.numberOfStops}</p>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                    <h4>Price Details</h4>
-                    <p>Total: {flight.price.total} {flight.price.currency}</p>
-                    <p>Base: {flight.price.base}</p>
-                    <p>Grand Total: {flight.price.grandTotal}</p>
-                    <h4>Pricing Options</h4>
-                    <p>Included Checked Bags Only: {flight.pricingOptions.includedCheckedBagsOnly ? 'Yes' : 'No'}</p>
-                    <p>Validating Airline Codes: {flight.validatingAirlineCodes.join(', ')}</p>
-                    <h4>Traveler Pricing</h4>
-                    {flight.travelerPricings.map((travelerPricing, idx) => (
-                      <div key={idx}>
-                        <p>Traveler ID: {travelerPricing.travelerId}</p>
-                        <p>Fare Option: {travelerPricing.fareOption}</p>
-                        <p>Traveler Type: {travelerPricing.travelerType}</p>
-                        <p>Total Price: {travelerPricing.price.total} {travelerPricing.price.currency}</p>
-                        <p>Base Price: {travelerPricing.price.base}</p>
-                        <ul>
-                          {travelerPricing.fareDetailsBySegment.map((fareDetail, idx) => (
-                            <li key={idx}>
-                              <p>Cabin: {fareDetail.cabin}</p>
-                              <p>Included Checked Bags: {fareDetail.includedCheckedBags ? fareDetail.includedCheckedBags.quantity : 'N/A'}</p>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    ))}
-                  </div>
-                )}
-                <button className="expand-button" onClick={() => handleExpandToggle(flight.id)}>
-                  {expandedFlight === flight.id ? 'Show Less' : 'Show More'}
-                </button>
-              </li>
-            ))}
+            {flights.map((flight, index) => {
+              const itinerary = flight.itineraries[0];
+              const segments = itinerary.segments.map(segment => ({
+                departureTime: new Date(segment.departure.at).toLocaleTimeString('en-US', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                }),
+                arrivalTime: new Date(segment.arrival.at).toLocaleTimeString('en-US', {
+                  hour: '2-digit',
+                  minute: '2-digit',
+                }),
+                stops: segment.numberOfStops > 0 ? `${segment.numberOfStops} ${segment.numberOfStops === 1 ? 'stop' : 'stops'}` : 'Direct',
+                route: `${segment.departure.iataCode} - ${segment.arrival.iataCode}`,
+                details: `Flight duration: ${formatDuration(segment.duration)}`,
+              }));
+
+              return (
+                <FlightCard
+                  key={index}
+                  airline={flight.validatingAirlineCodes[0]} // Example usage, adjust as needed
+                  departureTime={new Date(itinerary.segments[0].departure.at).toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                  arrivalTime={new Date(itinerary.segments[itinerary.segments.length - 1].arrival.at).toLocaleTimeString('en-US', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })}
+                  stops={itinerary.segments.length > 1 ? `${itinerary.segments.length - 1} ${itinerary.segments.length - 1 === 1 ? 'stop' : 'stops'}` : 'Direct'}
+                  route={`${itinerary.segments[0].departure.iataCode} - ${itinerary.segments[itinerary.segments.length - 1].arrival.iataCode}`}
+                  logo={`https://picsum.photos/seed/${index}/200/200`} // Example logo URL
+                  details={`Total duration: ${formatDuration(itinerary.duration)}`}
+                  currency={flight.price.currency}
+                  price={flight.price.total}
+                  segments={segments}
+                />
+              );
+            })}
           </ul>
         </div>
       )}
