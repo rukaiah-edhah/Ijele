@@ -15,7 +15,7 @@ interface FlightCardProps {
   stops: string;
   price: string;
   route: string;
-  logo: string;
+  logo: string; // Local logo URL
   details: string;
   currency: string;
   segments: Segment[];
