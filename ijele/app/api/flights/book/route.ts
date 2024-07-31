@@ -18,7 +18,8 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     console.log('Order response:', orderResponse);
     return NextResponse.json(orderResponse);
   } catch (error: any) {
-    console.error('Error creating flight order:', error);
+    console.error('Error creating flight order:', error.response ? error.response.data : error.message);
+    console.error('Detailed error:', error.toJSON ? error.toJSON() : error);
     return NextResponse.json(
       { error: 'Failed to create flight order', details: error.response ? error.response.data : error.message },
       { status: 500 }

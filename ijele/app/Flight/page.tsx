@@ -68,10 +68,11 @@ const FlightPage: React.FC = () => {
 
   const handleBooking = async (e: React.FormEvent) => {
     e.preventDefault();
-
+  
     try {
       const bookingDetails = {
         data: {
+          type: 'flight-order',
           flightOffers: [selectedFlight],
           travelers: [
             {
@@ -81,8 +82,16 @@ const FlightPage: React.FC = () => {
                 firstName: travelerDetails.firstName,
                 lastName: travelerDetails.lastName,
               },
+              gender: travelerDetails.gender.toUpperCase(), // should be uppercase "MALE" or "FEMALE"
               contact: {
                 emailAddress: travelerDetails.email,
+                phones: [
+                  {
+                    deviceType: 'MOBILE', 
+                    countryCallingCode: travelerDetails.countryCallingCode,
+                    number: travelerDetails.number,
+                  },
+                ],
               },
               documents: [
                 {
@@ -96,19 +105,57 @@ const FlightPage: React.FC = () => {
                   validityCountry: travelerDetails.validityCountry,
                   nationality: travelerDetails.nationality,
                   holder: true,
-                  ticketingAgreement: {
-                    option: 'DELAY_TO_CANCEL',
-                    delay: '6D'
-                  }
                 },
               ],
+            },
+            // additional travelers will be added here (in a similar structure)
+          ],
+          ticketingAgreement: {
+            option: 'DELAY_TO_CANCEL',
+            delay: '6D',
+          },
+          remarks: {
+            general: [
+              {
+                subType: 'GENERAL_MISCELLANEOUS', 
+                text: 'ONLINE BOOKING FROM INCREIBLE VIAJES',
+              },
+            ],
+          },
+          contacts: [
+            {
+              addresseeName: {
+                firstName: 'PABLO',
+                lastName: 'RODRIGUEZ',
+              },
+              companyName: 'INCREIBLE VIAJES',
+              purpose: 'STANDARD',
+              phones: [
+                {
+                  deviceType: 'LANDLINE',
+                  countryCallingCode: '34',
+                  number: '480080071',
+                },
+                {
+                  deviceType: 'MOBILE',
+                  countryCallingCode: '33',
+                  number: '480080072',
+                },
+              ],
+              emailAddress: 'support@increibleviajes.es',
+              address: {
+                lines: ['Calle Prado, 16'],
+                postalCode: '28014',
+                cityName: 'Madrid',
+                countryCode: 'ES',
+              },
             },
           ],
         },
       };
-      console.log(data);
-      console.log('Sending booking details:', bookingDetails);
+  
       const response = await axios.post('/api/flights/book', bookingDetails);
+      console.log('Booking response:', response.data);
       alert('Flight booked successfully!');
       setSelectedFlight(null); // Clear the selected flight
     } catch (err: any) {
