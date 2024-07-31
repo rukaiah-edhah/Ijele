@@ -9,26 +9,26 @@
     src: url("../components/fonts/Junge/Junge-Regular.ttf");
 }
 @font-face {
-    font-family: "Work\\ Sans";
+    font-family: "Work_Sans";
     src: url("../components/fonts/Work_Sans/WorkSans-VariableFont_wght.ttf");
 }
 @font-face {
     font-family: "Inter";
-    src: url("../components/fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
+    src: url("../components/fonts/Inter/Inter-VariableFont_slntwght.ttf");
 }
 @font-face {
-    font-family: "Kite\\ One";
+    font-family: "Kite_One";
     src: url("../components/fonts/Kite_One/KiteOne-Regular.ttf");
 }
 
 @layer components{
    .hoveredHome{
-        @apply font-junge rounded-md  bg-green-900 px-3 py-2 text-sm font-medium text-white
+        @apply font-junge rounded-md bg-green-900 px-3 py-2 text-sm font-medium text-white
     
     } 
     .logo-container{
         /* cutom border image from: https://kovart.github.io/dashed-border-generator/ */
-        background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23CF903FFF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='15' stroke-linecap='square'/%3e%3c/svg%3e");
+        /* background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23CF903FFF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='15' stroke-linecap='square'/%3e%3c/svg%3e"); */
     }
     .logo{
         position: relative;
@@ -36,6 +36,7 @@
         top: 10px;
     }
     .navbarLink {
+        /* @apply hover:text- */
         background-color: white; 
         color: #153B4F; /* Set text color */
         text-decoration: none; /* Remove underline from links */
@@ -44,9 +45,13 @@
         font-family: "Junge", cursive; 
     }
     
-    .navbarLink:hover {
-        color: #FF69B4; 
-      }
+    .search-nav-links{
+        @apply rounded-md px-3 py-2 text-sm font-kite_one  font-kite_one hover:text-ijele_gold
+    }
 
-    
+    .sidebar-container {
+        float: right;
+        position:static;
+        @apply bg-ijele_teal min-h-screen w-80
+    }
 }
