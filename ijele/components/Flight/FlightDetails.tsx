@@ -37,6 +37,18 @@ const flights = [
   },
 ];
 
+// type FlightCardObject= {
+//   airline: string;
+//   departureTime: string;
+//   arrivalTime: string;
+//   stops: string;
+//   price: string;
+//   route: string;
+//   logo: string;
+//   details: string;
+//   currency: string;
+// }
+
 const FlightDetails: React.FC = () => {
   return (
     <div className="space-y-4">

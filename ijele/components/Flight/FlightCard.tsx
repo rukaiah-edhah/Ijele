@@ -1,4 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+interface Segment {
+  departureTime: string;
+  arrivalTime: string;
+  stops: string;
+  route: string;
+  details: string;
+}
 
 interface FlightCardProps {
   airline: string;
@@ -10,6 +18,7 @@ interface FlightCardProps {
   logo: string;
   details: string;
   currency: string;
+  segments: Segment[];
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({
@@ -22,7 +31,27 @@ const FlightCard: React.FC<FlightCardProps> = ({
   logo,
   details,
   currency,
+  segments,
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const toggleExpansion = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  console.log('FlightCard Props:', {
+    airline,
+    departureTime,
+    arrivalTime,
+    stops,
+    price,
+    route,
+    logo,
+    details,
+    currency,
+    segments,
+  });
+
   return (
     <div className="flex flex-col mb-4 shadow-lg rounded-lg overflow-hidden">
       <div className="flex items-center p-4 bg-white">
@@ -42,8 +71,24 @@ const FlightCard: React.FC<FlightCardProps> = ({
       </div>
       <div className="flex justify-between items-center p-4 bg-gray-100">
         <p className="text-sm text-gray-500">{details}</p>
-        <button className="text-sm text-blue-500 focus:outline-none">▼</button>
+        <button onClick={toggleExpansion} className="text-sm text-blue-500 focus:outline-none">
+          {isExpanded ? '▲' : '▼'}
+        </button>
       </div>
+      {isExpanded && (
+        <div className="p-4 bg-white border-t">
+          {segments.map((segment, index) => (
+            <div key={index} className="mb-2">
+              <p className="text-sm font-semibold">
+                {segment.departureTime} - {segment.arrivalTime}
+              </p>
+              <p className="text-sm text-gray-500">{segment.route}</p>
+              <p className="text-sm text-gray-500">{segment.stops}</p>
+              <p className="text-sm text-gray-500">{segment.details}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

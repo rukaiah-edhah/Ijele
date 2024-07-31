@@ -3,10 +3,9 @@
 import { useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
-import SearchNav from '@/components/Hotel/search-nav'
-// /import FlightList from '@/components/Flight/FlightList'/ 
-// import '@/components/Flight/flightList.css';
-import FlightDetails from '@/components/Flight/FlightDetails'
+import SearchNav from '@/components/Hotel/search-nav';
+import FlightList from '@/components/Flight/FlightList';
+import '@/components/Flight/flightList.css';
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -40,7 +39,10 @@ const FlightPage: React.FC = () => {
           adults,
         },
       });
+      console.log('API Response:', response);
+
       setFlights(response.data.data);
+      console.log('Flight Data:', response.data.data);
       setError(null); // Clear any previous errors
     } catch (err: any) {
       setFlights([]); // Clear the flights list on error
@@ -147,9 +149,10 @@ const FlightPage: React.FC = () => {
         </div>
 
         <div>
-        <div className="mt-6">
-          <FlightDetails flights={flights} />
-        </div>
+          <div className="mt-6">
+            <FlightList flights={flights} />
+            {/* <FlightDetails flights={flights} /> */}
+          </div>
         </div>
 
 
