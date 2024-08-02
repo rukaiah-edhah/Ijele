@@ -6,19 +6,19 @@ import { useState } from 'react';
 export default function HotelSideBar() {
     return (
         <>
-            <div className='sidebar-container'>
+            <div className='sidebar-container place-content-center'>
+                <p className='mt-4 flex justify-center'>- Accommodation -</p>
                 {/* search bar section */}
-                sidebar
-                <div className='flex'>
+                <div className='flex mt-4 justify-center'>
                     <div>img</div>
-                    <input className="bg-ijele_lightTeal" type="text" placeholder='Search City...' />
-                    <div className='flex peopleInput'>
-                        <input type="number" />
+                    <input className="bg-ijele_lightTeal w-1/2 border-0 " type="text" placeholder='Search City...' />
+                    <div className='flex peopleInput '>
+                        <input className='w-1/2 rounded-md border-0' type="number" />
                         <img src="" alt="icon" />
                     </div>
                 </div>
                 {/* img of destination htmlFor flight */}
-                <div> <img src="public/Hotel_placeholderImage.png" alt="City Image" /></div>
+                <div> <img src="" alt="City Image" /></div>
 
                 {/* Description on hover  */}
                 <div>

@@ -8,8 +8,7 @@ export default function FlightSideBar() {
         <>
             <div className='sidebar-container'>
                 {/* search bar section */}
-                sidebar
-                <div className='flex'>
+                <div className='flex mt-4'>
                     <div>img</div>
                     <input className="bg-ijele_lightTeal" type="text" placeholder='Search City...' />
                     <div className='flex peopleInput'>

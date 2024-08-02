@@ -6,7 +6,7 @@ import { useState } from 'react';
 export default function SearchNav() {
     return (
       <>
-      <nav className="w-full flex items-center justify-start">
+      <nav className="w-full flex mt-6 items-center justify-start">
         <div className="flex items-center">
             <p className="font-work_sans">Search |</p>
             <Link href="/Flight"  aria-current="page" className=" search-nav-links text-yellow-300">Flights</Link>

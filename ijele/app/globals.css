@@ -33,7 +33,7 @@
     .logo{
         position: relative;
         width: 200px;
-        top: 10px;
+        top: 15px;
     }
     .navbarLink {
         /* @apply hover:text- */
