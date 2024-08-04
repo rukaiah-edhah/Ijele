@@ -301,6 +301,28 @@ export interface Contact {
   };
 }
 
+// TravelerDetails interface
+export interface TravelerDetails {
+  firstName: string;
+  lastName: string;
+  gender: string;
+  email: string;
+  deviceType: string;
+  countryCallingCode: string;
+  number: string;
+  dateOfBirth: string;
+  documentType: string;
+  birthPlace: string;
+  issuanceLocation: string;
+  issuanceDate: string;
+  passportNumber: string;
+  passportExpiryDate: string;
+  passportIssuanceCountry: string;
+  validityCountry: string;
+  nationality: string;
+  holder: boolean;
+}
+
 export interface FlightOrderResponse {
   data: {
     type: string,
