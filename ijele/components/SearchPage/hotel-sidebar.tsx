@@ -1,16 +1,19 @@
 "use client";
-
+import searchIcon from "/Images/searchIcon.svg";
+import vercel from "/public/vercel.svg"
 import { useState } from 'react';
 
 
 export default function HotelSideBar() {
     return (
         <>
+        <img src={vercel} alt="vercel"className="max-w-sm" />
             <div className=' max-h-screen overflow-auto sidebar-container place-content-center no-scrollbar'>
-                <p className='mt-4 flex justify-center'>- Accommodation -</p>
+                <p className='mt-2 flex justify-center'>- Accommodation -</p>
                 {/* search bar section */}
                 <div className='flex mt-4 justify-center'>
-                    <div>img</div>
+                    {/* <img src={searchIcon} alt="icon"/> */}
+                    <img src="/Images/search.png" alt="icon" className="max-w-[24px]"/>
                     <input className="bg-ijele_lightTeal w-1/2 border-0 " type="text" placeholder='Search City...' />
                     <div className='flex peopleInput '>
                         <input className='w-1/2 rounded-md border-0' type="number" />
