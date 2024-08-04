@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 interface Segment {
   departureTime: string;
@@ -39,23 +40,10 @@ const FlightCard: React.FC<FlightCardProps> = ({
     setIsExpanded(!isExpanded);
   };
 
-  console.log('FlightCard Props:', {
-    airline,
-    departureTime,
-    arrivalTime,
-    stops,
-    price,
-    route,
-    logo,
-    details,
-    currency,
-    segments,
-  });
-
   return (
-    <div className="flex flex-col mb-4 shadow-lg rounded-lg overflow-hidden">
-      <div className="flex items-center p-4 bg-white">
-        <img src={logo} alt={`${airline} logo`} className="w-12 h-12 mr-4" />
+    <div className="flex flex-col mb-4 shadow-lg overflow-hidden rounded-tr-[25%] border bg-ijele_navy">
+      <div className="flex items-center p-4 bg-red-200 border-black">
+        <img src={logo} alt={`${airline} logo`} className="w-12 h-12 mr-4 rounded-full border" />
         <div className="flex-1">
           <div className="flex justify-between">
             <div>
@@ -63,15 +51,22 @@ const FlightCard: React.FC<FlightCardProps> = ({
               <p className="text-sm text-gray-500">{stops}</p>
             </div>
             <div className="text-right">
-              <p className="text-lg font-semibold">{currency}{price}</p>
-              <p className="text-sm text-gray-500">{route}</p>
+              <p className="text-sm text-gray-500"><i className="fa-solid fa-suitcase-rolling"></i>"</p>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex justify-between items-center p-4 bg-ijele_navy">
-        <p className="text-sm text-white">{details}</p>
-        <button onClick={toggleExpansion} className="text-sm text-ijele_gold focus:outline-none">
+      <div className="flex items-center justify-between p-4 bg-ijele_navy text-white">
+        <div className="flex-1 text-left">
+          <p className="text-sm">{airline}</p>
+        </div>
+        <div className="flex-1 text-center">
+          <p className="text-sm">{route}</p>
+        </div>
+        <div className="flex-1 text-right">
+          <p className="text-lg font-semibold">{currency}{price}</p>
+        </div>
+        <button onClick={toggleExpansion} className="text-sm text-ijele_gold focus:outline-none ml-4">
           {isExpanded ? '▲' : '▼'}
         </button>
       </div>
