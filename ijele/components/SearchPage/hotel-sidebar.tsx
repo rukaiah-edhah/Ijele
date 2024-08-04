@@ -6,7 +6,7 @@ import { useState } from 'react';
 export default function HotelSideBar() {
     return (
         <>
-            <div className='sidebar-container place-content-center'>
+            <div className=' max-h-screen overflow-auto sidebar-container place-content-center no-scrollbar'>
                 <p className='mt-4 flex justify-center'>- Accommodation -</p>
                 {/* search bar section */}
                 <div className='flex mt-4 justify-center'>

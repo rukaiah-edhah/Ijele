@@ -52,45 +52,64 @@ const HotelPage: React.FC = () => {
   };
 
   return (
-    <div>
-      <Navbar />
-      <SearchNav />
-      <HotelSideBar/>
-      <div className="p-6">
-        <h1 className="text-3xl font-bold mb-4">Hotel Page</h1> {/*delete later*/}
-        <LocationSearch onSelect={setSelectedLocation} />
-        <input
-          type="date"
-          value={checkInDate}
-          onChange={(e) => setCheckInDate(e.target.value)}
-          placeholder="Check-in Date"
-          className="input input-bordered ml-2"
-        />
-        <input
-          type="date"
-          value={checkOutDate}
-          onChange={(e) => setCheckOutDate(e.target.value)}
-          className="input input-bordered ml-2"
-        />
-        <input
-          type="number"
-          value={adults}
-          onChange={(e) => setAdults(parseInt(e.target.value, 10))}
-          placeholder="Adults"
-          className="input input-bordered ml-2"
-          min="1"
-        />
-        <button onClick={handleSearch} className="btn btn-primary ml-2">
-          Search
-        </button>
+    <>
+      <div>
+        <Navbar />
+        <SearchNav />
+        <div className="sticky top-0">
+        <HotelSideBar />
+        </div>
+        <div className="p-6">
+          <h1 className="text-3xl font-bold mb-4">Hotel Page</h1> {/*delete later*/}
+          <LocationSearch onSelect={setSelectedLocation} />
+          <input
+            type="date"
+            value={checkInDate}
+            onChange={(e) => setCheckInDate(e.target.value)}
+            placeholder="Check-in Date"
+            className="input input-bordered ml-2"
+          />
+          <input
+            type="date"
+            value={checkOutDate}
+            onChange={(e) => setCheckOutDate(e.target.value)}
+            className="input input-bordered ml-2"
+          />
+          <input
+            type="number"
+            value={adults}
+            onChange={(e) => setAdults(parseInt(e.target.value, 10))}
+            placeholder="Adults"
+            className="input input-bordered ml-2"
+            min="1"
+          />
+          <button onClick={handleSearch} className="btn btn-primary ml-2">
+            Search
+          </button>
+          <div className="max-w-auto flex flex-wrap justify-evenly">
 
-        {hotels.length > 0 && (
-          <HotelList hotels={hotels} handleViewOffers={handleViewOffers} />
-        )}
+            {/* <div className="border bg-blue-100 shadow dark:border-orange-700 hover:rounded-tr-none">
+              <img src="/Images/Hotel_placeholderImage.png" alt="" className=" max-w-sm rounded-lg rounded-t-[25%] hover:rounded-tr-none" />
+              <div className="max-w-sm flex p-4 justify-around relative bg-zinc-100/80 rounded-b-lg border bottom-14">
+                <h3 className="font-kite_one">HOTEL NAME</h3>
+                <img src="" alt="|" />
+                <h4>$197</h4>
+                <img src="" alt=" - - -" />
+              </div>
+            </div> */}
 
-        {error && <SearchErrorMessage error={error} />}
+            
+
+            {/* display results or ERROR*/}
+            {hotels.length > 0 && (
+              <HotelList hotels={hotels} handleViewOffers={handleViewOffers} />
+            )}
+            {error && <SearchErrorMessage error={error} />}
+          </div>
+
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
