@@ -222,7 +222,6 @@ const FlightPage: React.FC = () => {
         <div>
           <div className="mt-6">
             <FlightList flights={flights} />
-            {/* <FlightDetails flights={flights} /> */}
           </div>
         </div>
 

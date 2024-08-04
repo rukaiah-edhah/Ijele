@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import airlineMap from '@/components/Flight/airlineMapping';
 
 interface Segment {
   departureTime: string;
@@ -40,6 +41,8 @@ const FlightCard: React.FC<FlightCardProps> = ({
     setIsExpanded(!isExpanded);
   };
 
+  const fullAirlineName = airlineMap[airline] || 'Unknown Airline';
+
   return (
     <div className="flex flex-col mb-4 shadow-lg overflow-hidden rounded-tr-[25%] border bg-ijele_navy">
       <div className="flex items-center p-4 bg-white border-black">
@@ -61,7 +64,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
       </div>
       <div className="flex items-center justify-between p-4 bg-ijele_navy">
         <div className="flex-1 text-left">
-          <p className="text-sm text-ijele_lightTeal font-kite_one italic">{airline}</p>
+          <p className="text-sm text-ijele_lightTeal font-kite_one italic">{fullAirlineName}</p>
         </div>
         <div className="flex-1 text-center">
           <p className="text-sm text-ijele_lightTeal font-kite_one italic">{route}</p>
