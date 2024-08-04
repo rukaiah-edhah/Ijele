@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import airlineMap from '@/components/Flight/airlineMapping';
 
 interface Segment {
   departureTime: string;
@@ -39,39 +41,38 @@ const FlightCard: React.FC<FlightCardProps> = ({
     setIsExpanded(!isExpanded);
   };
 
-  console.log('FlightCard Props:', {
-    airline,
-    departureTime,
-    arrivalTime,
-    stops,
-    price,
-    route,
-    logo,
-    details,
-    currency,
-    segments,
-  });
+  const fullAirlineName = airlineMap[airline] || 'Unknown Airline';
 
   return (
-    <div className="flex flex-col mb-4 shadow-lg rounded-lg overflow-hidden">
-      <div className="flex items-center p-4 bg-white">
-        <img src={logo} alt={`${airline} logo`} className="w-12 h-12 mr-4" />
+    <div className="flex flex-col mb-4 shadow-lg overflow-hidden rounded-tr-[25%] border bg-ijele_navy">
+      <div className="flex items-center p-4 bg-white border-black">
+        <img src={logo} alt={`${airline} logo`} className="w-12 h-12 mr-4 rounded-full border" />
         <div className="flex-1">
           <div className="flex justify-between">
             <div>
-              <p className="text-lg font-semibold">{departureTime} - {arrivalTime}</p>
-              <p className="text-sm text-gray-500">{stops}</p>
+              <p className="text-lg font-junge">{departureTime} - {arrivalTime}</p>
+            </div>
+            
+            <div>
+              <p className="flex-1 text-center text-sm text-gray-500 font-junge">{stops}</p>
             </div>
             <div className="text-right">
-              <p className="text-lg font-semibold">{currency}{price}</p>
-              <p className="text-sm text-gray-500">{route}</p>
+              <p className="text-sm text-gray-500"><i className="fa-solid fa-suitcase-rolling"></i></p>
             </div>
           </div>
         </div>
       </div>
-      <div className="flex justify-between items-center p-4 bg-ijele_navy">
-        <p className="text-sm text-white">{details}</p>
-        <button onClick={toggleExpansion} className="text-sm text-ijele_gold focus:outline-none">
+      <div className="flex items-center justify-between p-4 bg-ijele_navy">
+        <div className="flex-1 text-left">
+          <p className="text-sm text-ijele_lightTeal font-kite_one italic">{fullAirlineName}</p>
+        </div>
+        <div className="flex-1 text-center">
+          <p className="text-sm text-ijele_lightTeal font-kite_one italic">{route}</p>
+        </div>
+        <div className="flex-1 text-right">
+          <p className="text-lg text-white font-inter">{currency}{price}</p>
+        </div>
+        <button onClick={toggleExpansion} className="text-sm text-ijele_gold focus:outline-none ml-4">
           {isExpanded ? '▲' : '▼'}
         </button>
       </div>

@@ -11,6 +11,7 @@
     "migrate": "node migrate.js"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.6.0",
     "@kinde-oss/kinde-auth-nextjs": "^2.2.6",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "autoprefixer": "^10.4.19",
