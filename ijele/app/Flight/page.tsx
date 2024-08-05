@@ -8,6 +8,8 @@ import FlightList from '@/components/Flight/FlightList';
 import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
 import FlightSideBar from '@/components/SearchPage/flight-sidebar';
 import { Flight } from '@/components/Flight/FlightType';
+import { useCart } from '@/components/Payment/cartContent';
+
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -39,6 +41,7 @@ const FlightPage: React.FC = () => {
   });
 
   const [error, setError] = useState<any>(null);
+  const { addToCart } = useCart();
 
   const fetchFlights = async () => {
     try {
@@ -167,16 +170,15 @@ const FlightPage: React.FC = () => {
     }));
   };
 
-  const onBookFlight = async (flight: Flight) => {
-    try {
-      const bookingDetails = {
-        flightId: flight.id,
-        // Add any other necessary booking parameters here
-      };
-      const response = await axios.post('/api/flights/book', bookingDetails);
-      alert('Flight booked successfully!');
-    } catch (err) {
-      alert('Failed to book flight. Please try again.');
+  const handleAddToCart = () => {
+    if (selectedFlight) {
+      addToCart({
+        id: selectedFlight.id,
+        type: 'flight',
+        details: selectedFlight,
+        price: 0
+      });
+      alert('Flight added to cart!');
     }
   };
 
@@ -239,20 +241,19 @@ const FlightPage: React.FC = () => {
           />
         </div>
 
-        {flights.length > 0 && (
+        {flights.length > 0 && selectedFlight && (
           <div className="mb-6">
             <h2 className="text-2xl font-semibold mb-2">Select Flight and Enter Details</h2>
-            {selectedFlight && (
-              <form onSubmit={handleBooking}>
-                <TravelerDetailForm
-                  travelerDetails={travelerDetails}
-                  handleInputChange={handleInputChange}
-                />
-                <button type="submit" className="btn btn-primary mt-2">
-                  Book Flight
-                </button>
-              </form>
-            )}
+            <TravelerDetailForm
+              travelerDetails={travelerDetails}
+              handleInputChange={handleInputChange}
+            />
+            <button onClick={handleAddToCart} className="btn btn-secondary mt-2">
+              Add to Cart
+            </button>
+            <button onClick={handleBooking} className="btn btn-primary mt-2">
+              Book Flight
+            </button>
           </div>
         )}
 

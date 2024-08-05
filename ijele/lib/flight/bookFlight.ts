@@ -1,14 +1,11 @@
 import axios from 'axios';
 import getAccessToken from '../getAccessToken';
-import { FlightOrderRequest, FlightOrderResponse } from '../interfaces';
+import { FlightOrderRequest, FlightOrderResponse, Flight } from '../interfaces';
+import { useCart } from '@/components/Payment/cartContent';
 
-/**
- * Function to create a flight order using Amadeus API.
- * @param {FlightOrderRequest} flightOrderRequest - The request data for creating a flight order.
- * @returns {Promise<FlightOrderResponse>} The response data from the flight order creation.
- * @throws an error if unable to create the flight order.
- */
-const createFlightOrder = async (flightOrderRequest: FlightOrderRequest): Promise<FlightOrderResponse> => {
+const createFlightOrder = async (flightOrderRequest: FlightOrderRequest, flightDetails: Flight): Promise<FlightOrderResponse> => {
+  const { addToCart } = useCart();
+
   try {
     const accessToken = await getAccessToken();
 
@@ -24,6 +21,18 @@ const createFlightOrder = async (flightOrderRequest: FlightOrderRequest): Promis
     );
 
     console.log('Flight order created:', response.data);
+
+    // Convert the id to a string or use a default value if undefined/null
+    const flightId = flightDetails.id?.toString() || 'default-flight-id';
+
+    // Add the flight to the cart
+    addToCart({
+      id: flightId, // Ensure it's a string
+      type: 'flight',
+      details: flightDetails,
+      price: parseFloat(response.data.data.queuingOfficeId), // Replace with actual price
+    });
+
     return response.data;
   } catch (error: any) {
     if (error.response) {
