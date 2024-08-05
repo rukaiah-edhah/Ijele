@@ -17,10 +17,11 @@ interface FlightCardProps {
   stops: string;
   price: string;
   route: string;
-  logo: string; // Local logo URL
+  logo: string;
   details: string;
   currency: string;
   segments: Segment[];
+  onSelect: () => void;
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({
@@ -34,6 +35,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
   details,
   currency,
   segments,
+  onSelect,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -88,6 +90,9 @@ const FlightCard: React.FC<FlightCardProps> = ({
               <p className="text-sm text-gray-500">{segment.details}</p>
             </div>
           ))}
+          <button onClick={onSelect} className="btn btn-primary mt-2">
+            Select Flight
+          </button>
         </div>
       )}
     </div>

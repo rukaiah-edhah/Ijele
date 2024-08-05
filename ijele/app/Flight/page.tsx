@@ -7,6 +7,7 @@ import SearchNav from '@/components/SearchPage/search-nav';
 import FlightList from '@/components/Flight/FlightList';
 import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
 import FlightSideBar from '@/components/SearchPage/flight-sidebar';
+import { Flight } from '@/components/Flight/FlightType';
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -14,8 +15,8 @@ const FlightPage: React.FC = () => {
   const [departureDate, setDepartureDate] = useState<string>('');
   const [returnDate, setReturnDate] = useState<string>('');
   const [adults, setAdults] = useState<string>('1');
-  const [flights, setFlights] = useState<any[]>([]);
-  const [selectedFlight, setSelectedFlight] = useState<any>(null);
+  const [flights, setFlights] = useState<Flight[]>([]);
+  const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
   const [travelerDetails, setTravelerDetails] = useState({
     firstName: '',
     lastName: '',
@@ -36,7 +37,7 @@ const FlightPage: React.FC = () => {
     nationality: '',
     holder: true,
   });
-  
+
   const [error, setError] = useState<any>(null);
 
   const fetchFlights = async () => {
@@ -60,7 +61,12 @@ const FlightPage: React.FC = () => {
 
   const handleBooking = async (e: React.FormEvent) => {
     e.preventDefault();
-  
+
+    if (!selectedFlight) {
+      alert('Please select a flight.');
+      return;
+    }
+
     try {
       const bookingDetails = {
         data: {
@@ -144,7 +150,7 @@ const FlightPage: React.FC = () => {
           ],
         },
       };
-  
+
       const response = await axios.post('/api/flights/book', bookingDetails);
       alert('Flight booked successfully!');
       setSelectedFlight(null); // Clear the selected flight
@@ -159,6 +165,19 @@ const FlightPage: React.FC = () => {
       ...prevDetails,
       [name]: value,
     }));
+  };
+
+  const onBookFlight = async (flight: Flight) => {
+    try {
+      const bookingDetails = {
+        flightId: flight.id,
+        // Add any other necessary booking parameters here
+      };
+      const response = await axios.post('/api/flights/book', bookingDetails);
+      alert('Flight booked successfully!');
+    } catch (err) {
+      alert('Failed to book flight. Please try again.');
+    }
   };
 
   return (
@@ -214,39 +233,32 @@ const FlightPage: React.FC = () => {
         </div>
 
         <div className="mt-6">
-          <FlightList flights={flights} />
+          <FlightList
+            flights={flights}
+            onSelectFlight={(flight) => setSelectedFlight(flight)}
+          />
         </div>
 
         {flights.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Flights</h2>
-            <ul className="list-disc pl-5">
-              {flights.map((flight) => (
-                <li key={flight.id} className="mb-2">
-                  {/* Flight details */}
-                  <button
-                    onClick={() => setSelectedFlight(flight)}
-                    className="btn btn-secondary mt-2"
-                  >
-                    Select Flight
-                  </button>
-                </li>
-              ))}
-            </ul>
+            <h2 className="text-2xl font-semibold mb-2">Select Flight and Enter Details</h2>
+            {selectedFlight && (
+              <form onSubmit={handleBooking}>
+                <TravelerDetailForm
+                  travelerDetails={travelerDetails}
+                  handleInputChange={handleInputChange}
+                />
+                <button type="submit" className="btn btn-primary mt-2">
+                  Book Flight
+                </button>
+              </form>
+            )}
           </div>
         )}
 
-        {selectedFlight && (
-          <div className="mb-6">
-            <form onSubmit={handleBooking}>
-              <TravelerDetailForm
-                travelerDetails={travelerDetails}
-                handleInputChange={handleInputChange}
-              />
-              <button type="submit" className="btn btn-primary mt-2">
-                Book Flight
-              </button>
-            </form>
+        {error && (
+          <div className="mt-6 text-red-500">
+            <p>{error}</p>
           </div>
         )}
       </div>
