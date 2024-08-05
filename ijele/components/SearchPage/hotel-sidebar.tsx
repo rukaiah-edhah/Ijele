@@ -1,4 +1,5 @@
 "use client";
+import FilterSection from "./sidebar-filter";
 import searchIcon from "/Images/searchIcon.svg";
 import vercel from "/public/vercel.svg"
 import { useState } from 'react';
@@ -25,7 +26,7 @@ export default function HotelSideBar() {
                 <div> <img src="" alt="" /></div>
 
                 {/* Description on hover  */}
-                <div className="pl-3">
+                <div className="pl-6 mb-6">
                     <div className='flex items-end'>
                         <span className="ml-1">stars</span>
                         <p className="ml-1">300 reviews</p>
@@ -43,101 +44,7 @@ export default function HotelSideBar() {
                 </div>
 
                 {/* filters section */}
-                <div className="bg-ijele_cream/50 pl-3">
-                    <p>Filters</p>
-                    <div className="p-2">
-                        <h4>Dates</h4>
-                        <div className="flex items-center"> {/* stateful code to become dropdown AFTER Title*/}
-                            <input type="date" name="startDate" id="departure" className="sidebar-inputfield w-1/3" />
-                            ---
-                            <input type="date" name="endDate" id="return" className="sidebar-inputfield w-1/3" />
-                        </div>
-
-                        <h4>Price</h4>
-                        <div className="flex items-center"> {/* needs to be flexed!! */} {/* stateful code to become dropdown */}
-                            <div className='flex items-center'>
-                                <img src="" alt="$" />
-                                <input type="number" name="startDate" id="departure" className="sidebar-inputfield" />
-                            </div>
-                            -
-                            <div className='flex items-center'>
-                                <img src="" alt="$" />
-                                <input type="number" name="startDate" id="departure" className="sidebar-inputfield" />
-                            </div>
-                        </div>
-
-                        {/* Time Sort flight Sidbar */}
-                        <h4>Time</h4>
-                        <div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="flightTimes" id="morning" />
-                                    Morning
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="flightTimes" id="afternoon" />
-                                    Afternoon
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="flightTimes" id="evening" />
-                                    Evening
-                                </label>
-                            </div>
-                        </div>
-
-                        {/* Property Types dropdown */}
-                        <h4>Property Types</h4>
-                        <div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="accomType" id="hotelAccom" />
-                                    Hotel
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="accomType" id="hostelAccom" />
-                                    Resort
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="accomType" id="rentalHomeAccom" />
-                                    Cabin
-                                </label>
-                            </div>
-                        </div>
-
-                        {/* Hotel Brand dropdown */}
-                        <h4>Brand Names</h4>
-                        <div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="accomType" id="hotelAccom" />
-                                    Comfort Inn
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="accomType" id="hostelAccom" />
-                                    Westin
-                                </label>
-                            </div>
-                            <div>
-                                <label>
-                                    <input type="checkbox" name="accomType" id="rentalHomeAccom" />
-                                    La Quinta
-                                </label>
-                            </div>
-                        </div>
-
-
-                    </div>
-                </div> {/* End filters container */}
+                <FilterSection/>
             </div>  {/* End sidebar container */}
 
         </>
