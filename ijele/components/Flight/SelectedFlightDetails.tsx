@@ -1,5 +1,3 @@
-// components/Flight/SelectedFlightDetails.tsx
-import React from 'react';
 import TravelerDetailForm from './TravelerDetailForm';
 
 interface SelectedFlightDetailsProps {

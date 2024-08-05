@@ -1,6 +1,3 @@
-// components/Flight/ErrorAlert.tsx
-import React from 'react';
-
 interface ErrorAlertProps {
   error: any;
 }

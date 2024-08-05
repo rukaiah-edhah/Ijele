@@ -1,6 +1,3 @@
-// components/Flight/FlightSearchForm.tsx
-import React from 'react';
-
 interface FlightSearchFormProps {
   origin: string;
   destination: string;
