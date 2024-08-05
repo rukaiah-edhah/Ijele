@@ -1,13 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createUser } from '@/db/queries';
-import { InsertUser } from '@/db/schemas';
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name, email, password }: InsertUser = body;
+  const { name, email, userId } = body;
 
   try {
-    await createUser({ name, email, password });
+    await createUser({ name, email, userId });
     return NextResponse.json({ message: 'User onboarded successfully' }, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to onboard user' }, { status: 500 });
