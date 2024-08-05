@@ -1,6 +1,3 @@
-// components/Flight/FlightSelector.tsx
-import React from 'react';
-
 interface FlightSelectorProps {
   flights: any[];
   setSelectedFlight: (flight: any) => void;

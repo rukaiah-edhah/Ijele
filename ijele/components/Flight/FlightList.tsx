@@ -1,4 +1,3 @@
-import React from 'react';
 import '@/components/Flight/flightList.css';
 import FlightCard from './FlightCard';
 import { Flight } from './FlightType';
