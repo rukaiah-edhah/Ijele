@@ -3,7 +3,6 @@ import '@/components/Flight/flightList.css';
 import FlightCard from './FlightCard';
 import { Flight } from './FlightType';
 
-// Mapping airline codes to local logo paths
 const airlineLogos: Record<string, string> = {
   'AA': '/Images/AA.png',
   'DL': '/Images/Delta.png',
@@ -14,6 +13,7 @@ const airlineLogos: Record<string, string> = {
 
 type Props = {
   flights: Flight[];
+  onSelectFlight: (flight: Flight) => void;
 };
 
 const formatDuration = (duration: string): string => {
@@ -26,7 +26,7 @@ const formatDuration = (duration: string): string => {
   return `${hours}h ${minutes}m`;
 };
 
-const FlightList: React.FC<Props> = ({ flights }) => {
+const FlightList: React.FC<Props> = ({ flights, onSelectFlight }) => {
   return (
     <div className="flights-container">
       {flights.length > 0 && (
@@ -52,7 +52,7 @@ const FlightList: React.FC<Props> = ({ flights }) => {
               return (
                 <FlightCard
                   key={index}
-                  airline={flight.validatingAirlineCodes[0]} // Use the airline code to get the logo path
+                  airline={flight.validatingAirlineCodes[0]}
                   departureTime={new Date(itinerary.segments[0].departure.at).toLocaleTimeString('en-US', {
                     hour: '2-digit',
                     minute: '2-digit',
@@ -63,11 +63,12 @@ const FlightList: React.FC<Props> = ({ flights }) => {
                   })}
                   stops={itinerary.segments.length > 1 ? `${itinerary.segments.length - 1} ${itinerary.segments.length - 1 === 1 ? 'stop' : 'stops'}` : 'Direct'}
                   route={`${itinerary.segments[0].departure.iataCode} - ${itinerary.segments[itinerary.segments.length - 1].arrival.iataCode}`}
-                  logo={airlineLogos[flight.validatingAirlineCodes[0]] || '/Images/Default.png'} // Fallback logo
+                  logo={airlineLogos[flight.validatingAirlineCodes[0]] || '/Images/Default.png'}
                   details={`Total duration: ${formatDuration(itinerary.duration)}`}
                   currency={flight.price.currency}
                   price={flight.price.total}
                   segments={segments}
+                  onSelect={() => onSelectFlight(flight)}
                 />
               );
             })}
