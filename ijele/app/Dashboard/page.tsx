@@ -23,7 +23,7 @@ const Dashboard = () => {
 
           const existingUser = await response.json();
           if (!existingUser) {
-            router.push('/onboarding');
+            router.push('/Onboarding');
           }
         } else {
           router.push(`${kindeIssuerUrl}/auth/cx/_:nav&m:login`);

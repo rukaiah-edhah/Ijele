@@ -7,7 +7,8 @@ export async function POST(req: NextRequest) {
   try {
     const user = await getUserByEmail(email);
     return NextResponse.json(user);
-  } catch (error) {
-    return NextResponse.json({ error: 'Failed to fetch user' }, { status: 500 });
+  } catch (error: any) {
+    console.error('Error fetching user by email:', error);
+    return NextResponse.json({ error: 'Failed to fetch user', details: error.message }, { status: 500 });
   }
 }

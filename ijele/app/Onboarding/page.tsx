@@ -29,7 +29,7 @@ const Onboarding = () => {
       });
 
       if (response.ok) {
-        router.push('/dashboard');
+        router.push('/Dashboard');
       } else {
         console.error('Failed to onboard user');
       }
