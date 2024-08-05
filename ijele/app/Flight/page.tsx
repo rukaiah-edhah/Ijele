@@ -85,7 +85,7 @@ const FlightPage: React.FC = () => {
                 emailAddress: travelerDetails.email,
                 phones: [
                   {
-                    deviceType: 'MOBILE',
+                    deviceType: 'MOBILE'.toUpperCase(),
                     countryCallingCode: travelerDetails.countryCallingCode,
                     number: travelerDetails.number,
                   },
@@ -93,15 +93,15 @@ const FlightPage: React.FC = () => {
               },
               documents: [
                 {
-                  documentType: 'PASSPORT',
+                  documentType: 'PASSPORT'.toUpperCase(),
                   birthPlace: travelerDetails.birthPlace,
                   issuanceLocation: travelerDetails.issuanceLocation,
                   issuanceDate: travelerDetails.issuanceDate,
                   number: travelerDetails.passportNumber,
                   expiryDate: travelerDetails.passportExpiryDate,
-                  issuanceCountry: travelerDetails.passportIssuanceCountry,
-                  validityCountry: travelerDetails.validityCountry,
-                  nationality: travelerDetails.nationality,
+                  issuanceCountry: travelerDetails.passportIssuanceCountry.toUpperCase(),
+                  validityCountry: travelerDetails.validityCountry.toUpperCase(),
+                  nationality: travelerDetails.nationality.toUpperCase(),
                   holder: travelerDetails.holder,
                 },
               ],
