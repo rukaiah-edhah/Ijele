@@ -51,8 +51,24 @@
 
     .sidebar-container {
         float: right;
-        position:static;
-        @apply bg-ijele_teal min-h-screen w-80
+        @apply bg-ijele_teal min-h-screen w-80 sticky top-0;
+    }
+
+    .sidebar-inputfield {
+        @apply w-1/2 rounded-lg h-8 p-2 m-2 bg-ijele_cream;
+       
+    }
+    .sidebar-container h2 {
+        font-size: large;
+        @apply text-ijele_cream
+    }
+    .sidebar-container p {
+        font-size: x-small;
+        font-family: "Junge" ;
+        color: #334E5C;
+    }
+    .sidebar-container h4 {
+        @apply font-inter font-medium text-[#334E5C] text-sm
     }
 }
 
