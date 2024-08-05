@@ -56,7 +56,7 @@ const HotelPage: React.FC = () => {
       <div>
         <Navbar />
         <SearchNav />
-        <div className="sticky top-0">
+        <div className="">
         <HotelSideBar />
         </div>
         <div className="p-6">

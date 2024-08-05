@@ -7,26 +7,28 @@ import { useState } from 'react';
 export default function HotelSideBar() {
     return (
         <>
-        <img src={vercel} alt="vercel"className="max-w-sm" />
             <div className=' max-h-screen overflow-auto sidebar-container place-content-center no-scrollbar'>
-                <p className='mt-2 flex justify-center'>- Accommodation -</p>
+                {/* <p className='mt-2 flex justify-center'>- Accommodation -</p> */}
+
                 {/* search bar section */}
-                <div className='flex mt-4 justify-center'>
+                <div className='flex justify-center items-center mt-1 mb-2 pl-3'>
                     {/* <img src={searchIcon} alt="icon"/> */}
-                    <img src="/Images/search.png" alt="icon" className="max-w-[24px]"/>
-                    <input className="bg-ijele_lightTeal w-1/2 border-0 " type="text" placeholder='Search City...' />
-                    <div className='flex peopleInput '>
-                        <input className='w-1/2 rounded-md border-0' type="number" />
+                    <img src="/Images/search.png" alt="icon" className="max-w-[24px]" />
+                    <input className="sidebar-inputfield w-40 h-8 m-2 pl-2" type="text" placeholder='Search City...' />
+                    <div className='flex peopleInput items-center'>
+                        <input className='sidebar-inputfield w-12 h-8 rounded-md m-2 p-2' type="number" />
                         <img src="" alt="icon" />
                     </div>
                 </div>
-                {/* img of destination htmlFor flight */}
-                <div> <img src="" alt="City Image" /></div>
+
+                {/* img of destination htmlFor flights */}
+                <div> <img src="" alt="" /></div>
 
                 {/* Description on hover  */}
-                <div>
-                    <div className='flex'>stars
-                        <p>300 reviews</p>
+                <div className="pl-3">
+                    <div className='flex items-end'>
+                        <span className="ml-1">stars</span>
+                        <p className="ml-1">300 reviews</p>
                     </div>
                     <div>
                         <h2>Hotel Name</h2>
@@ -41,26 +43,26 @@ export default function HotelSideBar() {
                 </div>
 
                 {/* filters section */}
-                <div>
-                    <h5>Filters</h5>
-                    <div>
+                <div className="bg-ijele_cream/50 pl-3">
+                    <p>Filters</p>
+                    <div className="p-2">
                         <h4>Dates</h4>
-                        <div> {/* stateful code to become dropdown AFTER Title*/}
-                            <input type="date" name="startDate" id="departure" />
-                            -------
-                            <input type="date" name="endDate" id="return" />
+                        <div className="flex items-center"> {/* stateful code to become dropdown AFTER Title*/}
+                            <input type="date" name="startDate" id="departure" className="sidebar-inputfield w-1/3" />
+                            ---
+                            <input type="date" name="endDate" id="return" className="sidebar-inputfield w-1/3" />
                         </div>
 
                         <h4>Price</h4>
-                        <div className=''> {/* needs to be flexed!! */} {/* stateful code to become dropdown */}
-                            <div className='flex'>
+                        <div className="flex items-center"> {/* needs to be flexed!! */} {/* stateful code to become dropdown */}
+                            <div className='flex items-center'>
                                 <img src="" alt="$" />
-                                <input type="number" name="startDate" id="departure" />
+                                <input type="number" name="startDate" id="departure" className="sidebar-inputfield" />
                             </div>
-                            -------
-                            <div className='flex'>
+                            -
+                            <div className='flex items-center'>
                                 <img src="" alt="$" />
-                                <input type="number" name="startDate" id="departure" />
+                                <input type="number" name="startDate" id="departure" className="sidebar-inputfield" />
                             </div>
                         </div>
 
@@ -132,7 +134,7 @@ export default function HotelSideBar() {
                                 </label>
                             </div>
                         </div>
-                        
+
 
                     </div>
                 </div> {/* End filters container */}
