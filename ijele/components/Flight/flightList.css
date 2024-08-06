@@ -5,9 +5,9 @@
 @layer components{
 
 
-.flights-container {
+/* .flights-container {
     margin-bottom: 1.5rem;
-  }
+  } */
   
   .flights-title {
     @apply text-2xl font-semibold mb-2;

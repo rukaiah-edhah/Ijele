@@ -34,7 +34,8 @@ const formatDuration = (duration: string): string => {
 
 const FlightList: React.FC<Props> = ({ flights, onSelectFlight }) => {
   return (
-    <div className="flights-container">
+    <div className="flights-container flex">
+      <div className="flex-1"></div>
       {flights.length > 0 && (
         <div>
           <h2 className="flights-title">Flights</h2>
