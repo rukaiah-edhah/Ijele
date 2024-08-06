@@ -23,7 +23,7 @@
 
 @layer components{
    .hoveredHome{
-        @apply font-junge rounded-md bg-green-900 px-3 py-2 text-sm font-medium text-white
+        @apply font-junge rounded-md bg-ijele_deepGold px-3 py-2 text-sm font-medium text-ijele_navy
     
     } 
     .logo-container{

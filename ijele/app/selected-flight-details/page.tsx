@@ -1,8 +1,9 @@
-// app/selected-flight-details/page.tsx
 "use client";
 import { FC } from 'react';
 import SelectedFlightDetails from '@/components/Flight/SelectedFlightDetails'; // Adjust the import path as needed
 import { useState } from 'react';
+import Navbar from '@/components/navbar';
+
 
 const SelectedFlightDetailsPage: FC = () => {
   const [travelerDetails, setTravelerDetails] = useState({
@@ -31,6 +32,7 @@ const SelectedFlightDetailsPage: FC = () => {
 
   return (
     <div>
+      <Navbar />
       <SelectedFlightDetails
         selectedFlight={selectedFlight}
         travelerDetails={travelerDetails}
