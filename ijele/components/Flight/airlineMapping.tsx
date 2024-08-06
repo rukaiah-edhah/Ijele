@@ -10,6 +10,7 @@ const airlineMap: Record<string, string> = {
     'QR': 'QATAR AIRWAYS', 
     'MF': 'XIAMEN AIRLINES',
     'AS': 'ALASKA AIRLINES',
+    'SK': 'SCANDINAVIAN AIRLINES',
 
 };
 

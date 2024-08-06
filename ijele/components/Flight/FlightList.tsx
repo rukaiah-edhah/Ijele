@@ -14,7 +14,8 @@ const airlineLogos: Record<string, string> = {
   'TX': '/Images/TX.png',
   'QR': '/Images/QR.png', 
   'MF': '/Images/MF.png',
-  'AS': '/Images/AS.png'
+  'AS': '/Images/AS.png',
+  'SK': '/Images/SK.png',
 };
 
 type Props = {
@@ -34,8 +35,8 @@ const formatDuration = (duration: string): string => {
 
 const FlightList: React.FC<Props> = ({ flights, onSelectFlight }) => {
   return (
-    <div className="flights-container flex">
-      <div className="flex-1"></div>
+    <div className="flights-container">
+     
       {flights.length > 0 && (
         <div>
           <h2 className="flights-title">Flights</h2>

@@ -6,7 +6,7 @@ import Navbar from '@/components/navbar';
 import SearchNav from '@/components/SearchPage/search-nav';
 import FlightList from '@/components/Flight/FlightList';
 import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
-import FlightSideBar from '@/components/SearchPage/flight-sidebar';
+// import FlightSideBar from '@/components/SearchPage/flight-sidebar';
 import { Flight } from '@/components/Flight/FlightType';
 
 
@@ -185,7 +185,7 @@ const FlightPage: React.FC = () => {
     <div>
       <Navbar />
       <SearchNav />
-      <FlightSideBar />
+      {/* <FlightSideBar /> */}
       <div className="p-6">
         <h1 className="text-3xl font-bold mb-4">Flight Page</h1>
 
