@@ -1,3 +1,4 @@
+
 import '@/components/Flight/flightList.css';
 import FlightCard from './FlightCard';
 import { Flight } from './FlightType';
@@ -10,6 +11,10 @@ const airlineLogos: Record<string, string> = {
   'VS': '/Images/VS.png',
   'FI': '/Images/FI.png', 
   'BF': '/Images/BF.png',
+  'TX': '/Images/TX.png',
+  'QR': '/Images/QR.png', 
+  'MF': '/Images/MF.png',
+  'AS': '/Images/AS.png'
 };
 
 type Props = {

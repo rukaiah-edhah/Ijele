@@ -9,6 +9,7 @@ import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
 import FlightSideBar from '@/components/SearchPage/flight-sidebar';
 import { Flight } from '@/components/Flight/FlightType';
 
+
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
@@ -241,7 +242,7 @@ const FlightPage: React.FC = () => {
 
         {flights.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Select Flight and Enter Details</h2>
+            {/* <h2 className="text-2xl font-semibold mb-2">Select Flight and Enter Details</h2> */}
             {selectedFlight && (
               <form onSubmit={handleBooking}>
                 <TravelerDetailForm

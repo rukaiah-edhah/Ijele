@@ -1,11 +1,15 @@
 const airlineMap: Record<string, string> = {
-    'AA': 'American Airlines',
-    'DL': 'Delta Air Lines',
-    'UA': 'United Airlines',
-    'SW': 'Southwest',
-    'VS': 'Virgin Atlantic',
-    'FI': 'Iceland Air',
-    'BF': 'French Bee'
+    'AA': 'AMERICAN AIRLINES',
+    'DL': 'DELTA AIR LINES',
+    'UA': 'UNITED AIRLINES',
+    'SW': 'SOUTHWEST',
+    'VS': 'VIRGIN ATLANTIC',
+    'FI': 'ICELAND AIR',
+    'BF': 'FRENCH BEE',
+    'TX': 'AIR CARABIES',
+    'QR': 'QATAR AIRWAYS', 
+    'MF': 'XIAMEN AIRLINES',
+    'AS': 'ALASKA AIRLINES',
 
 };
 

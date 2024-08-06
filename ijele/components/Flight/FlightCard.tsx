@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import airlineMap from '@/components/Flight/airlineMapping';
@@ -21,7 +22,6 @@ interface FlightCardProps {
   details: string;
   currency: string;
   segments: Segment[];
-  onSelect: () => void;
 }
 
 const FlightCard: React.FC<FlightCardProps> = ({
@@ -35,12 +35,16 @@ const FlightCard: React.FC<FlightCardProps> = ({
   details,
   currency,
   segments,
-  onSelect,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const router = useRouter();
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
+  };
+
+  const handleSelect = () => {
+    router.push('/selected-flight-details'); // Redirect to the page
   };
 
   const fullAirlineName = airlineMap[airline] || 'Unknown Airline';
@@ -54,7 +58,6 @@ const FlightCard: React.FC<FlightCardProps> = ({
             <div>
               <p className="text-lg font-junge">{departureTime} - {arrivalTime}</p>
             </div>
-            
             <div>
               <p className="flex-1 text-center text-sm text-gray-500 font-junge">{stops}</p>
             </div>
@@ -90,7 +93,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
               <p className="text-sm text-gray-500">{segment.details}</p>
             </div>
           ))}
-          <button onClick={onSelect} className="btn btn-primary mt-2">
+          <button onClick={handleSelect} className="btn btn-primary mt-2">
             Select Flight
           </button>
         </div>
