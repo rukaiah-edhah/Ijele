@@ -4,6 +4,8 @@ const airlineMap: Record<string, string> = {
     'UA': 'United Airlines',
     'SW': 'Southwest',
     'VS': 'Virgin Atlantic',
+    'FI': 'Iceland Air',
+    'BF': 'French Bee'
 
 };
 

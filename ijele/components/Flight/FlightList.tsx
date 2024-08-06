@@ -7,7 +7,9 @@ const airlineLogos: Record<string, string> = {
   'DL': '/Images/Delta.png',
   'UA': '/Images/UA.png',
   'SW': '/Images/SW.png',
-  'VS': 'Images/VS.png',
+  'VS': '/Images/VS.png',
+  'FI': '/Images/FI.png', 
+  'BF': '/Images/BF.png',
 };
 
 type Props = {
