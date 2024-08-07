@@ -84,7 +84,7 @@ const HotelPage: React.FC = () => {
           <button onClick={handleSearch} className="btn btn-primary ml-2">
             Search
           </button>
-          <div className="max-w-auto flex flex-wrap justify-evenly">
+          <div className="max-w-auto flex flex-wrap justify-evenly p-6">
 
             {/* <div className="border bg-blue-100 shadow dark:border-orange-700 hover:rounded-tr-none">
               <img src="/Images/Hotel_placeholderImage.png" alt="" className=" max-w-sm rounded-lg rounded-t-[25%] hover:rounded-tr-none" />
