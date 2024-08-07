@@ -6,9 +6,8 @@ import Navbar from '@/components/navbar';
 import SearchNav from '@/components/SearchPage/search-nav';
 import FlightList from '@/components/Flight/FlightList';
 import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
-// import FlightSideBar from '@/components/SearchPage/flight-sidebar';
+import FlightSideBar from '@/components/Flight/FlightSideBar';
 import { Flight } from '@/components/Flight/FlightType';
-
 
 const FlightPage: React.FC = () => {
   const [origin, setOrigin] = useState<string>('');
@@ -185,83 +184,86 @@ const FlightPage: React.FC = () => {
     <div>
       <Navbar />
       <SearchNav />
-      {/* <FlightSideBar /> */}
-      <div className="p-6">
-        <h1 className="text-3xl font-bold mb-4">Flight Page</h1>
-
-        <div className="mb-6">
-          <h2 className="text-2xl font-semibold mb-2">Search Flights</h2>
-          <div className="flex flex-col space-y-2">
-            <input
-              type="text"
-              value={origin}
-              onChange={(e) => setOrigin(e.target.value)}
-              placeholder="Enter origin airport code"
-              className="input input-bordered w-full max-w-xs"
-            />
-            <input
-              type="text"
-              value={destination}
-              onChange={(e) => setDestination(e.target.value)}
-              placeholder="Enter destination airport code"
-              className="input input-bordered w-full max-w-xs"
-            />
-            <label>Enter departure date</label>
-            <input
-              type="date"
-              value={departureDate}
-              onChange={(e) => setDepartureDate(e.target.value)}
-              className="input input-bordered w-full max-w-xs"
-            />
-            <label>Enter return date</label>
-            <input
-              type="date"
-              value={returnDate}
-              onChange={(e) => setReturnDate(e.target.value)}
-              className="input input-bordered w-full max-w-xs"
-            />
-            <label>Enter number of Adults</label>
-            <input
-              type="number"
-              value={adults}
-              onChange={(e) => setAdults(e.target.value)}
-              className="input input-bordered w-full max-w-xs"
-            />
-            <button onClick={fetchFlights} className="btn btn-primary mt-2">
-              Search
-            </button>
-          </div>
-        </div>
-
-        <div className="mt-6">
-          <FlightList
-            flights={flights}
-            onSelectFlight={(flight) => setSelectedFlight(flight)}
-          />
-        </div>
-
-        {flights.length > 0 && (
+      <div className="flex">
+        {/* Original search bar */}
+        <div className="p-6 flex-grow">
+          <h1 className="text-3xl font-bold mb-4">Flight Page</h1>
           <div className="mb-6">
-            {/* <h2 className="text-2xl font-semibold mb-2">Select Flight and Enter Details</h2> */}
-            {selectedFlight && (
-              <form onSubmit={handleBooking}>
-                <TravelerDetailForm
-                  travelerDetails={travelerDetails}
-                  handleInputChange={handleInputChange}
-                />
-                <button type="submit" className="btn btn-primary mt-2">
-                  Book Flight
-                </button>
-              </form>
-            )}
+            <h2 className="text-2xl font-semibold mb-2">Search Flights</h2>
+            <div className="flex flex-col space-y-2">
+              <input
+                type="text"
+                value={origin}
+                onChange={(e) => setOrigin(e.target.value)}
+                placeholder="Enter origin airport code"
+                className="input input-bordered w-full max-w-xs"
+              />
+              <input
+                type="text"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+                placeholder="Enter destination airport code"
+                className="input input-bordered w-full max-w-xs"
+              />
+              <label>Enter departure date</label>
+              <input
+                type="date"
+                value={departureDate}
+                onChange={(e) => setDepartureDate(e.target.value)}
+                className="input input-bordered w-full max-w-xs"
+              />
+              <label>Enter return date</label>
+              <input
+                type="date"
+                value={returnDate}
+                onChange={(e) => setReturnDate(e.target.value)}
+                className="input input-bordered w-full max-w-xs"
+              />
+              <label>Enter number of Adults</label>
+              <input
+                type="number"
+                value={adults}
+                onChange={(e) => setAdults(e.target.value)}
+                className="input input-bordered w-full max-w-xs"
+              />
+              <button onClick={fetchFlights} className="btn btn-primary mt-2">
+                Search
+              </button>
+            </div>
           </div>
-        )}
 
-        {error && (
-          <div className="mt-6 text-red-500">
-            <p>{error}</p>
+          <div className="mt-6">
+            <FlightList
+              flights={flights}
+              onSelectFlight={(flight) => setSelectedFlight(flight)}
+            />
           </div>
-        )}
+
+          {flights.length > 0 && (
+            <div className="mb-6">
+              {selectedFlight && (
+                <form onSubmit={handleBooking}>
+                  <TravelerDetailForm
+                    travelerDetails={travelerDetails}
+                    handleInputChange={handleInputChange}
+                  />
+                  <button type="submit" className="btn btn-primary mt-2">
+                    Book Flight
+                  </button>
+                </form>
+              )}
+            </div>
+          )}
+
+          {error && (
+            <div className="mt-6 text-red-500">
+              <p>{error}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Sidebar */}
+        <FlightSideBar onSearch={fetchFlights} />
       </div>
     </div>
   );
