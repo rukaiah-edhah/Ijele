@@ -1,6 +1,7 @@
 // import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import airlineMap from '@/components/Flight/airlineMapping';
 
 interface Segment {

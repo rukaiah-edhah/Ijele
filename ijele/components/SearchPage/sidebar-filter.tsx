@@ -2,12 +2,13 @@
 import { useState } from 'react';
 
 interface FilterSecProps {
-    label: string;
-    inputName: string;
+    // label: string;
+    // inputName: string;
+    expand: () => boolean;
 }
 
 export default function FilterSection() {
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleExpansion = () => {
         setIsExpanded(!isExpanded);
@@ -16,37 +17,40 @@ export default function FilterSection() {
         <div className="bg-ijele_cream/50 pl-6 pt-4">
             <p>Filters</p>
             <div className="p-2">
-                <h4>Dates</h4>
-                <div className="flex items-center"> {/* stateful code to become dropdown AFTER Title*/}
+                <h4 className='border-none'>Dates</h4>
+                <div className="flex items-center text-sm">
                     <input type="date" name="startDate" id="departure" className="sidebar-inputfield w-1/3" />
                     ---
                     <input type="date" name="endDate" id="return" className="sidebar-inputfield w-1/3" />
                 </div>
 
-                <h4>Price</h4>
-                <div className="flex items-center"> {/* needs to be flexed!! */} {/* stateful code to become dropdown */}
-                    <div className='flex items-center'>
-                        <img src="" alt="$" />
-                        <input type="number" name="startDate" id="departure" className="sidebar-inputfield" />
+                <h4 className='border-none'>Price</h4>
+                <div className="flex justify-center">
+                    <div className='relative rounded-md'>
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                            <span className="text-gray-500 sm:text-sm">$</span>
+                        </div>
+                        <input type="number" name="startDate" id="departure" className="sidebar-inputfield pl-4 text-xs text-center" />
                     </div>
-                    -
-                    <div className='flex items-center'>
-                        <img src="" alt="$" />
-                        <input type="number" name="startDate" id="departure" className="sidebar-inputfield" />
+                    <div className='relative rounded-md'>
+                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                            <span className="text-gray-500 sm:text-sm">$</span>
+                        </div>
+                        <input type="number" name="startDate" id="departure" className="sidebar-inputfield pl-4 text-xs text-center" />
                     </div>
                 </div>
 
                 {/* Time Sort flight Sidbar */}
                 <div className='flex items-center'>
-                    <h4 onClick={toggleExpansion} className='pr-2'> Time</h4>
-                    <span className='text-xs text-ijele_cream'>{isExpanded ? '▲' : '▼'}</span>
+                    <h4 onClick={toggleExpansion} className=''> Time
+                        <span className='text-xxs text-ijele_cream'>{isExpanded ? '▲' : '▼'}</span> </h4>
                 </div>
-                
+
                 <div className={isExpanded ? 'visible' : 'hidden'}>
                     <div>
                         <label>
                             <input type="checkbox" name="flightTimes" id="morning" />
-                            Morning
+                             Morning
                         </label>
                     </div>
                     <div>
@@ -64,8 +68,12 @@ export default function FilterSection() {
                 </div>
 
                 {/* Property Types dropdown */}
-                <h4>Property Types</h4>
-                <div>
+                <div className='flex items-center'>
+                    <h4 onClick={toggleExpansion} className=''> Property Type
+                        <span className='text-xxs text-ijele_cream'>{isExpanded ? '▲' : '▼'}</span> </h4>
+                </div>
+
+                <div className={isExpanded ? 'visible' : 'hidden'}>
                     <div>
                         <label>
                             <input type="checkbox" name="accomType" id="hotelAccom" />
@@ -87,8 +95,12 @@ export default function FilterSection() {
                 </div>
 
                 {/* Hotel Brand dropdown */}
-                <h4>Brand Names</h4>
-                <div>
+                <div className='flex items-center'>
+                    <h4 onClick={toggleExpansion} className=''> Brand Names
+                        <span className='text-xxs text-ijele_cream'>{isExpanded ? '▲' : '▼'}</span> </h4>
+                </div>
+
+                <div className={isExpanded ? 'visible' : 'hidden'}>
                     <div>
                         <label>
                             <input type="checkbox" name="accomType" id="hotelAccom" />

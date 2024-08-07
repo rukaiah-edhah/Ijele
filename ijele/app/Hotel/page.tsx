@@ -56,9 +56,7 @@ const HotelPage: React.FC = () => {
       <div>
         <Navbar />
         <SearchNav />
-        <div className="">
         <HotelSideBar />
-        </div>
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">Hotel Page</h1> {/*delete later*/}
           <LocationSearch onSelect={setSelectedLocation} />
