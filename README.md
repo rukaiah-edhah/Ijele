@@ -31,6 +31,7 @@ We use GitHub issues and comments to assign tasks and document our work. Please 
 - **Week 1**: [Presentation Link](https://docs.google.com/presentation/d/1Lu_xNNpI9rJ4XjDRsZ5aneSZkRM7me-OC_v-wRq2BwA/edit#slide=id.p)
 - **Week 2**: [Presentation Link](https://docs.google.com/presentation/d/1YObXMrCoZkli4VDxBS6eG_wiIKa3MN_pgn02umnHxOg/edit)
 - **Week 3**: [Presentation Link](https://www.canva.com/design/DAGMb5cr1dc/0G69Hw8uvyiZqHrKyX0Qzg/view?utm_content=DAGMb5cr1dc&utm_campaign=designshare&utm_medium=link&utm_source=editor)
+- **Week 4**: [Presentation Link](https://www.canva.com/design/DAGNHgI2TXw/qE4M-8QDhPXglJzE526qfQ/view?utm_content=DAGNHgI2TXw&utm_campaign=designshare&utm_medium=link&utm_source=editor#1)
 
 ## Team Members 
 - **Rukaiah** - Full-stack Developer with a focus on the backend [LinkedIn](https://www.linkedin.com/in/rukaiah-edhah/)
