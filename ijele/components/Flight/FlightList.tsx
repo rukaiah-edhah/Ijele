@@ -1,3 +1,4 @@
+
 import '@/components/Flight/flightList.css';
 import FlightCard from './FlightCard';
 import { Flight } from './FlightType';
@@ -7,7 +8,14 @@ const airlineLogos: Record<string, string> = {
   'DL': '/Images/Delta.png',
   'UA': '/Images/UA.png',
   'SW': '/Images/SW.png',
-  'VS': 'Images/VS.png',
+  'VS': '/Images/VS.png',
+  'FI': '/Images/FI.png', 
+  'BF': '/Images/BF.png',
+  'TX': '/Images/TX.png',
+  'QR': '/Images/QR.png', 
+  'MF': '/Images/MF.png',
+  'AS': '/Images/AS.png',
+  'SK': '/Images/SK.png',
 };
 
 type Props = {
@@ -28,6 +36,7 @@ const formatDuration = (duration: string): string => {
 const FlightList: React.FC<Props> = ({ flights, onSelectFlight }) => {
   return (
     <div className="flights-container">
+     
       {flights.length > 0 && (
         <div>
           <h2 className="flights-title">Flights</h2>

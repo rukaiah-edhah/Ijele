@@ -1,5 +1,7 @@
+// import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import '@fortawesome/fontawesome-free/css/all.min.css';
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import airlineMap from '@/components/Flight/airlineMapping';
 
 interface Segment {
@@ -38,23 +40,27 @@ const FlightCard: React.FC<FlightCardProps> = ({
   onSelect,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  // const router = useRouter();
 
   const toggleExpansion = () => {
     setIsExpanded(!isExpanded);
   };
 
+  // const handleSelect = () => {
+  //   router.push('/selected-flight-details');
+  // };
+
   const fullAirlineName = airlineMap[airline] || 'Unknown Airline';
 
   return (
     <div className="flex flex-col mb-4 shadow-lg overflow-hidden rounded-tr-[25%] border bg-ijele_navy">
-      <div className="flex items-center p-4 bg-white border-black">
+      <div className={`flex items-center p-4 border-black ${isExpanded ? 'bg-ijele_teal text-white' : 'bg-white'}`}>
         <img src={logo} alt={`${airline} logo`} className="w-12 h-12 mr-4 rounded-full border" />
         <div className="flex-1">
           <div className="flex justify-between">
             <div>
               <p className="text-lg font-junge">{departureTime} - {arrivalTime}</p>
             </div>
-            
             <div>
               <p className="flex-1 text-center text-sm text-gray-500 font-junge">{stops}</p>
             </div>

@@ -23,7 +23,7 @@
 
 @layer components{
    .hoveredHome{
-        @apply font-junge rounded-md bg-green-900 px-3 py-2 text-sm font-medium text-white
+        @apply font-junge rounded-md bg-ijele_deepGold px-3 py-2 text-sm font-medium text-ijele_navy
     
     } 
     .logo-container{
@@ -63,12 +63,15 @@
         @apply text-ijele_cream
     }
     .sidebar-container p {
-        font-size: x-small;
+        font-size: small;
         font-family: "Junge" ;
         color: #334E5C;
     }
     .sidebar-container h4 {
-        @apply font-inter font-medium text-[#334E5C] text-sm
+        @apply font-inter font-medium text-[#334E5C] text-sm pr-2 pb-2 mb-2 border-b border-ijele_teal w-full
+    }
+    .sidebar-container label {
+        @apply text-sm font-kite_one text-ijele_navy pl-2
     }
 }
 
