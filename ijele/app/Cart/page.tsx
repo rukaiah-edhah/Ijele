@@ -7,7 +7,8 @@ export default function HomePage(){
     return (
         <>
         <Navbar />    
-        <h1>Component test page</h1>
+        <h1>Cart test page</h1>
+        <HotelSideBar/>
         </>
     )
 }
