@@ -1,3 +1,5 @@
+"use client";
+
 import React, { ChangeEvent, useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
@@ -6,10 +8,12 @@ import FlightList from '@/components/Flight/FlightList';
 import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
 import { Flight } from '@/components/Flight/FlightType';
 import { useCart } from '@/components/Payment/cartContent';
+import { useRouter } from "next/navigation";
 import FlightSideBar from '@/components/SearchPage/flight-sidebar';
-
+import createFlightOrder from '@/lib/flight/bookFlight';
 
 const FlightPage: React.FC = () => {
+  const router = useRouter();
   const [origin, setOrigin] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
   const [departureDate, setDepartureDate] = useState<string>('');
@@ -39,6 +43,7 @@ const FlightPage: React.FC = () => {
   });
 
   const [error, setError] = useState<any>(null);
+  const [bookingStatus, setBookingStatus] = useState<'notStarted' | 'booked' | 'error'>('notStarted');
   const { addToCart } = useCart();
 
   const fetchFlights = async () => {
@@ -162,11 +167,28 @@ const FlightPage: React.FC = () => {
       };
 
       const response = await axios.post('/api/flights/book', bookingDetails);
+      setBookingStatus('booked');
       alert('Flight booked successfully!');
+
+      if (selectedFlight) {
+        addToCart({
+          id: selectedFlight.id.toString(),
+          type: 'flight',
+          details: selectedFlight,
+          price: parseFloat(response.data.data.price), // Replace with actual price
+        });
+        alert('Flight added to cart!');
+      }
+
       setSelectedFlight(null); // Clear the selected flight
     } catch (err: any) {
       alert('Failed to book flight. Please try again.');
     }
+  };
+
+  const handlePayNow = () => {
+    router.push('Payment')
+    alert('Redirecting to payment page...');
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -210,30 +232,72 @@ const FlightPage: React.FC = () => {
         {/* Original search bar */}
         <div className="p-6 flex-grow">
           <h1 className="text-3xl font-bold mb-4">Flight Page</h1>
-
-        <div className="mt-6">
-          <FlightList
-            flights={flights}
-            onSelectFlight={(flight) => setSelectedFlight(flight)}
-          />
-        </div>
-
-        {flights.length > 0 && (
           <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Select Flight and Enter Details</h2>
-            {selectedFlight && (
-              <form onSubmit={handleBooking}>
-                <TravelerDetailForm
-                  travelerDetails={travelerDetails}
-                  handleInputChange={handleInputChange}
-                />
-                <button type="submit" className="btn btn-primary mt-2">
-                  Book Flight
-                </button>
-              </form>
-            )}
+            <h2 className="text-2xl font-semibold mb-2">Search Flights</h2>
+            <div className="flex flex-col space-y-2">
+              <input
+                type="text"
+                value={origin}
+                onChange={(e) => setOrigin(e.target.value)}
+                placeholder="Enter origin airport code"
+                className="input input-bordered w-full max-w-xs"
+              />
+              <input
+                type="text"
+                value={destination}
+                onChange={(e) => setDestination(e.target.value)}
+                placeholder="Enter destination airport code"
+                className="input input-bordered w-full max-w-xs"
+              />
+              <label>Enter departure date</label>
+              <input
+                type="date"
+                value={departureDate}
+                onChange={(e) => setDepartureDate(e.target.value)}
+                className="input input-bordered w-full max-w-xs"
+              />
+              <label>Enter return date</label>
+              <input
+                type="date"
+                value={returnDate}
+                onChange={(e) => setReturnDate(e.target.value)}
+                className="input input-bordered w-full max-w-xs"
+              />
+              <label>Enter number of Adults</label>
+              <input
+                type="number"
+                value={adults}
+                onChange={(e) => setAdults(e.target.value)}
+                className="input input-bordered w-full max-w-xs"
+              />
+              <button onClick={fetchFlights} className="btn btn-primary mt-2">
+                Search
+              </button>
+            </div>
           </div>
-        )}
+
+          <div className="mt-6">
+            <FlightList
+              flights={flights}
+              onSelectFlight={(flight) => setSelectedFlight(flight)}
+            />
+          </div>
+
+          {flights.length > 0 && (
+            <div className="mb-6">
+              {selectedFlight && (
+                <form onSubmit={handleBooking}>
+                  <TravelerDetailForm
+                    travelerDetails={travelerDetails}
+                    handleInputChange={handleInputChange}
+                  />
+                  <button type="submit" className="btn btn-primary mt-2">
+                    Book Flight
+                  </button>
+                </form>
+              )}
+            </div>
+          )}
 
           {error && (
             <div className="mt-6 text-red-500">
@@ -242,9 +306,28 @@ const FlightPage: React.FC = () => {
           )}
         </div>
 
-        {/* Sidebar */}
-        {/* <FlightSideBar onSearch={fetchFlights} /> */}
+        {bookingStatus && (
+            <div className="mt-6">
+              <p className="text-green-500">{bookingStatus}</p>
+              <button onClick={handlePayNow} className="btn btn-primary mt-2">
+                Pay Now
+              </button>
+              <button onClick={handleAddToCart} className="btn btn-secondary mt-2 ml-4">
+                Add to Cart
+              </button>
+            </div>
+          )}
+
+
+        {error && (
+          <div className="mt-6 text-red-500">
+            <p>{error}</p>
+          </div>
+        )}
       </div>
+
+      {/* Sidebar */}
+      {/* <FlightSideBar onSearch={fetchFlights} /> */}
     </div>
   );
 };
