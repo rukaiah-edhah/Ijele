@@ -1,12 +1,17 @@
 import axios from 'axios';
 import getAccessToken from '../getAccessToken';
-import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest, HotelOffer } from '../interfaces';
-import { useCart } from '@/components/Payment/cartContent';
+import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest } from '../interfaces';
+import useCart from '@/components/Payment/cartContent';
 
-
-const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: PaymentInfo, hotelOffer: HotelOffer): Promise<BookingResponse> => {
-  const { addToCart } = useCart();
-
+/**
+ * Function to book a hotel using Amadeus API.
+ * @param {string} offerId - The offer ID of the hotel booking.
+ * @param {GuestInfo} guestInfo - Information about the guest.
+ * @param {PaymentInfo} paymentInfo - Information about the payment.
+ * @returns {Promise<BookingResponse>} The response data from the booking.
+ * @throws an error if unable to book the hotel.
+ */
+const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: PaymentInfo): Promise<BookingResponse> => {
   try {
     const accessToken = await getAccessToken();
     const bookingRequest: BookingRequest = {
@@ -34,18 +39,15 @@ const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: Pay
         'Content-Type': 'application/vnd.amadeus+json',
       },
     });
-
     console.log('Booking confirmation:', response.data);
 
-    // Convert the id to a string or use a default value if undefined/null
-    const hotelId = hotelOffer.hotel.hotelId?.toString() || 'default-hotel-id';
-
-    // Add the hotel to the cart
+    // Add hotel booking to the cart
+    const { addToCart } = useCart(); // Use the useCart hook
     addToCart({
-      id: hotelId, // Ensure it's a string
+      id: offerId,
       type: 'hotel',
-      details: hotelOffer,
-      price: parseFloat(hotelOffer.offers[0].price.total), // Replace with actual price
+      details: response.data.data,  // Add the booking details
+      price: response.data.data.offer.price.total, // Assuming the price is here
     });
 
     return response.data;
