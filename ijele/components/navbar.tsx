@@ -17,6 +17,7 @@ const Navbar: React.FC = () => {
   // Toggle user menu visibility
   const toggleUserMenu = () => setUserMenuOpen(!userMenuOpen);
 
+
   /*
     // <nav className="bg-white shadow mb-4">
     //   <div className="container mx-auto px-4 py-3 flex items-center justify-between">
@@ -72,7 +73,7 @@ const Navbar: React.FC = () => {
               <div className="flex flex-shrink-0 items-center"></div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                  <a href="/Homepage" className="hoveredHome" aria-current="page">Home</a>
+                  <a href="/Homepage" className="navbarLink" aria-current="page">Home</a>
                   <a href="/Flight" className="navbarLink">Flight</a>
                   <a href="/Hotel" className="navbarLink">Hotel</a>
                   <a href="/Payment" className="navbarLink">Payments</a>

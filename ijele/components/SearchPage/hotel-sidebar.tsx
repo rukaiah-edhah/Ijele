@@ -1,9 +1,10 @@
 "use client";
-import FilterSection from "./sidebar-filter";
+// import FilterSection from "./sidebar-filter";
 import searchIcon from "/Images/searchIcon.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useState } from 'react';
+import FilterSection from "./sidebarTEST";
 
 interface HotelReview{
     rating: number
@@ -16,21 +17,21 @@ const hotel_data: HotelReview = {
 const star_open = <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFF6EE"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143Zm-43 59 45-192-149-129 196-17 77-181 77 181 196 17-149 129 45 192-169-102-169 102Zm169-242Z"/></svg>
 const star_filled = <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#F2BE5C" background-color="#990293"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143Zm-43 59 45-192-149-129 196-17 77-181 77 181 196 17-149 129 45 192-169-102-169 102Zm169-242Z"/></svg>
 const star_half = <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#5f6368"><path d="m606-286-33-144 111-96-146-13-58-136v312l126 77Zm-295 58 45-192-149-129 196-17 77-181 77 181 196 17-149 129 45 192-169-102-169 102Z"/></svg>
-const stars: JSX.Element[] = [];
 
 function applyStars(rating: number) {
+    const stars: JSX.Element[] = [];
     for (let i = 0; i < 5; i++) {
         i < rating ? stars.push(star_filled) : stars.push(star_open)
     }
 
-    return stars.map((s) => <span className=""> {s} </span>)
+    return stars
 }
 
 
 export default function HotelSideBar() {
     return (
         <>
-            <div className='mr-4 max-h-screen overflow-auto sidebar-container place-content-center no-scrollbar'>
+            <div className='max-h-screen overflow-auto sidebar-container place-content-center no-scrollbar'>
                 {/* <p className='mt-2 flex justify-center'>- Accommodation -</p> */}
 
                 {/* search bar section */}
