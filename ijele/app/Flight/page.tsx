@@ -1,15 +1,19 @@
 "use client";
 
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import axios from 'axios';
 import Navbar from '@/components/navbar';
 import SearchNav from '@/components/SearchPage/search-nav';
 import FlightList from '@/components/Flight/FlightList';
 import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
-import FlightSideBar from '@/components/Flight/FlightSideBar';
 import { Flight } from '@/components/Flight/FlightType';
+import { useCart } from '@/components/Payment/cartContent';
+import { useRouter } from "next/navigation";
+import FlightSideBar from '@/components/SearchPage/flight-sidebar';
+import createFlightOrder from '@/lib/flight/bookFlight';
 
 const FlightPage: React.FC = () => {
+  const router = useRouter();
   const [origin, setOrigin] = useState<string>('');
   const [destination, setDestination] = useState<string>('');
   const [departureDate, setDepartureDate] = useState<string>('');
@@ -39,6 +43,8 @@ const FlightPage: React.FC = () => {
   });
 
   const [error, setError] = useState<any>(null);
+  const [bookingStatus, setBookingStatus] = useState<'notStarted' | 'booked' | 'error'>('notStarted');
+  const { addToCart } = useCart();
 
   const fetchFlights = async () => {
     try {
@@ -57,6 +63,15 @@ const FlightPage: React.FC = () => {
       setFlights([]); // Clear the flights list on error
       setError(err.response ? err.response.data : err.message);
     }
+  };
+
+  const handleSearch = (origin: string, destination: string, departureDate: string, returnDate: string, adults: string) => {
+    setOrigin(origin);
+    setDestination(destination);
+    setDepartureDate(departureDate);
+    setReturnDate(returnDate);
+    setAdults(adults);
+    fetchFlights();
   };
 
   const handleBooking = async (e: React.FormEvent) => {
@@ -152,11 +167,28 @@ const FlightPage: React.FC = () => {
       };
 
       const response = await axios.post('/api/flights/book', bookingDetails);
+      setBookingStatus('booked');
       alert('Flight booked successfully!');
+
+      if (selectedFlight) {
+        addToCart({
+          id: selectedFlight.id.toString(),
+          type: 'flight',
+          details: selectedFlight,
+          price: parseFloat(response.data.data.price), // Replace with actual price
+        });
+        alert('Flight added to cart!');
+      }
+
       setSelectedFlight(null); // Clear the selected flight
     } catch (err: any) {
       alert('Failed to book flight. Please try again.');
     }
+  };
+
+  const handlePayNow = () => {
+    router.push('Payment')
+    alert('Redirecting to payment page...');
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -177,6 +209,18 @@ const FlightPage: React.FC = () => {
       alert('Flight booked successfully!');
     } catch (err) {
       alert('Failed to book flight. Please try again.');
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (selectedFlight) {
+      addToCart({
+        id: selectedFlight.id,
+        type: 'flight',
+        details: selectedFlight,
+        price: 0
+      });
+      alert('Flight added to cart!');
     }
   };
 
@@ -262,9 +306,28 @@ const FlightPage: React.FC = () => {
           )}
         </div>
 
-        {/* Sidebar */}
-        <FlightSideBar onSearch={fetchFlights} />
+        {bookingStatus && (
+            <div className="mt-6">
+              <p className="text-green-500">{bookingStatus}</p>
+              <button onClick={handlePayNow} className="btn btn-primary mt-2">
+                Pay Now
+              </button>
+              <button onClick={handleAddToCart} className="btn btn-secondary mt-2 ml-4">
+                Add to Cart
+              </button>
+            </div>
+          )}
+
+
+        {error && (
+          <div className="mt-6 text-red-500">
+            <p>{error}</p>
+          </div>
+        )}
       </div>
+
+      {/* Sidebar */}
+      {/* <FlightSideBar onSearch={fetchFlights} /> */}
     </div>
   );
 };

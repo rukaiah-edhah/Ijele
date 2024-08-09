@@ -85,7 +85,6 @@ const HotelPage: React.FC = () => {
             Search
           </button>
           <div className="max-w-auto flex flex-wrap justify-evenly p-6">
-
             
             {/* display results or ERROR*/}
             {hotels.length > 0 && (
