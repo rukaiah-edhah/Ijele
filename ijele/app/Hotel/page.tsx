@@ -99,8 +99,6 @@ const HotelPage: React.FC = () => {
             
 
             {/* display results or ERROR*/}
-            
-            {/* display results or ERROR*/}
             {hotels.length > 0 && (
               <HotelList hotels={hotels} handleViewOffers={handleViewOffers} />
             )}

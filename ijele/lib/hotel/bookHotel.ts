@@ -1,7 +1,6 @@
 import axios from 'axios';
 import getAccessToken from '../getAccessToken';
 import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest } from '../interfaces';
-import useCart from '@/components/Payment/cartContent';
 
 /**
  * Function to book a hotel using Amadeus API.
@@ -12,8 +11,6 @@ import useCart from '@/components/Payment/cartContent';
  * @throws an error if unable to book the hotel.
  */
 const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: PaymentInfo): Promise<BookingResponse> => {
-  const { addToCart } = useCart();
-
   try {
     const accessToken = await getAccessToken();
     const bookingRequest: BookingRequest = {
@@ -42,7 +39,6 @@ const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: Pay
       },
     });
     console.log('Booking confirmation:', response.data);
-    
     return response.data;
   } catch (error: any) {
     console.error('Error booking hotel:', error.response ? error.response.data : error.message);
