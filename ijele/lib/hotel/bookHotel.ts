@@ -1,12 +1,27 @@
 import axios from 'axios';
 import getAccessToken from '../getAccessToken';
+<<<<<<< Updated upstream
+import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest } from '../interfaces';
+
+/**
+ * Function to book a hotel using Amadeus API.
+ * @param {string} offerId - The offer ID of the hotel booking.
+ * @param {GuestInfo} guestInfo - Information about the guest.
+ * @param {PaymentInfo} paymentInfo - Information about the payment.
+ * @returns {Promise<BookingResponse>} The response data from the booking.
+ * @throws an error if unable to book the hotel.
+ */
+const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: PaymentInfo): Promise<BookingResponse> => {
+=======
 import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest, HotelOffer } from '../interfaces';
-import { useCart } from '@/components/Payment/cartContent';
+import useCart from '@/components/Payment/cartContent';
+
 
 
 const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: PaymentInfo, hotelOffer: HotelOffer): Promise<BookingResponse> => {
   const { addToCart } = useCart();
 
+>>>>>>> Stashed changes
   try {
     const accessToken = await getAccessToken();
     const bookingRequest: BookingRequest = {
@@ -34,20 +49,7 @@ const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: Pay
         'Content-Type': 'application/vnd.amadeus+json',
       },
     });
-
     console.log('Booking confirmation:', response.data);
-
-    // Convert the id to a string or use a default value if undefined/null
-    const hotelId = hotelOffer.hotel.hotelId?.toString() || 'default-hotel-id';
-
-    // Add the hotel to the cart
-    addToCart({
-      id: hotelId, // Ensure it's a string
-      type: 'hotel',
-      details: hotelOffer,
-      price: parseFloat(hotelOffer.offers[0].price.total), // Replace with actual price
-    });
-
     return response.data;
   } catch (error: any) {
     console.error('Error booking hotel:', error.response ? error.response.data : error.message);
