@@ -1,7 +1,7 @@
 import axios from 'axios';
 import getAccessToken from '../getAccessToken';
-<<<<<<< Updated upstream
 import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest } from '../interfaces';
+import useCart from '@/components/Payment/cartContent';
 
 /**
  * Function to book a hotel using Amadeus API.
@@ -12,16 +12,8 @@ import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest } from '../inte
  * @throws an error if unable to book the hotel.
  */
 const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: PaymentInfo): Promise<BookingResponse> => {
-=======
-import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest, HotelOffer } from '../interfaces';
-import useCart from '@/components/Payment/cartContent';
-
-
-
-const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: PaymentInfo, hotelOffer: HotelOffer): Promise<BookingResponse> => {
   const { addToCart } = useCart();
 
->>>>>>> Stashed changes
   try {
     const accessToken = await getAccessToken();
     const bookingRequest: BookingRequest = {
