@@ -6,6 +6,7 @@ const TravelCart = () => {
   const [cart, setCart] = useState<any[]>([]);
   const [parties, setParties] = useState<number>(1);
   const [payments, setPayments] = useState<number[]>([0]);
+  const [paymentInfo, setPaymentInfo] = useState<any>({});
 
   const handleAddToCart = (item: any) => {
     setCart((prevCart) => [...prevCart, item]);
@@ -28,7 +29,33 @@ const TravelCart = () => {
       alert('Total payment must equal cart total.');
       return;
     }
-    // TODO -- Finish payment and booking logic
+
+    cart.forEach(item => {
+      if (item.type === 'hotel' && !item.paymentInfo) {
+        setPaymentInfo({
+          hotelId: item.details.id,
+          amount: item.price,
+          cardNumber: '',
+          expiryDate: '',
+          cvc: '',
+        });
+      } else {
+        console.log('Processing item:', item);
+      }
+    });
+  };
+
+  const handlePaymentSubmit = (e: any) => {
+    e.preventDefault();
+    // Handle payment processing here
+    console.log('Payment submitted:', paymentInfo);
+    const updatedCart = cart.map(item => 
+      item.details.id === paymentInfo.hotelId 
+        ? { ...item, paymentInfo: true } 
+        : item
+    );
+    setCart(updatedCart);
+    setPaymentInfo(null);
   };
 
   const cartTotal = cart.reduce((total, item) => total + item.price, 0);
@@ -39,7 +66,7 @@ const TravelCart = () => {
       <ul>
         {cart.map((item, index) => (
           <li key={index}>
-            {item.name} - ${item.price}
+            {item.details.name} - ${item.price}
             <button onClick={() => handleRemoveFromCart(index)}>Remove</button>
           </li>
         ))}
@@ -58,6 +85,41 @@ const TravelCart = () => {
       ))}
       <button onClick={() => setParties(parties + 1)}>Add Party</button>
       <button onClick={handleCheckout}>Checkout</button>
+      
+      {paymentInfo.hotelId && (
+        <form onSubmit={handlePaymentSubmit}>
+          <h3>Enter Payment Information for Hotel</h3>
+          <div>
+            <label>Card Number</label>
+            <input
+              type="text"
+              value={paymentInfo.cardNumber}
+              onChange={(e) => setPaymentInfo({ ...paymentInfo, cardNumber: e.target.value })}
+              required
+            />
+          </div>
+          <div>
+            <label>Expiry Date (MM/YY)</label>
+            <input
+              type="text"
+              value={paymentInfo.expiryDate}
+              onChange={(e) => setPaymentInfo({ ...paymentInfo, expiryDate: e.target.value })}
+              required
+            />
+          </div>
+          <div>
+            <label>CVC</label>
+            <input
+              type="text"
+              value={paymentInfo.cvc}
+              onChange={(e) => setPaymentInfo({ ...paymentInfo, cvc: e.target.value })}
+              required
+            />
+          </div>
+          <button type="submit">Submit Payment</button>
+          <button type="button" onClick={() => setPaymentInfo(null)}>Cancel</button>
+        </form>
+      )}
     </div>
   );
 };
