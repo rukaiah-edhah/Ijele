@@ -42,6 +42,7 @@ const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: Pay
       },
     });
     console.log('Booking confirmation:', response.data);
+    
     return response.data;
   } catch (error: any) {
     console.error('Error booking hotel:', error.response ? error.response.data : error.message);
