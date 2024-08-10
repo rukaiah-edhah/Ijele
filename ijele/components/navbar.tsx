@@ -100,10 +100,6 @@ const Navbar = (props: NavbarProps) => {
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
                   {buildNavLinks(props.currentPage)}
-                  {/* <a href="/Homepage" className="navbarLink" aria-current="page">Home</a>
-                  <a href="/Flight" className="navbarLink">Flight</a>
-                  <a href="/Hotel" className="navbarLink">Hotel</a>
-                  <a href="/Payment" className="navbarLink">Payments</a> */}
                   <LoginLink className="navbarLink">Login </LoginLink>
                   <LogoutLink className="navbarLink">Log out </LogoutLink>
                 </div>

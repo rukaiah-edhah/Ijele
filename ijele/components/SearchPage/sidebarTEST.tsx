@@ -3,11 +3,10 @@ import { useState } from 'react';
 
 // Define the types for the section states
 type ExpandedSection = 'time' | 'property' | 'brand' | null;
-
 const testData = {
     title: "Brans",
     selections: {
-        label: ["Best", 'afternoon', 'night'],
+        label: ["morning", 'afternoon', 'night'],
         name: 'flightTimes',
         id: ["morning", 'afternoon', 'night'],
     }
@@ -26,12 +25,12 @@ export default function FilterSection() {
         <div className="bg-ijele_cream/50 pl-6 pt-4">
             <p>Filters</p>
             <div className="p-2">
-                <h4 className='border-none'>Dates</h4>
+                {/* <h4 className='border-none'>Dates</h4>
                 <div className="flex items-center text-sm">
                     <input type="date" name="startDate" id="departure" className="sidebar-inputfield w-1/3" />
                     ---
                     <input type="date" name="endDate" id="return" className="sidebar-inputfield w-1/3" />
-                </div>
+                </div> */}
 
                 <h4 className='border-none'>Price</h4>
                 <div className="flex justify-center">
