@@ -178,6 +178,8 @@ const FlightPage: React.FC = () => {
           price: parseFloat(response.data.data.price), // Replace with actual price
         });
         alert('Flight added to cart!');
+        alert('Redirecting to Cart page!')
+        router.push('/Cart');
       }
 
       setSelectedFlight(null); // Clear the selected flight
