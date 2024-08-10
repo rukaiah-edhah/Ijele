@@ -1,7 +1,6 @@
 import axios from 'axios';
 import getAccessToken from '../getAccessToken';
 import { GuestInfo, PaymentInfo, BookingResponse, BookingRequest } from '../interfaces';
-import useCart from '@/components/Payment/cartContent';
 
 /**
  * Function to book a hotel using Amadeus API.
@@ -40,16 +39,6 @@ const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: Pay
       },
     });
     console.log('Booking confirmation:', response.data);
-
-    // Add hotel booking to the cart
-    const { addToCart } = useCart(); // Use the useCart hook
-    addToCart({
-      id: offerId,
-      type: 'hotel',
-      details: response.data.data,  // Add the booking details
-      price: response.data.data.offer.price.total, // Assuming the price is here
-    });
-
     return response.data;
   } catch (error: any) {
     console.error('Error booking hotel:', error.response ? error.response.data : error.message);

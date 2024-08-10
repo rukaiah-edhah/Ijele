@@ -10,7 +10,7 @@ import { Flight } from '@/components/Flight/FlightType';
 import { useRouter } from "next/navigation";
 import FlightSideBar from '@/components/SearchPage/flight-sidebar';
 import createFlightOrder from '@/lib/flight/bookFlight';
-import useCart from '@/components/Payment/cartContent';
+import { useCart } from '@/components/Payment/cartContent';
 
 const FlightPage: React.FC = () => {
   const router = useRouter();
