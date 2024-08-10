@@ -1,21 +1,20 @@
 "use client";
 
+import { useCart } from '@/components/Payment/cartContent';
 import { useState } from 'react';
 
 const TravelCart = () => {
-  const [cart, setCart] = useState<any[]>([]);
+  const { cart, addToCart } = useCart(); // Access cart and addToCart from context
   const [parties, setParties] = useState<number>(1);
   const [payments, setPayments] = useState<number[]>([0]);
-  const [paymentInfo, setPaymentInfo] = useState<any>({});
-
-  const handleAddToCart = (item: any) => {
-    setCart((prevCart) => [...prevCart, item]);
-  };
 
   const handleRemoveFromCart = (index: number) => {
-    const newCart = [...cart];
-    newCart.splice(index, 1);
-    setCart(newCart);
+    // Filter out the item from the cart
+    const newCart = cart.filter((_, i) => i !== index);
+    // You would need a way to update the cart context here
+    // For now, you can use the `addToCart` method to reset the cart
+    // Assuming `addToCart` can accept a new cart array
+    newCart.forEach(item => addToCart(item));
   };
 
   const handleSplitPayment = (index: number, value: number) => {
@@ -25,37 +24,12 @@ const TravelCart = () => {
   };
 
   const handleCheckout = () => {
+    const cartTotal = cart.reduce((total, item) => total + item.price, 0);
     if (payments.reduce((acc, cur) => acc + cur, 0) !== cartTotal) {
       alert('Total payment must equal cart total.');
       return;
     }
-
-    cart.forEach(item => {
-      if (item.type === 'hotel' && !item.paymentInfo) {
-        setPaymentInfo({
-          hotelId: item.details.id,
-          amount: item.price,
-          cardNumber: '',
-          expiryDate: '',
-          cvc: '',
-        });
-      } else {
-        console.log('Processing item:', item);
-      }
-    });
-  };
-
-  const handlePaymentSubmit = (e: any) => {
-    e.preventDefault();
-    // Handle payment processing here
-    console.log('Payment submitted:', paymentInfo);
-    const updatedCart = cart.map(item => 
-      item.details.id === paymentInfo.hotelId 
-        ? { ...item, paymentInfo: true } 
-        : item
-    );
-    setCart(updatedCart);
-    setPaymentInfo(null);
+    // TODO -- Finish payment and booking logic
   };
 
   const cartTotal = cart.reduce((total, item) => total + item.price, 0);
@@ -85,41 +59,6 @@ const TravelCart = () => {
       ))}
       <button onClick={() => setParties(parties + 1)}>Add Party</button>
       <button onClick={handleCheckout}>Checkout</button>
-      
-      {paymentInfo.hotelId && (
-        <form onSubmit={handlePaymentSubmit}>
-          <h3>Enter Payment Information for Hotel</h3>
-          <div>
-            <label>Card Number</label>
-            <input
-              type="text"
-              value={paymentInfo.cardNumber}
-              onChange={(e) => setPaymentInfo({ ...paymentInfo, cardNumber: e.target.value })}
-              required
-            />
-          </div>
-          <div>
-            <label>Expiry Date (MM/YY)</label>
-            <input
-              type="text"
-              value={paymentInfo.expiryDate}
-              onChange={(e) => setPaymentInfo({ ...paymentInfo, expiryDate: e.target.value })}
-              required
-            />
-          </div>
-          <div>
-            <label>CVC</label>
-            <input
-              type="text"
-              value={paymentInfo.cvc}
-              onChange={(e) => setPaymentInfo({ ...paymentInfo, cvc: e.target.value })}
-              required
-            />
-          </div>
-          <button type="submit">Submit Payment</button>
-          <button type="button" onClick={() => setPaymentInfo(null)}>Cancel</button>
-        </form>
-      )}
     </div>
   );
 };
