@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useState } from 'react';
 import FilterSection from "./sidebarTEST";
+import { Interface } from "readline";
+
 
 interface HotelReview{
     rating: number
@@ -14,9 +16,9 @@ const hotel_data: HotelReview = {
     rating: 4
 }
 
-const star_open = <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#FFF6EE"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143Zm-43 59 45-192-149-129 196-17 77-181 77 181 196 17-149 129 45 192-169-102-169 102Zm169-242Z"/></svg>
-const star_filled = <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#F2BE5C" background-color="#990293"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143Zm-43 59 45-192-149-129 196-17 77-181 77 181 196 17-149 129 45 192-169-102-169 102Zm169-242Z"/></svg>
-const star_half = <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#5f6368"><path d="m606-286-33-144 111-96-146-13-58-136v312l126 77Zm-295 58 45-192-149-129 196-17 77-181 77 181 196 17-149 129 45 192-169-102-169 102Z"/></svg>
+const star_open = <i className="fa-solid fa-star text-ijele_cream text-xl"></i>
+const star_filled = <i className="fa-solid fa-star text-ijele_gold text-xl"></i>
+const star_half = <i className="fa-light fa-star-half-stroke text-ijele_gold text-xl"></i>
 
 function applyStars(rating: number) {
     const stars: JSX.Element[] = [];
@@ -49,7 +51,7 @@ export default function HotelSideBar() {
 
                 {/* Description on hover  */}
                 <div className="pl-6 mb-6">
-                    <div className='flex items-end'>
+                    <div className='flex space-x-4 pt-4 pb-2'>
                     {/* <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#5f6368"><path d="m354-287 126-76 126 77-33-144 111-96-146-13-58-136-58 135-146 13 111 97-33 143Zm-43 59 45-192-149-129 196-17 77-181 77 181 196 17-149 129 45 192-169-102-169 102Zm169-242Z"/></svg> */}
                         {applyStars(hotel_data.rating)}
                         <p className="ml-1">300 reviews</p>

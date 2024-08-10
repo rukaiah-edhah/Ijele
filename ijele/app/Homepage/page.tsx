@@ -6,7 +6,7 @@ import SearchNav from "@/components/SearchPage/search-nav";
 export default function HomePage(){
     return (
         <>
-        <Navbar />    
+        <Navbar currentPage="Homepage" />    
         <h1>Component test page</h1>
         </>
     )
