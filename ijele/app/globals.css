@@ -22,10 +22,7 @@
 }
 
 @layer components{
-   /* .selectedPage{
-        @apply font-junge rounded-md bg-ijele_deepGold px-3 py-2 text-sm font-medium text-ijele_navy
-    
-    }  */
+   
     .logo-container{
         /* cutom border image from: https://kovart.github.io/dashed-border-generator/ */
         /* background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23CF903FFF' stroke-width='3' stroke-dasharray='6%2c 14' stroke-dashoffset='15' stroke-linecap='square'/%3e%3c/svg%3e"); */

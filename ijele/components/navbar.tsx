@@ -7,7 +7,33 @@ import {
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 
-const Navbar: React.FC = () => {
+
+type NavbarProps = {
+  currentPage: string,
+}
+
+const navlist = [
+  "Home",
+  "Flight","Hotel","Payment"
+]
+
+
+function buildNavLinks(currenPage: string) {
+  const links: JSX.Element[] = []
+  for (let i = 0; i < 4; i++) {
+    if (currenPage == navlist[i]){
+      links.push(<a href={`/`+ navlist[i]} className='navbarLink text-ijele_deepGold border-b-2'>{navlist[i]}</a>)
+    } 
+    else {
+     links.push(<a href={`/`+ navlist[i]} className='navbarLink'>{navlist[i]}</a>)
+    }
+  }
+
+  return links
+
+}
+
+const Navbar = (props: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
@@ -73,10 +99,11 @@ const Navbar: React.FC = () => {
               <div className="flex flex-shrink-0 items-center"></div>
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-4">
-                  <a href="/Homepage" className="navbarLink" aria-current="page">Home</a>
+                  {buildNavLinks(props.currentPage)}
+                  {/* <a href="/Homepage" className="navbarLink" aria-current="page">Home</a>
                   <a href="/Flight" className="navbarLink">Flight</a>
                   <a href="/Hotel" className="navbarLink">Hotel</a>
-                  <a href="/Payment" className="navbarLink">Payments</a>
+                  <a href="/Payment" className="navbarLink">Payments</a> */}
                   <LoginLink className="navbarLink">Login </LoginLink>
                   <LogoutLink className="navbarLink">Log out </LogoutLink>
                 </div>

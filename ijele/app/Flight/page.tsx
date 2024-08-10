@@ -228,8 +228,8 @@ const FlightPage: React.FC = () => {
 
   return (
     <div>
-      <Navbar />
-      <SearchNav />
+      <Navbar currentPage='Flight' />
+      <SearchNav currentPage='Flight' />
       <div className="flex">
         {/* Original search bar */}
         <div className="p-6 flex-grow">
