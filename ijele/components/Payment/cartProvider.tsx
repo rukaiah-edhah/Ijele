@@ -12,6 +12,7 @@ interface CartItem {
 interface CartContextProps {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
+  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>; 
 }
 
 export const CartContext = createContext<CartContextProps | undefined>(undefined);
@@ -24,7 +25,7 @@ export const useCart = () => {
   return context;
 };
 
-export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
@@ -37,13 +38,13 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => {
       const updatedCart = [...prevCart, item];
-      localStorage.setItem('cart', JSON.stringify(updatedCart));  
+      localStorage.setItem('cart', JSON.stringify(updatedCart));
       return updatedCart;
     });
   };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart }}>
+    <CartContext.Provider value={{ cart, addToCart, setCart }}>
       {children}
     </CartContext.Provider>
   );
