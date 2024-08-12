@@ -28,7 +28,11 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [cart, setCart] = useState<CartItem[]>([]);
 
   const addToCart = (item: CartItem) => {
-    setCart((prevCart) => [...prevCart, item]); 
+    setCart((prevCart) => {
+      const updatedCart = [...prevCart, item];
+      console.log("Cart after adding item:", updatedCart);  // Log the updated cart
+      return updatedCart;
+    });
   };
 
   return (
@@ -37,3 +41,4 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     </CartContext.Provider>
   );
 };
+
