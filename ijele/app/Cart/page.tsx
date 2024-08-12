@@ -1,3 +1,5 @@
+'use client';
+
 import { useCart } from '@/components/Payment/cartContent';
 import { useState } from 'react';
 import axios from 'axios';
