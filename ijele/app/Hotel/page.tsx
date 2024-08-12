@@ -11,8 +11,7 @@ import HotelList from "@/components/HotelListPage/HotelList";
 import SearchErrorMessage from "@/components/HotelListPage/SearchErrorMessage";
 import HotelSideBar from "@/components/SearchPage/hotel-sidebar";
 import { hotelCarouselImages } from "@/components/ImageMapping";
-import DaisyUICarousel from "@/components/SearchPage/carousel";
-import AutoCarousel from "@/components/SearchPage/carousel";
+import {AutoCarousel } from "@/components/SearchPage/carousel";
 
 
 
@@ -62,7 +61,7 @@ const HotelPage: React.FC = () => {
       <SearchNav currentPage="Hotel" />
       <div className="">
         <div className="absolute max-h-auto">
-      {AutoCarousel(hotelCarouselImages, 'carouselID')}
+      {AutoCarousel(hotelCarouselImages, 'hotelCarouselID', 2000)}
         </div>
       <div className='max-h-screen overflow-auto sidebar-container place-content-center no-scrollbar'>
         {/* search bar section */}
