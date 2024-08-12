@@ -156,6 +156,7 @@ const HotelDetailsPage: React.FC = () => {
 
   return (
     <div>
+
       <Navbar currentPage="Hotel"/>
       <SearchNav currentPage="Hotel"/>
       <div className="p-6">

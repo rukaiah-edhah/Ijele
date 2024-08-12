@@ -7,10 +7,10 @@ import SearchNav from '@/components/SearchPage/search-nav';
 import FlightList from '@/components/Flight/FlightList';
 import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
 import { Flight } from '@/components/Flight/FlightType';
-import { useCart } from '@/components/Payment/cartContent';
 import { useRouter } from "next/navigation";
 import FlightSideBar from '@/components/SearchPage/flight-sidebar';
 import createFlightOrder from '@/lib/flight/bookFlight';
+import { useCart } from '@/components/Payment/cartContent';
 
 const FlightPage: React.FC = () => {
   const router = useRouter();
@@ -178,6 +178,8 @@ const FlightPage: React.FC = () => {
           price: parseFloat(response.data.data.price), // Replace with actual price
         });
         alert('Flight added to cart!');
+        alert('Redirecting to Cart page!')
+        router.push('/Cart');
       }
 
       setSelectedFlight(null); // Clear the selected flight
