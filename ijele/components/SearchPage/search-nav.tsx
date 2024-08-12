@@ -33,7 +33,7 @@ export default function SearchNav(props: NavbarProps) {
   
     return (
       <>
-      <nav className="m-6 w-full flex mt-6 items-center justify-start">
+      <nav className="m-6 pl-6 w-full flex mt-6 items-center justify-start">
         <div className="flex items-center">
             <p className="font-work_sans">Search |</p>
             {buildSearchNavLinks(props.currentPage)}

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import debounce from "lodash.debounce";
 import axios from "axios";
+import { TitleCase } from "@/lib/customTools";
 
 interface Suggestion {
   name: string;
@@ -67,7 +68,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onSelect }) => {
               onClick={() => handleSelect(suggestion)}
               className="p-2 cursor-pointer hover:bg-gray-200"
             >
-              {suggestion.name}
+              {TitleCase(suggestion.name)}
             </div>
           ))}
         </div>
