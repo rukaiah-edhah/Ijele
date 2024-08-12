@@ -14,7 +14,7 @@ type NavbarProps = {
 
 const navlist = [
   "Home",
-  "Flight","Hotel","Payment"
+  "Flight","Hotel","Cart", "Dashboard"
 ]
 
 
@@ -174,7 +174,8 @@ const Navbar = (props: NavbarProps) => {
           <a href="/" className='navbarLink'>Home</a>
           <a href="/Flight" className='navbarLink'>Flight</a>
           <a href="/Hotel" className='navbarLink'>Hotel</a>
-          <a href="/Payment" className='navbarLink'>Payments</a>
+          <a href="/Cart" className='navbarLink'>Cart</a>
+          <a href="/Dashboard" className='navbarLink'>Dashboard</a>
           <a href="/Login" className='navbarLink'>Login</a>
         </div>
       </nav>
