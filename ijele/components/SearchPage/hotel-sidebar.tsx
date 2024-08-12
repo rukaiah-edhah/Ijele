@@ -33,18 +33,18 @@ function applyStars(rating: number) {
 export default function HotelSideBar() {
     return (
         <>
-            <div className='max-h-screen overflow-auto sidebar-container place-content-center no-scrollbar'>
+            <div className=''>
                 {/* <p className='mt-2 flex justify-center'>- Accommodation -</p> */}
 
                 {/* search bar section */}
-                <div className='flex justify-center items-center mt-1 mb-2 pl-3'>
-                    {/* <img src={searchIcon} alt="icon"/> */}
-                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFF6EE"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>                    <input className="sidebar-inputfield w-40 h-8 m-2 pl-2 focus:outline-none" type="text" placeholder='Search City...' />
+                {/* <div className='flex justify-center items-center mt-1 mb-2 pl-3'>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFF6EE"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>                    
+                    <input className="sidebar-inputfield w-40 h-8 m-2 pl-2 focus:outline-none" type="text" placeholder='Search City...' />
                     <div className='flex items-center bg-ijele_cream rounded-lg'>
                         <input className='sidebar-inputfield w-12 h-4 rounded-md m-2 p-2 focus:outline-none' type="number" />
                         <i className="fa-solid fa-user fa-sm pr-2 text-[#DDCCBD]" />
                     </div>
-                </div>
+                </div> */}
 
                 {/* img of destination htmlFor flights */}
                 <div> <img src="" alt="" /></div>

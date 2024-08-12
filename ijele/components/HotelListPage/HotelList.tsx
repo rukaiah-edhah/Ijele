@@ -1,3 +1,4 @@
+import { TitleCase } from "@/lib/customTools";
 import { Hotel } from "@/lib/interfaces";
 
 interface HotelListProps {
@@ -31,7 +32,7 @@ const HotelList: React.FC<HotelListProps> = ({ hotels, handleViewOffers }) => {
           onClick={() =>handleViewOffers(hotel.hotelId) }>
             <img src="/Images/Hotel_placeholderImage.png" alt="" className="max-w-sm rounded-lg rounded-t-[25%] hover:rounded-tr-none" />
             <div className="max-w-sm flex p-4 justify-around relative bg-zinc-100/80 rounded-b-lg border bottom-14">
-              <h3 key={hotel.hotelId} className="font-kite_one md:text-sm">{hotel.name}</h3>
+              <h3 key={hotel.hotelId} className="font-kite_one md:text-base">{TitleCase(hotel.name)}</h3>
               <img src="" alt="|" />
               <h4>$197</h4>
               <img src="" alt=" - - -" />
