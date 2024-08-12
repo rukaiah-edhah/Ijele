@@ -20,13 +20,13 @@ const goToOtherImage = (url: string, carouselId: string) => {
     }
 };
 
-// export const DaisyUICarousel: React.FC<Iimg> = (imgArr: Iimg) => {
-const DaisyUICarousel = (imgArr: string[]) => {
+
+const Carousel = (imgArr: string[]) => {
     return (
-        <div className="carousel w-full h-screen"  data-carousel="slide">
+        <div className="carousel w-full h-screen" id="carouselId">
             {imgArr.map((url, i) => {
                 return (
-                    <div className="carousel-item w-full duration-700 ease-in-out" data-carousel-item>
+                    <div className="carousel-item w-full duration-700 ease-in-out" >
                         <img
                             src={url}
                             className="w-full"
@@ -40,29 +40,52 @@ const DaisyUICarousel = (imgArr: string[]) => {
     )
 }
 
-export default DaisyUICarousel
+
+const AutoCarousel = (imgArr: string[], carouselId:string) => {
+    const [activeIndex, setActiveIndex] = useState<number>(0);
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            const newActiveIndex =
+                activeIndex + 1 === imgArr.length ? 0 : activeIndex + 1
+            goToOtherImage(`#DaisyUICarousel_img_${newActiveIndex}`, carouselId);
+            setActiveIndex(newActiveIndex);
+        }, 5000);
+        return () => clearInterval(intervalId);
+    }, [activeIndex, 2000, carouselId, imgArr.length]);
+    return (
+
+        <div className="carousel w-full h-screen" id={carouselId}>
+            {imgArr.map((url, i) => {
+                return (
+                    <div className="carousel-item w-full duration-700 ease-in-out" >
+                        <img
+                            src={url}
+                            className="w-full"
+                            alt="HotelCarousel component"
+                            key={`DaisyUICarousel_img_${i}`}
+                            id={`DaisyUICarousel_img_${i}`} />
+                    </div>
+                )
+            }
+            )}
+        </div >
+    )
+}
+export default AutoCarousel
+
+
 // export default function DaisyUICarousel({
-//     imgs,
+//     imgArr: string[],
 //     carouselId,
 //     classNameCarousel,
 //     classNameForImage,
-//     isAutoPlay = true,
 //     autoPlayMilliseconds = 5000,
-// }: IProps) {
+// }: Iimg) {
 //     const [activeIndex, setActiveIndex] = useState<number>(0);
-//     const handleClickBtn = (
-//         event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
-//         i: number
-//     ) => {
-//         event.preventDefault();
-//         const btn = event.currentTarget;
-//         const url = btn.getAttribute("url")!;
-//         goToOtherImage(url, carouselId);
-//         setActiveIndex(i);
-//     };
 
 //     useEffect(() => {
-//         if (isAutoPlay) {
+//
 //             const intervalId = setInterval(() => {
 //                 const newActiveIndex =
 //                     activeIndex + 1 === imgs.length ? 0 : activeIndex + 1
@@ -70,14 +93,15 @@ export default DaisyUICarousel
 //                 setActiveIndex(newActiveIndex);
 //             }, autoPlayMilliseconds);
 //             return () => clearInterval(intervalId);
-//         }
 //     }, [activeIndex, autoPlayMilliseconds, carouselId, imgs.length, isAutoPlay]);
+
+
 //     return (
 //         <div className="relative">
 //             <div
 //                 id={carouselId}
-//                 className="carousel" {classNameCarousel}
-//             >
+//                 className="carousel" {classNameCarousel}>
+
 //                 {imgs.map((img, i) => {
 //                     return (
 //                         <div
@@ -91,21 +115,7 @@ export default DaisyUICarousel
 //                     );
 //                 })}
 //             </div>
-//             <div className="flex justify-center w-full py-2 gap-2  absolute bottom-3">
-//                 {imgs.map((img, i) => {
-//                     return (
-//                         <a
-//                             onClick={(e) => handleClickBtn(e, i)}
-//                             key={`DaisyUICarousel_img_point_${i}`}
-//                             href={`#DaisyUICarousel_img_${i}`}
-//                             className={classNames(
-//                                 activeIndex !== i && " opacity-30",
-//                                 "btn btn-xs btn-circle"
-//                             )}
-//                         ></a>
-//                     );
-//                 })}
-//             </div>
+//
 //         </div>
 //     );
 // }
