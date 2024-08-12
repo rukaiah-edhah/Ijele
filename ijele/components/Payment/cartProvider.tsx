@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useState, ReactNode, useContext } from 'react';
+import { createContext, useState, useEffect, ReactNode, useContext } from 'react';
 
 interface CartItem {
   id: string;
@@ -27,10 +27,17 @@ export const useCart = () => {
 export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [cart, setCart] = useState<CartItem[]>([]);
 
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      setCart(JSON.parse(savedCart));
+    }
+  }, []);
+
   const addToCart = (item: CartItem) => {
     setCart((prevCart) => {
       const updatedCart = [...prevCart, item];
-      console.log("Cart after adding item:", updatedCart);  // Log the updated cart
+      localStorage.setItem('cart', JSON.stringify(updatedCart));  
       return updatedCart;
     });
   };
@@ -41,4 +48,3 @@ export const CartProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     </CartContext.Provider>
   );
 };
-

@@ -1,29 +1,29 @@
-'use client';
+"use client";
 
-import { useCart } from '@/components/Payment/cartContent';
-import { useState } from 'react';
-import axios from 'axios';
-import { GuestInfo, PaymentCardInfo, CartItem } from '@/lib/interfaces';
+import { useCart } from "@/components/Payment/cartContent";
+import { useState } from "react";
+import axios from "axios";
+import { GuestInfo, PaymentCardInfo, CartItem } from "@/lib/interfaces";
 
 const TravelCart = () => {
-  const { cart } = useCart(); 
+  const { cart } = useCart();
   const [parties, setParties] = useState<number>(1);
   const [payments, setPayments] = useState<number[]>([0]);
 
   const guestInfo: GuestInfo = {
     tid: 1,
-    title: '',
-    firstName: '',
-    lastName: '',
-    phone: '',
-    email: '',
+    title: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
+    email: "",
   };
 
   const paymentInfo: PaymentCardInfo = {
-    vendorCode: '',
-    cardNumber: '',
-    expiryDate: '',
-    holderName: '',
+    vendorCode: "",
+    cardNumber: "",
+    expiryDate: "",
+    holderName: "",
   };
 
   const handleRemoveFromCart = (index: number) => {
@@ -39,7 +39,7 @@ const TravelCart = () => {
   const handleCheckout = async () => {
     const cartTotal = cart.reduce((total, item) => total + item.price, 0);
     if (payments.reduce((acc, cur) => acc + cur, 0) !== cartTotal) {
-      alert('Total payment must equal cart total.');
+      alert("Total payment must equal cart total.");
       return;
     }
 
@@ -49,7 +49,7 @@ const TravelCart = () => {
           const response = await axios.post("/api/hotels/book", {
             data: {
               type: "hotel-order",
-              guests: [guestInfo],  
+              guests: [guestInfo],
               travelAgent: {
                 contact: {
                   email: guestInfo.email,
@@ -64,7 +64,7 @@ const TravelCart = () => {
               payment: {
                 method: "CREDIT_CARD",
                 paymentCard: {
-                  paymentCardInfo: paymentInfo, 
+                  paymentCardInfo: paymentInfo,
                 },
               },
             },
@@ -86,23 +86,29 @@ const TravelCart = () => {
       <ul>
         {cart.map((item: CartItem, index: number) => (
           <li key={index}>
-            {item.details.room.description.text} - ${item.price}
+            {item.details?.room?.description?.text
+              ? `${item.details.room.description.text} - $${item.price}`
+              : "Item description not available"}
             <button onClick={() => handleRemoveFromCart(index)}>Remove</button>
           </li>
         ))}
       </ul>
       <h2>Total: ${cartTotal}</h2>
       <h3>Split Payment</h3>
-      {Array(parties).fill(0).map((_, index) => (
-        <div key={index}>
-          <label>Party {index + 1} Contribution:</label>
-          <input
-            type="number"
-            value={payments[index]}
-            onChange={(e) => handleSplitPayment(index, parseFloat(e.target.value))}
-          />
-        </div>
-      ))}
+      {Array(parties)
+        .fill(0)
+        .map((_, index) => (
+          <div key={index}>
+            <label>Party {index + 1} Contribution:</label>
+            <input
+              type="number"
+              value={payments[index]}
+              onChange={(e) =>
+                handleSplitPayment(index, parseFloat(e.target.value))
+              }
+            />
+          </div>
+        ))}
       <button onClick={() => setParties(parties + 1)}>Add Party</button>
       <button onClick={handleCheckout}>Checkout</button>
     </div>
