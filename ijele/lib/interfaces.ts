@@ -315,3 +315,18 @@ export interface FlightOrderResponse {
       }
     ]}
 }
+
+export interface CartItem {
+  id: string;
+  type: string;
+  details: {
+    room: {
+      description: {
+        text: string;
+      };
+    };
+  };
+  price: number;
+}
+
+

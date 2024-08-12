@@ -1,20 +1,31 @@
-"use client";
-
 import { useCart } from '@/components/Payment/cartContent';
 import { useState } from 'react';
+import axios from 'axios';
+import { GuestInfo, PaymentCardInfo, CartItem } from '@/lib/interfaces';
 
 const TravelCart = () => {
-  const { cart, addToCart } = useCart(); // Access cart and addToCart from context
+  const { cart } = useCart(); 
   const [parties, setParties] = useState<number>(1);
   const [payments, setPayments] = useState<number[]>([0]);
 
+  const guestInfo: GuestInfo = {
+    tid: 1,
+    title: '',
+    firstName: '',
+    lastName: '',
+    phone: '',
+    email: '',
+  };
+
+  const paymentInfo: PaymentCardInfo = {
+    vendorCode: '',
+    cardNumber: '',
+    expiryDate: '',
+    holderName: '',
+  };
+
   const handleRemoveFromCart = (index: number) => {
-    // Filter out the item from the cart
     const newCart = cart.filter((_, i) => i !== index);
-    // You would need a way to update the cart context here
-    // For now, you can use the `addToCart` method to reset the cart
-    // Assuming `addToCart` can accept a new cart array
-    newCart.forEach(item => addToCart(item));
   };
 
   const handleSplitPayment = (index: number, value: number) => {
@@ -23,13 +34,46 @@ const TravelCart = () => {
     setPayments(newPayments);
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     const cartTotal = cart.reduce((total, item) => total + item.price, 0);
     if (payments.reduce((acc, cur) => acc + cur, 0) !== cartTotal) {
       alert('Total payment must equal cart total.');
       return;
     }
-    // TODO -- Finish payment and booking logic
+
+    for (const item of cart) {
+      if (item.type === "hotel") {
+        try {
+          const response = await axios.post("/api/hotels/book", {
+            data: {
+              type: "hotel-order",
+              guests: [guestInfo],  
+              travelAgent: {
+                contact: {
+                  email: guestInfo.email,
+                },
+              },
+              roomAssociations: [
+                {
+                  guestReferences: [{ guestReference: "1" }],
+                  hotelOfferId: item.id,
+                },
+              ],
+              payment: {
+                method: "CREDIT_CARD",
+                paymentCard: {
+                  paymentCardInfo: paymentInfo, 
+                },
+              },
+            },
+          });
+
+          console.log("Booking successful: ", response.data);
+        } catch (error) {
+          console.error("Booking failed: ", error);
+        }
+      }
+    }
   };
 
   const cartTotal = cart.reduce((total, item) => total + item.price, 0);
@@ -38,9 +82,9 @@ const TravelCart = () => {
     <div>
       <h1>Travel Cart</h1>
       <ul>
-        {cart.map((item, index) => (
+        {cart.map((item: CartItem, index: number) => (
           <li key={index}>
-            {item.details.name} - ${item.price}
+            {item.details.room.description.text} - ${item.price}
             <button onClick={() => handleRemoveFromCart(index)}>Remove</button>
           </li>
         ))}
