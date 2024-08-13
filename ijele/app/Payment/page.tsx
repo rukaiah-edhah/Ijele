@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Navbar from "@/components/navbar";
-import NavSearchBar from "@/components/SearchPage/search-nav";
 import { useRouter } from "next/navigation";
 
 export default function PaymentPage() {
@@ -41,7 +40,6 @@ export default function PaymentPage() {
             <Navbar currentPage="Payment"/>
             <div className="container mx-auto p-4">
                 <h1 className="text-2xl font-bold mb-4">Setup Payments</h1>
-                <NavSearchBar currentPage=""/>
                 <form onSubmit={handlePaymentSubmit} className="space-y-4 max-w-md mx-auto">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Card Number</label>
