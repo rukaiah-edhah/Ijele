@@ -6,6 +6,8 @@ import axios from "axios";
 import { GuestInfo, PaymentCardInfo, CartItem, TravelerDetails, FlightOfferDetails, Itinerary } from "@/lib/interfaces";
 import { Segment } from "next/dist/server/app-render/types";
 import { useRouter } from 'next/navigation';
+import Navbar from "@/components/navbar";
+import SearchNav from "@/components/SearchPage/search-nav";
 
 const TravelCart = () => {
   const { cart, setCart } = useCart(); 
@@ -206,7 +208,9 @@ const TravelCart = () => {
   const cartTotal = cart.reduce((total, item) => total + item.price, 0);
 
   return (
-    <div>
+    <>
+    <Navbar currentPage="Cart" />
+    <SearchNav currentPage="Cart" />
       <h1>Travel Cart</h1>
       <ul>
         {cart.map((item: CartItem, index: number) => (
@@ -250,14 +254,13 @@ const TravelCart = () => {
           <input
             type="number"
             value={payments[index] || 0}
-            onChange={(e) => handleSplitPayment(index, parseFloat(e.target.value))}
-          />
+            onChange={(e) => handleSplitPayment(index, parseFloat(e.target.value))} />
         </div>
       ))}
       <button onClick={() => setParties(parties + 1)}>Add Party</button>
       <button onClick={() => setParties(parties - 1)} disabled={parties <= 1}>Remove Party</button>
       <button onClick={handleCheckout}>Checkout</button>
-    </div>
+  </>
   );
 };
 
