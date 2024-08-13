@@ -4,11 +4,33 @@ import { useCart } from "@/components/Payment/cartContent";
 import { useState } from "react";
 import axios from "axios";
 import { GuestInfo, PaymentCardInfo, CartItem } from "@/lib/interfaces";
+import { TravelerDetails } from "@/lib/interfaces";
 
 const TravelCart = () => {
   const { cart, setCart } = useCart(); 
   const [parties, setParties] = useState<number>(1);
   const [payments, setPayments] = useState<number[]>([0]);
+  
+  const [travelerDetails, setTravelerDetails] = useState<TravelerDetails>({
+    firstName: '',
+    lastName: '',
+    gender: '',
+    email: '',
+    deviceType: '',
+    countryCallingCode: '',
+    number: '',
+    dateOfBirth: '',
+    documentType: '',
+    birthPlace: '',
+    issuanceLocation: '',
+    issuanceDate: '',
+    passportNumber: '',
+    passportExpiryDate: '',
+    passportIssuanceCountry: '',
+    validityCountry: '',
+    nationality: '',
+    holder: true,
+  });
 
   const guestInfo: GuestInfo = {
     tid: 1,
@@ -78,6 +100,99 @@ const TravelCart = () => {
           console.error("Booking failed: ", error);
         }
       }
+
+      if (item.type === "flight") {
+        try {
+          const bookingDetails = {
+            data: {
+              type: 'flight-order',
+              flightOffers: [item.details],
+              travelers: [
+                {
+                  id: '1',
+                  dateOfBirth: travelerDetails.dateOfBirth,
+                  name: {
+                    firstName: travelerDetails.firstName,
+                    lastName: travelerDetails.lastName,
+                  },
+                  gender: travelerDetails.gender.toUpperCase(),
+                  contact: {
+                    emailAddress: travelerDetails.email,
+                    phones: [
+                      {
+                        deviceType: 'MOBILE'.toUpperCase(),
+                        countryCallingCode: travelerDetails.countryCallingCode,
+                        number: travelerDetails.number,
+                      },
+                    ],
+                  },
+                  documents: [
+                    {
+                      documentType: 'PASSPORT'.toUpperCase(),
+                      birthPlace: travelerDetails.birthPlace,
+                      issuanceLocation: travelerDetails.issuanceLocation,
+                      issuanceDate: travelerDetails.issuanceDate,
+                      number: travelerDetails.passportNumber,
+                      expiryDate: travelerDetails.passportExpiryDate,
+                      issuanceCountry: travelerDetails.passportIssuanceCountry.toUpperCase(),
+                      validityCountry: travelerDetails.validityCountry.toUpperCase(),
+                      nationality: travelerDetails.nationality.toUpperCase(),
+                      holder: travelerDetails.holder,
+                    },
+                  ],
+                },
+              ],
+              ticketingAgreement: {
+                option: 'DELAY_TO_CANCEL',
+                delay: '6D',
+              },
+              remarks: {
+                general: [
+                  {
+                    subType: 'GENERAL_MISCELLANEOUS',
+                    text: 'ONLINE BOOKING FROM INCREIBLE VIAJES',
+                  },
+                ],
+              },
+              contacts: [
+                {
+                  addresseeName: {
+                    firstName: 'PABLO',
+                    lastName: 'RODRIGUEZ',
+                  },
+                  companyName: 'INCREIBLE VIAJES',
+                  purpose: 'STANDARD',
+                  phones: [
+                    {
+                      deviceType: 'LANDLINE',
+                      countryCallingCode: '34',
+                      number: '480080071',
+                    },
+                    {
+                      deviceType: 'MOBILE',
+                      countryCallingCode: '33',
+                      number: '480080072',
+                    },
+                  ],
+                  emailAddress: 'support@increibleviajes.es',
+                  address: {
+                    lines: ['Calle Prado, 16'],
+                    postalCode: '28014',
+                    cityName: 'Madrid',
+                    countryCode: 'ES',
+                  },
+                },
+              ],
+            },
+          };
+  
+          const response = await axios.post("/api/flights/book", bookingDetails);
+          console.log("Flight booking successful: ", response.data);
+        } catch (error) {
+          console.error("Flight booking failed: ", error);
+        }
+      }
+
     }
   };
 
@@ -89,15 +204,26 @@ const TravelCart = () => {
       <ul>
         {cart.map((item: CartItem, index: number) => (
           <li key={index}>
-            {item.details?.room?.description?.text 
-              ? `${item.details.room.description.text} - $${item.price}`
-              : 'Item description not available'}
+            {item.type === 'hotel' ? (
+              <>
+                <p>Hotel: {item.details.name}</p>
+                <p>{item.details.room?.description.text}</p>
+                {item.details.image && <img src={item.details.image} alt={item.details.name} />}
+              </>
+            ) : (
+              <>
+                <p>Flight: {item.details.flightDetails?.origin} to {item.details.flightDetails?.destination}</p>
+                <p>Departure: {item.details.flightDetails?.departureDate}</p>
+                {item.details.flightDetails?.returnDate && <p>Return: {item.details.flightDetails.returnDate}</p>}
+              </>
+            )}
+            <p>Price: ${item.price}</p>
             <button onClick={() => handleRemoveFromCart(index)}>Remove</button>
           </li>
         ))}
       </ul>
-      <h2>Total: ${cartTotal}</h2>
-      <h3>Split Payment</h3>
+      <h2>Total: ${cart.reduce((total, item) => total + item.price, 0)}</h2>
+<h3>Split Payment</h3>
       {Array(parties).fill(0).map((_, index) => (
         <div key={index}>
           <label>Party {index + 1} Contribution:</label>

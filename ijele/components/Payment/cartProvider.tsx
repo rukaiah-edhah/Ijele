@@ -7,6 +7,10 @@ interface CartItem {
   type: string;
   details: any;
   price: number;
+  flightNumber?: number; 
+  departure?: Date; 
+  arrival?: Date;
+  itineraries?: [];
 }
 
 interface CartContextProps {

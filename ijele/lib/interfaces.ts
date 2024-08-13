@@ -235,6 +235,16 @@ export interface FlightOrderRequest {
   };
 }
 
+// Flight details interface
+
+interface FlightDetails {
+  flightNumber: string;
+  departure: string;
+  arrival: string;
+  passengers: number;
+}
+
+
 export interface Phone {
   deviceType: string;
   countryCallingCode: string;
@@ -256,6 +266,28 @@ export interface Traveler {
   };
   documents?: Documents[];
 }
+
+// Traveler Details interface
+export interface TravelerDetails{
+  firstName: '',
+  lastName: '',
+  gender: '',
+  email: '',
+  deviceType: '',
+  countryCallingCode: '',
+  number: '',
+  dateOfBirth: '',
+  documentType: '',
+  birthPlace: '',
+  issuanceLocation: '',
+  issuanceDate: '',
+  passportNumber: '',
+  passportExpiryDate: '',
+  passportIssuanceCountry: '',
+  validityCountry: '',
+  nationality: '',
+  holder: true,
+};
 
 // Document interface
 export interface Documents {
@@ -320,13 +352,19 @@ export interface CartItem {
   id: string;
   type: string;
   details: {
-    room: {
+    name?: string; // Optional, used for hotels or flight name
+    image?: string; // Optional, mainly for hotels
+    room?: {
       description: {
         text: string;
       };
-    };
+    }; // Used for hotels
+    flightDetails?: {
+      origin: string;
+      destination: string;
+      departureDate: string;
+      returnDate?: string;
+    }; // Used for flights
   };
   price: number;
 }
-
-
