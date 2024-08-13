@@ -14,7 +14,8 @@ export const StaticCarousel = (imgArr: string[], millisec: number) => {
                             key={`DaisyUICarousel_img_${i}`}
                             id={`DaisyUICarousel_img_${i}`} />
                     </div>
-                )}
+                )
+            }
             )}
         </div >
     )
@@ -29,7 +30,7 @@ const goToOtherImage = (url: string, carouselId: string) => {
     }
 };
 
-export const AutoCarousel = (imgArr: string[], carouselId:string, millisec:number) => {
+export const AutoCarousel = (imgArr: string[], carouselId: string, millisec: number, isVisible: boolean) => {
     const [activeIndex, setActiveIndex] = useState<number>(0);
 
     useEffect(() => {
@@ -41,22 +42,29 @@ export const AutoCarousel = (imgArr: string[], carouselId:string, millisec:numbe
         }, millisec);
         return () => clearInterval(intervalId);
     }, [activeIndex, millisec, carouselId, imgArr.length]);
-    return (
 
-        <div className="carousel w-full h-screen" id={carouselId}>
-            {imgArr.map((url, i) => {
-                return (
-                    <div className="carousel-item w-full duration-700 ease-in-out" >
-                        <img
-                            src={url}
-                            className="w-full"
-                            alt="HotelCarousel component"
-                            key={`DaisyUICarousel_img_${i}`}
-                            id={`DaisyUICarousel_img_${i}`} />
-                    </div>
-                )
-            }
-            )}
-        </div >
-    )
+    if (isVisible)
+        return (
+
+            <div className="carousel w-full h-screen" id={carouselId}>
+                {imgArr.map((url, i) => {
+                    return (
+                        <div className="carousel-item w-full duration-700 ease-in-out" >
+                            <img
+                                src={url}
+                                className="w-full"
+                                alt="HotelCarousel component"
+                                key={`DaisyUICarousel_img_${i}`}
+                                id={`DaisyUICarousel_img_${i}`} />
+                        </div>
+                    )
+                }
+                )}
+            </div >
+        )
+    else
+        return (
+            <>
+            </>
+        )
 }

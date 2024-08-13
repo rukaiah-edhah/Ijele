@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Hotel } from "@/lib/interfaces";
 import Navbar from "@/components/navbar";
 import axios from "axios";
@@ -28,6 +28,7 @@ const HotelPage: React.FC = () => {
   const [adults, setAdults] = useState<number>(1);
   const [resultsPop, setResultsPopulated] = useState(false);
 
+
   const fetchHotels = useCallback(async () => {
     if (!selectedLocation) {
       setError({ error: "Please select a location." });
@@ -39,9 +40,11 @@ const HotelPage: React.FC = () => {
       });
       setHotels(response.data.data);
       setError(null);
+      setResultsPopulated(true)
     } catch (err: any) {
       setHotels([]);
       setError(err.response ? err.response.data : err.message);
+      setResultsPopulated(false)
     }
   }, [selectedLocation]);
 
@@ -50,15 +53,14 @@ const HotelPage: React.FC = () => {
   };
 
   const handleViewOffers = (hotelId: string) => {
-   
     router.push(
       `/Hotel/${hotelId}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&adults=${adults}`
     );
   };
 
-  function isPopulated(){
-    setResultsPopulated(true)
-  }
+function isVisible(){
+  return resultsPop ? false : true
+}
 
   console.log("resultspop = " + resultsPop.valueOf())
   return (
@@ -67,12 +69,9 @@ const HotelPage: React.FC = () => {
       <SearchNav currentPage="Hotel" />
 
       <div className="sticky top-0">
-        
-{/*  const [resultsPop, setResultsPopulated] = useState(false); */}
-        {resultsPop == false ?
-          <div className="absolute max-h-auto">
-            {AutoCarousel(hotelCarouselImages, 'hotelCarouselID', 2100)}
-          </div> : <div></div>}
+          <div className="absolute max-h-auto ">
+            {AutoCarousel(hotelCarouselImages, 'hotelCarouselID', 2100, isVisible())}
+          </div>
 
         <div className='max-h-screen overflow-auto sidebar-container place-content-center no-scrollbar'>
           {/* search bar section */}
@@ -98,15 +97,17 @@ const HotelPage: React.FC = () => {
         </div>
 
       </div>
-
+      
       <div className="max-w-auto flex flex-wrap justify-evenly m-4 space-x-4">
         {/* display results or ERROR*/}
+        
         {hotels.length > 0 && (
-          <div onLoad={()=>{isPopulated()}} className="max-w-auto flex flex-wrap justify-evenly m-4 space-x-4">
+          <div className="max-w-auto flex flex-wrap justify-evenly m-4 space-x-4">
             <HotelList hotels={hotels} handleViewOffers={handleViewOffers} />
-          </div>
-        )}
+          </div> )}
+
         {error && <SearchErrorMessage error={error} />}
+
       </div >
     </>
   );
