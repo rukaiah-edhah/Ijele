@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { GuestInfo, PaymentCardInfo, CartItem, TravelerDetails, FlightOfferDetails, Itinerary } from "@/lib/interfaces";
 import { Segment } from "next/dist/server/app-render/types";
+import { useRouter } from 'next/navigation';
 
 const TravelCart = () => {
   const { cart, setCart } = useCart(); 
@@ -31,6 +32,9 @@ const TravelCart = () => {
     nationality: '',
     holder: true,
   });
+
+  const router = useRouter();
+
 
   const guestInfo: GuestInfo = {
     tid: 1,
@@ -62,11 +66,16 @@ const TravelCart = () => {
 
   const handleCheckout = async () => {
     const cartTotal = cart.reduce((total, item) => total + item.price, 0);
+
     if (payments.reduce((acc, cur) => acc + cur, 0) !== cartTotal) {
       alert('Total payment must equal cart total.');
       return;
     }
 
+    router.push('/Payment'); 
+
+    // booking logic here if you want to handle it immediately after payment
+    /*
     for (const item of cart) {
       if (item.type === "hotel") {
         try {
@@ -191,6 +200,7 @@ const TravelCart = () => {
         }
       }
     }
+    */
   };
 
   const cartTotal = cart.reduce((total, item) => total + item.price, 0);
