@@ -12,16 +12,14 @@ type NavbarProps = {
   currentPage: string,
 }
 
-const navlist = [
-  "Home",
-  "Flight","Hotel","Cart", "Dashboard"
-]
+const navlist = ["Home","Flight","Hotel","Payment","Dashboard"]
 
 
-function buildNavLinks(currenPage: string) {
+
+function buildNavLinks(currentPage: string) {
   const links: JSX.Element[] = []
-  for (let i = 0; i < 4; i++) {
-    if (currenPage == navlist[i]){
+  for (let i = 0; i < navlist.length; i++) {
+    if (currentPage == navlist[i]){
       links.push(<a href={`/`+ navlist[i]} className='navbarLink text-ijele_deepGold border-b-2'>{navlist[i]}</a>)
     } 
     else {
@@ -98,7 +96,7 @@ const Navbar = (props: NavbarProps) => {
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">
               <div className="flex flex-shrink-0 items-center"></div>
               <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-4">
+                <div className="flex justify-evenly space-x-4">
                   {buildNavLinks(props.currentPage)}
                   <LoginLink className="navbarLink">Login </LoginLink>
                   <LogoutLink className="navbarLink">Log out </LogoutLink>

@@ -1,5 +1,8 @@
 "use client";
 
+
+import { useState } from "react";
+import Navbar from "@/components/navbar";
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
@@ -117,7 +120,9 @@ function PaymentForm() {
     };
   
     return (
-      <>
+
+        <>
+          <Navbar currentPage="Payment"/>
         <div className="flex items-center justify-center min-h-screen">
           <div className="container max-w-md mx-auto p-4">
             <form onSubmit={handlePaymentSubmit} className="space-y-4">
