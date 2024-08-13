@@ -352,6 +352,7 @@ export interface CartItem {
   id: string;
   type: string;
   details: {
+    itineraries: Itinerary[];
     name?: string; // Optional, used for hotels or flight name
     image?: string; // Optional, mainly for hotels
     room?: {
@@ -368,3 +369,39 @@ export interface CartItem {
   };
   price: number;
 }
+
+interface Aircraft {
+  code: string;
+}
+
+interface Segment {
+  aircraft: Aircraft;
+  arrival: {
+    iataCode: string;
+    terminal: string;
+    at: string;
+  };
+  departure: {
+    iataCode: string;
+    terminal: string;
+    at: string;
+  };
+  duration: string;
+  number: string;
+  numberOfStops: number;
+  operating: {
+    carrierCode: string;
+  };
+}
+
+export interface Itinerary {
+  duration: string;
+  segments: Segment[];
+}
+
+export interface FlightOfferDetails {
+  itineraries: Itinerary[];
+  // Add other properties if needed
+}
+
+

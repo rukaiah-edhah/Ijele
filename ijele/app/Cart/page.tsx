@@ -3,8 +3,8 @@
 import { useCart } from "@/components/Payment/cartContent";
 import { useState } from "react";
 import axios from "axios";
-import { GuestInfo, PaymentCardInfo, CartItem } from "@/lib/interfaces";
-import { TravelerDetails } from "@/lib/interfaces";
+import { GuestInfo, PaymentCardInfo, CartItem, TravelerDetails, FlightOfferDetails, Itinerary } from "@/lib/interfaces";
+import { Segment } from "next/dist/server/app-render/types";
 
 const TravelCart = () => {
   const { cart, setCart } = useCart(); 
@@ -51,7 +51,6 @@ const TravelCart = () => {
   const handleRemoveFromCart = (index: number) => {
     const newCart = cart.filter((_, i) => i !== index);
     localStorage.setItem('cart', JSON.stringify(newCart));
-  
     setCart(newCart); 
   };
 
@@ -94,7 +93,6 @@ const TravelCart = () => {
               },
             },
           });
-
           console.log("Booking successful: ", response.data);
         } catch (error) {
           console.error("Booking failed: ", error);
@@ -192,7 +190,6 @@ const TravelCart = () => {
           console.error("Flight booking failed: ", error);
         }
       }
-
     }
   };
 
@@ -212,9 +209,22 @@ const TravelCart = () => {
               </>
             ) : (
               <>
-                <p>Flight: {item.details.flightDetails?.origin} to {item.details.flightDetails?.destination}</p>
-                <p>Departure: {item.details.flightDetails?.departureDate}</p>
-                {item.details.flightDetails?.returnDate && <p>Return: {item.details.flightDetails.returnDate}</p>}
+                <h3>Flight Offer</h3>
+                {item.details.itineraries?.map((itinerary: Itinerary, i: number) => (
+                  <div key={i} className="itinerary">
+                    <h4>Itinerary {i + 1}</h4>
+                    <p>Duration: {itinerary.duration}</p>
+                    <ul>
+                      {itinerary.segments.map((segment: Segment, j: number) => (
+                        <li key={j}>
+                          <p>Departure: {segment.departure.iataCode} at {new Date(segment.departure.at).toLocaleString()}</p>
+                          <p>Arrival: {segment.arrival.iataCode} at {new Date(segment.arrival.at).toLocaleString()}</p>
+                          <p>Aircraft: {segment.aircraft.code}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
               </>
             )}
             <p>Price: ${item.price}</p>
@@ -222,19 +232,20 @@ const TravelCart = () => {
           </li>
         ))}
       </ul>
-      <h2>Total: ${cart.reduce((total, item) => total + item.price, 0)}</h2>
-<h3>Split Payment</h3>
+      <h2>Total: ${cartTotal}</h2>
+      <h3>Split Payment</h3>
       {Array(parties).fill(0).map((_, index) => (
         <div key={index}>
-          <label>Party {index + 1} Contribution:</label>
+          <label>Party {index + 1} Contribution: </label>
           <input
             type="number"
-            value={payments[index]}
+            value={payments[index] || 0}
             onChange={(e) => handleSplitPayment(index, parseFloat(e.target.value))}
           />
         </div>
       ))}
       <button onClick={() => setParties(parties + 1)}>Add Party</button>
+      <button onClick={() => setParties(parties - 1)} disabled={parties <= 1}>Remove Party</button>
       <button onClick={handleCheckout}>Checkout</button>
     </div>
   );
