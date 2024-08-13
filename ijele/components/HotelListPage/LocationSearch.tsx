@@ -10,9 +10,10 @@ interface Suggestion {
 
 interface LocationSearchProps {
   onSelect: (location: Suggestion) => void;
+  type: "origin" | "destination" | "city";
 }
 
-const LocationSearch: React.FC<LocationSearchProps> = ({ onSelect }) => {
+const LocationSearch: React.FC<LocationSearchProps> = ({ onSelect, type }) => {
   const [query, setQuery] = useState<string>("");
   const [suggestions, setSuggestions] = useState<Suggestion[]>([]);
 
@@ -49,30 +50,36 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onSelect }) => {
     onSelect(suggestion);
   };
 
+  const placeholderText: { [key in LocationSearchProps["type"]]: string } = {
+    origin: "Search Origin City...",
+    destination: "Search Destination City...",
+    city: "Search City...",
+  };
+
   return (
-    // <div className="relative mb-6">
-    <div className="relative">
-    {/* <h2 className="text-2xl font-semibold mb-2">Search Hotels</h2> */}
-      <input
-        type="text"
-        value={query}
-        onChange={handleInputChange}
-        placeholder="Search City..."
-        className="sidebar-inputfield w-40 h-8 m-2 pl-2 focus:outline-none" 
-      />
-      {suggestions.length > 0 && (
-        <div className="absolute overflow-auto y-[-10px] no-scrollbar text-xs h-20 w-full mt-2 bg-ijele_cream shadow-none rounded-lg">
-          {suggestions.map((suggestion, index) => (
-            <div
-              key={index}
-              onClick={() => handleSelect(suggestion)}
-              className="p-2 cursor-pointer hover:bg-gray-200"
-            >
-              {TitleCase(suggestion.name)}
-            </div>
-          ))}
-        </div>
-      )}
+    <div>
+      <div className="relative">
+        <input
+          type="text"
+          value={query}
+          onChange={handleInputChange}
+          placeholder={placeholderText[type]}
+          className="sidebar-inputfield w-40 h-8 m-2 pl-2 focus:outline-none"
+        />
+        {suggestions.length > 0 && (
+          <div className="absolute top-full left-0 mt-1 w-full max-h-60 overflow-auto bg-white border border-gray-300 rounded-lg z-10">
+            {suggestions.map((suggestion, index) => (
+              <div
+                key={index}
+                onClick={() => handleSelect(suggestion)}
+                className="p-2 cursor-pointer hover:bg-gray-100"
+              >
+                {TitleCase(suggestion.name)}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
