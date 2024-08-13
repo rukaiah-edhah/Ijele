@@ -2,14 +2,39 @@
 
 import { useCart } from "@/components/Payment/cartContent";
 import { useState } from "react";
-import { GuestInfo, PaymentCardInfo, CartItem } from "@/lib/interfaces";
+import axios from "axios";
+import { GuestInfo, PaymentCardInfo, CartItem, TravelerDetails, FlightOfferDetails, Itinerary } from "@/lib/interfaces";
+import { Segment } from "next/dist/server/app-render/types";
 import { useRouter } from 'next/navigation';
 
 const TravelCart = () => {
   const { cart, setCart } = useCart(); 
   const [parties, setParties] = useState<number>(1);
   const [payments, setPayments] = useState<number[]>([0]);
+  
+  const [travelerDetails, setTravelerDetails] = useState<TravelerDetails>({
+    firstName: '',
+    lastName: '',
+    gender: '',
+    email: '',
+    deviceType: '',
+    countryCallingCode: '',
+    number: '',
+    dateOfBirth: '',
+    documentType: '',
+    birthPlace: '',
+    issuanceLocation: '',
+    issuanceDate: '',
+    passportNumber: '',
+    passportExpiryDate: '',
+    passportIssuanceCountry: '',
+    validityCountry: '',
+    nationality: '',
+    holder: true,
+  });
+
   const router = useRouter();
+
 
   const guestInfo: GuestInfo = {
     tid: 1,
@@ -30,7 +55,6 @@ const TravelCart = () => {
   const handleRemoveFromCart = (index: number) => {
     const newCart = cart.filter((_, i) => i !== index);
     localStorage.setItem('cart', JSON.stringify(newCart));
-  
     setCart(newCart); 
   };
 
@@ -78,10 +102,101 @@ const TravelCart = () => {
               },
             },
           });
-
           console.log("Booking successful: ", response.data);
         } catch (error) {
           console.error("Booking failed: ", error);
+        }
+      }
+
+      if (item.type === "flight") {
+        try {
+          const bookingDetails = {
+            data: {
+              type: 'flight-order',
+              flightOffers: [item.details],
+              travelers: [
+                {
+                  id: '1',
+                  dateOfBirth: travelerDetails.dateOfBirth,
+                  name: {
+                    firstName: travelerDetails.firstName,
+                    lastName: travelerDetails.lastName,
+                  },
+                  gender: travelerDetails.gender.toUpperCase(),
+                  contact: {
+                    emailAddress: travelerDetails.email,
+                    phones: [
+                      {
+                        deviceType: 'MOBILE'.toUpperCase(),
+                        countryCallingCode: travelerDetails.countryCallingCode,
+                        number: travelerDetails.number,
+                      },
+                    ],
+                  },
+                  documents: [
+                    {
+                      documentType: 'PASSPORT'.toUpperCase(),
+                      birthPlace: travelerDetails.birthPlace,
+                      issuanceLocation: travelerDetails.issuanceLocation,
+                      issuanceDate: travelerDetails.issuanceDate,
+                      number: travelerDetails.passportNumber,
+                      expiryDate: travelerDetails.passportExpiryDate,
+                      issuanceCountry: travelerDetails.passportIssuanceCountry.toUpperCase(),
+                      validityCountry: travelerDetails.validityCountry.toUpperCase(),
+                      nationality: travelerDetails.nationality.toUpperCase(),
+                      holder: travelerDetails.holder,
+                    },
+                  ],
+                },
+              ],
+              ticketingAgreement: {
+                option: 'DELAY_TO_CANCEL',
+                delay: '6D',
+              },
+              remarks: {
+                general: [
+                  {
+                    subType: 'GENERAL_MISCELLANEOUS',
+                    text: 'ONLINE BOOKING FROM INCREIBLE VIAJES',
+                  },
+                ],
+              },
+              contacts: [
+                {
+                  addresseeName: {
+                    firstName: 'PABLO',
+                    lastName: 'RODRIGUEZ',
+                  },
+                  companyName: 'INCREIBLE VIAJES',
+                  purpose: 'STANDARD',
+                  phones: [
+                    {
+                      deviceType: 'LANDLINE',
+                      countryCallingCode: '34',
+                      number: '480080071',
+                    },
+                    {
+                      deviceType: 'MOBILE',
+                      countryCallingCode: '33',
+                      number: '480080072',
+                    },
+                  ],
+                  emailAddress: 'support@increibleviajes.es',
+                  address: {
+                    lines: ['Calle Prado, 16'],
+                    postalCode: '28014',
+                    cityName: 'Madrid',
+                    countryCode: 'ES',
+                  },
+                },
+              ],
+            },
+          };
+  
+          const response = await axios.post("/api/flights/book", bookingDetails);
+          console.log("Flight booking successful: ", response.data);
+        } catch (error) {
+          console.error("Flight booking failed: ", error);
         }
       }
     }
@@ -96,9 +211,33 @@ const TravelCart = () => {
       <ul>
         {cart.map((item: CartItem, index: number) => (
           <li key={index}>
-            {item.details?.room?.description?.text 
-              ? `${item.details.room.description.text} - $${item.price}`
-              : 'Item description not available'}
+            {item.type === 'hotel' ? (
+              <>
+                <p>Hotel: {item.details.name}</p>
+                <p>{item.details.room?.description.text}</p>
+                {item.details.image && <img src={item.details.image} alt={item.details.name} />}
+              </>
+            ) : (
+              <>
+                <h3>Flight Offer</h3>
+                {item.details.itineraries?.map((itinerary: Itinerary, i: number) => (
+                  <div key={i} className="itinerary">
+                    <h4>Itinerary {i + 1}</h4>
+                    <p>Duration: {itinerary.duration}</p>
+                    <ul>
+                      {itinerary.segments.map((segment: Segment, j: number) => (
+                        <li key={j}>
+                          <p>Departure: {segment.departure.iataCode} at {new Date(segment.departure.at).toLocaleString()}</p>
+                          <p>Arrival: {segment.arrival.iataCode} at {new Date(segment.arrival.at).toLocaleString()}</p>
+                          <p>Aircraft: {segment.aircraft.code}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </>
+            )}
+            <p>Price: ${item.price}</p>
             <button onClick={() => handleRemoveFromCart(index)}>Remove</button>
           </li>
         ))}
@@ -107,15 +246,16 @@ const TravelCart = () => {
       <h3>Split Payment</h3>
       {Array(parties).fill(0).map((_, index) => (
         <div key={index}>
-          <label>Party {index + 1} Contribution:</label>
+          <label>Party {index + 1} Contribution: </label>
           <input
             type="number"
-            value={payments[index]}
+            value={payments[index] || 0}
             onChange={(e) => handleSplitPayment(index, parseFloat(e.target.value))}
           />
         </div>
       ))}
       <button onClick={() => setParties(parties + 1)}>Add Party</button>
+      <button onClick={() => setParties(parties - 1)} disabled={parties <= 1}>Remove Party</button>
       <button onClick={handleCheckout}>Checkout</button>
     </div>
   );

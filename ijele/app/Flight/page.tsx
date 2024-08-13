@@ -175,8 +175,10 @@ const FlightPage: React.FC = () => {
           id: selectedFlight.id.toString(),
           type: 'flight',
           details: selectedFlight,
-          price: parseFloat(response.data.data.price), // Replace with actual price
+          itineraries: [],
+          price: parseFloat(selectedFlight.price.total),
         });
+        console.log(selectedFlight)
         alert('Flight added to cart!');
         alert('Redirecting to Cart page!')
         router.push('/Cart');
