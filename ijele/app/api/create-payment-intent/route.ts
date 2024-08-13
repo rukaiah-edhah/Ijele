@@ -13,10 +13,14 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    // Convert amount to cents
+    const amountInCents = Math.round(amount * 100);
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount,
+      amount: amountInCents,
       currency,
     });
+
     return NextResponse.json({ clientSecret: paymentIntent.client_secret }, { status: 201 });
   } catch (error) {
     console.error('Payment intent creation failed:', error);
