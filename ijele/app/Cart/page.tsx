@@ -74,7 +74,9 @@ const TravelCart = () => {
       return;
     }
 
-    router.push('/Payment'); 
+    const contributions = payments.join(',');
+    const url = `/Payment?parties=${parties}&contributions=${contributions}`;
+    router.push(url);
 
     // booking logic here if you want to handle it immediately after payment
     /*
