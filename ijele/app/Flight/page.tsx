@@ -44,6 +44,7 @@ const FlightPage: React.FC = () => {
 
   const [error, setError] = useState<any>(null);
   const [bookingStatus, setBookingStatus] = useState<'notStarted' | 'booked' | 'error'>('notStarted');
+  const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
   const { addToCart } = useCart();
 
   const fetchFlights = async () => {
@@ -59,9 +60,11 @@ const FlightPage: React.FC = () => {
       });
       setFlights(response.data.data);
       setError(null); // Clear any previous errors
+      setSearchPerformed(true); // Mark that a search has been performed
     } catch (err: any) {
       setFlights([]); // Clear the flights list on error
       setError(err.response ? err.response.data : err.message);
+      setSearchPerformed(true); // Mark that a search has been performed
     }
   };
 
@@ -280,26 +283,30 @@ const FlightPage: React.FC = () => {
             </div>
           </div>
 
-          <div className="mt-6">
-            <FlightList
-              flights={flights}
-              onSelectFlight={(flight) => setSelectedFlight(flight)}
-            />
+          <div className="mb-6">
+            {searchPerformed && flights.length === 0 ? (
+              <p className="text-red-500">No flights found</p>
+            ) : (
+              flights.length > 0 && (
+                <FlightList
+                  flights={flights}
+                  onSelectFlight={(flight) => setSelectedFlight(flight)}
+                />
+              )
+            )}
           </div>
 
-          {flights.length > 0 && (
+          {flights.length > 0 && selectedFlight && (
             <div className="mb-6">
-              {selectedFlight && (
-                <form onSubmit={handleBooking}>
-                  <TravelerDetailForm
-                    travelerDetails={travelerDetails}
-                    handleInputChange={handleInputChange}
-                  />
-                  <button type="submit" className="btn btn-primary mt-2">
-                    Book Flight
-                  </button>
-                </form>
-              )}
+              <form onSubmit={handleBooking}>
+                <TravelerDetailForm
+                  travelerDetails={travelerDetails}
+                  handleInputChange={handleInputChange}
+                />
+                <button type="submit" className="btn btn-primary mt-2">
+                  Book Flight
+                </button>
+              </form>
             </div>
           )}
 
@@ -310,18 +317,17 @@ const FlightPage: React.FC = () => {
           )}
         </div>
 
-        {bookingStatus && (
-            <div className="mt-6">
-              <p className="text-green-500">{bookingStatus}</p>
-              <button onClick={handlePayNow} className="btn btn-primary mt-2">
-                Pay Now
-              </button>
-              <button onClick={handleAddToCart} className="btn btn-secondary mt-2 ml-4">
-                Add to Cart
-              </button>
-            </div>
-          )}
-
+        {bookingStatus === 'booked' && (
+          <div className="mt-6">
+            <p className="text-green-500">Flight booked successfully!</p>
+            <button onClick={handlePayNow} className="btn btn-primary mt-2">
+              Pay Now
+            </button>
+            <button onClick={handleAddToCart} className="btn btn-secondary mt-2 ml-4">
+              Add to Cart
+            </button>
+          </div>
+        )}
 
         {error && (
           <div className="mt-6 text-red-500">
