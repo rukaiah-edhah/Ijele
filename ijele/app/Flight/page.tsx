@@ -12,6 +12,7 @@ import FlightSideBar from "@/components/SearchPage/flight-sidebar";
 import createFlightOrder from "@/lib/flight/bookFlight";
 import { useCart } from "@/components/Payment/cartContent";
 import LocationSearch from "@/components/HotelListPage/LocationSearch";
+import styles from '@/components/Flight/FlightPage.module.css';
 
 const FlightPage: React.FC = () => {
   const router = useRouter();
@@ -250,84 +251,107 @@ const FlightPage: React.FC = () => {
     <div>
       <Navbar currentPage="Flight" />
       <SearchNav currentPage="Flight" />
-      <div className="flex">
-        {/* Original search bar */}
-        <div className="p-6 flex-grow">
-          <h1 className="text-3xl font-bold mb-4">Flight Page</h1>
-          <div className="mb-6">
-            <h2 className="text-2xl font-semibold mb-2">Search Flights</h2>
-            <div className="flex flex-col space-y-4">
-              <div className="relative">
-                {/* Input for origin */}
-                <LocationSearch
-                  type="origin"
-                  onSelect={(location) => setOrigin(location.iataCode)}
-                />
-                <div className="absolute top-full left-0 mt-1 w-full max-w-md bg-white shadow-lg z-10"></div>
-              </div>
+      <div className={styles.background}>
+        <div className="flex">
+          {/* Original search bar */}
+          <div className="p-6 flex-grow">
+            <h1 className="text-3xl font-bold mb-4 text-ijele_gold">Flight Page</h1>
+            <div className="mb-6">
+              <h2 className="text-2xl font-semibold mb-2 text-ijele_cream">Search Flights</h2>
+              <div className="flex flex-col space-y-4">
+                <div className="relative">
+                  {/* Input for origin */}
+                  <LocationSearch
+                    type="origin"
+                    onSelect={(location) => setOrigin(location.iataCode)}
+                  />
+                  <div className="absolute top-full left-0 mt-1 w-full max-w-md bg-white shadow-lg z-10"></div>
+                </div>
 
-              <div className="relative">
-                <LocationSearch
-                  type="destination"
-                  onSelect={(location) => setDestination(location.iataCode)}
-                />
-                <div className="absolute top-full left-0 mt-1 bg-white shadow-lg z-10"></div>
-              </div>
+                <div className="relative">
+                  <LocationSearch
+                    type="destination"
+                    onSelect={(location) => setDestination(location.iataCode)}
+                  />
+                  <div className="absolute top-full left-0 mt-1 bg-white shadow-lg z-10"></div>
+                </div>
 
-              <label>Enter departure date</label>
-              <input
-                type="date"
-                value={departureDate}
-                onChange={(e) => setDepartureDate(e.target.value)}
-                className="input input-bordered w-full max-w-md"
-              />
-              <label>Enter return date</label>
-              <input
-                type="date"
-                value={returnDate}
-                onChange={(e) => setReturnDate(e.target.value)}
-                className="input input-bordered w-full max-w-md"
-              />
-              <label>Enter number of Adults</label>
-              <input
-                type="number"
-                value={adults}
-                onChange={(e) => setAdults(e.target.value)}
-                className="input input-bordered w-full max-w-md"
-              />
-              <button
-                onClick={fetchFlights}
-                className="btn btn-primary mt-4 w-full max-w-md"
-              >
-                Search
-              </button>
+                <label className="text-black">Enter departure date</label>
+                <input
+                  type="date"
+                  value={departureDate}
+                  onChange={(e) => setDepartureDate(e.target.value)}
+                  className="input input-bordered w-full max-w-md"
+                />
+                <label className="text-black">Enter return date</label>
+                <input
+                  type="date"
+                  value={returnDate}
+                  onChange={(e) => setReturnDate(e.target.value)}
+                  className="input input-bordered w-full max-w-md"
+                />
+                <label className="text-black">Enter number of Adults</label>
+                <input
+                  type="number"
+                  value={adults}
+                  onChange={(e) => setAdults(e.target.value)}
+                  className="input input-bordered w-full max-w-md"
+                />
+                <button
+                  onClick={fetchFlights}
+                  className="btn btn-primary mt-4 w-full max-w-md"
+                >
+                  Search
+                </button>
+              </div>
             </div>
-          </div>
 
-          <div className="mb-6">
-            {searchPerformed && flights.length === 0 ? (
-              <p className="text-red-500">No flights found</p>
-            ) : (
-              flights.length > 0 && (
-                <FlightList
-                  flights={flights}
-                  onSelectFlight={(flight) => setSelectedFlight(flight)}
-                />
-              )
+            <div className="mb-6">
+              {searchPerformed && flights.length === 0 ? (
+                <p className="text-red-500">No flights found</p>
+              ) : (
+                flights.length > 0 && (
+                  <FlightList
+                    flights={flights}
+                    onSelectFlight={(flight) => setSelectedFlight(flight)}
+                  />
+                )
+              )}
+            </div>
+
+            {flights.length > 0 && selectedFlight && (
+              <div className="mb-6">
+                <form onSubmit={handleBooking}>
+                  <TravelerDetailForm
+                    travelerDetails={travelerDetails}
+                    handleInputChange={handleInputChange}
+                  />
+                  <button type="submit" className="btn btn-primary mt-2">
+                    Book Flight
+                  </button>
+                </form>
+              </div>
+            )}
+
+            {error && (
+              <div className="mt-6 text-red-500">
+                <p>{error}</p>
+              </div>
             )}
           </div>
 
-          {flights.length > 0 && selectedFlight && (
-            <div className="mb-6">
-              <form onSubmit={handleBooking}>
-                <TravelerDetailForm
-                  travelerDetails={travelerDetails}
-                  handleInputChange={handleInputChange}
-                />
-                <button type="submit" className="btn btn-primary mt-2">
-                  Book Flight
-                </button>
-              </form>
+          {bookingStatus === "booked" && (
+            <div className="mt-6">
+              <p className="text-green-500">Flight booked successfully!</p>
+              <button onClick={handlePayNow} className="btn btn-primary mt-2">
+                Pay Now
+              </button>
+              <button
+                onClick={handleAddToCart}
+                className="btn btn-secondary mt-2 ml-4"
+              >
+                Add to Cart
+              </button>
             </div>
           )}
 
@@ -338,30 +362,9 @@ const FlightPage: React.FC = () => {
           )}
         </div>
 
-        {bookingStatus === "booked" && (
-          <div className="mt-6">
-            <p className="text-green-500">Flight booked successfully!</p>
-            <button onClick={handlePayNow} className="btn btn-primary mt-2">
-              Pay Now
-            </button>
-            <button
-              onClick={handleAddToCart}
-              className="btn btn-secondary mt-2 ml-4"
-            >
-              Add to Cart
-            </button>
-          </div>
-        )}
-
-        {error && (
-          <div className="mt-6 text-red-500">
-            <p>{error}</p>
-          </div>
-        )}
+        {/* Sidebar */}
+        {/* <FlightSideBar onSearch={fetchFlights} /> */}
       </div>
-
-      {/* Sidebar */}
-      {/* <FlightSideBar onSearch={fetchFlights} /> */}
     </div>
   );
 };
