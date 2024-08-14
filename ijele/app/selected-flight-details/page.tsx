@@ -32,7 +32,7 @@ const SelectedFlightDetailsPage: FC = () => {
 
   return (
     <div>
-      <Navbar />
+      <Navbar currentPage={''} />
       <SelectedFlightDetails
         selectedFlight={selectedFlight}
         travelerDetails={travelerDetails}
