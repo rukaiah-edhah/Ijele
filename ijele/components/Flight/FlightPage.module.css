@@ -1,0 +1,9 @@
+/* FlightPage.module.css */
+.background {
+    background-image: url('/Images/flight1.jpg');
+    background-size: cover; /* Adjusts the image to cover the entire element */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    min-height: 100vh; /* Ensures the background covers the full viewport height */
+  }
+  

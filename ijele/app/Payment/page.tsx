@@ -1,4 +1,5 @@
-"use client";
+import PaymentPage from "@/components/Payment/PaymentForm";
+
 
 import { useState, useEffect } from "react";
 import Navbar from "@/components/navbar";
@@ -180,12 +181,10 @@ function PaymentForm() {
       </>
     );
   }
-  
+ 
 
-export default function PaymentPage() {
-  return (
-    <Elements stripe={stripePromise}>
-      <PaymentForm />
-    </Elements>
-  );
+export default function Payment() {
+  return <PaymentPage />;
+
 }
+

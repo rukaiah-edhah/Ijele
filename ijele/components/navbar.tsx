@@ -12,7 +12,7 @@ type NavbarProps = {
   currentPage: string,
 }
 
-const navlist = ["Home","Flight","Hotel","Payment","Dashboard"]
+const navlist = ["Home","Flight","Hotel","Cart","Dashboard"]
 
 
 
@@ -99,7 +99,7 @@ const Navbar = (props: NavbarProps) => {
                 <div className="flex justify-evenly space-x-4">
                   {buildNavLinks(props.currentPage)}
                   <LoginLink className="navbarLink">Login </LoginLink>
-                  <LogoutLink className="navbarLink">Log out </LogoutLink>
+                  {/* <LogoutLink className="navbarLink">Log out </LogoutLink> */}
                 </div>
               </div>
             </div>

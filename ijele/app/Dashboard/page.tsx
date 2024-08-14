@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useKindeBrowserClient } from '@kinde-oss/kinde-auth-nextjs';
+import Navbar from '@/components/navbar';
 
 const Dashboard = () => {
   const router = useRouter();
@@ -40,6 +41,7 @@ const Dashboard = () => {
 
   return (
     <div>
+      <Navbar currentPage="Dashboard"/>
       <h1>Welcome to your Dashboard</h1>
       {/* we can add the dashboard content later :)  */}
     </div>
