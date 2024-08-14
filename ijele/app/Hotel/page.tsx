@@ -9,7 +9,7 @@ import { useRouter } from "next/navigation";
 import SearchNav from "@/components/SearchPage/search-nav";
 import HotelList from "@/components/HotelListPage/HotelList";
 import SearchErrorMessage from "@/components/HotelListPage/SearchErrorMessage";
-import HotelSideBar from "@/components/SearchPage/hotel-sidebar";
+import {HotelSideBar} from "@/components/SearchPage/hotel-sidebar";
 import { hotelCarouselImages } from "@/components/ImageMapping";
 import { AutoCarousel } from "@/components/SearchPage/carousel";
 

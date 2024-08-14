@@ -1,12 +1,6 @@
 "use client";
-// import FilterSection from "./sidebar-filter";
-import searchIcon from "/Images/searchIcon.svg";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useState } from 'react';
 import FilterSection from "./sidebarTEST";
-import { Interface } from "readline";
-
 
 interface HotelReview{
     rating: number
@@ -30,7 +24,7 @@ function applyStars(rating: number) {
 }
 
 
-export default function HotelSideBar() {
+export const HotelSideBar= ()=>{
     return (
         <>
             <div className=''>
