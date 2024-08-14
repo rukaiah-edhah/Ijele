@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import axios from "axios";
 import Navbar from "@/components/navbar";
 import SearchNav from "@/components/SearchPage/search-nav";
