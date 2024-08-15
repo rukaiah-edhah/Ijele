@@ -4,18 +4,18 @@ import FlightCard from './FlightCard';
 import { Flight } from './FlightType';
 
 const airlineLogos: Record<string, string> = {
-  'AA': '/Images/AA.png',
-  'DL': '/Images/Delta.png',
-  'UA': '/Images/UA.png',
-  'SW': '/Images/SW.png',
-  'VS': '/Images/VS.png',
-  'FI': '/Images/FI.png', 
-  'BF': '/Images/BF.png',
-  'TX': '/Images/TX.png',
-  'QR': '/Images/QR.png', 
-  'MF': '/Images/MF.png',
-  'AS': '/Images/AS.png',
-  'SK': '/Images/SK.png',
+  'AA': '/Images/flight/AA.png',
+  'DL': '/Images/flight/Delta.png',
+  'UA': '/Images/flight/UA.png',
+  'SW': '/Images/flight/SW.png',
+  'VS': '/Images/flight/VS.png',
+  'FI': '/Images/flight/FI.png', 
+  'BF': '/Images/flight/BF.png',
+  'TX': '/Images/flight/TX.png',
+  'QR': '/Images/flight/QR.png', 
+  'MF': '/Images/flight/MF.png',
+  'AS': '/Images/flight/AS.png',
+  'SK': '/Images/flight/SK.png',
 };
 
 type Props = {
