@@ -16,18 +16,17 @@ const navlist = ["Home","Flight","Hotel","Cart","Dashboard"]
 
 
 function buildNavLinks(currentPage: string) {
-  const links: JSX.Element[] = []
+  const links: JSX.Element[] = [];
   for (let i = 0; i < navlist.length; i++) {
-    if (currentPage == navlist[i]){
-      links.push(<a href={`/`+ navlist[i]} className='navbarLink text-ijele_deepGold border-b-2'>{navlist[i]}</a>)
-    } 
-    else {
-     links.push(<a href={`/`+ navlist[i]} className='navbarLink'>{navlist[i]}</a>)
-    }
+    const path = navlist[i] === "Home" ? "/" : `/${navlist[i]}`;
+    const className = currentPage === navlist[i] 
+      ? 'navbarLink text-ijele_deepGold border-b-2' 
+      : 'navbarLink';
+
+    links.push(<a href={path} className={className}>{navlist[i]}</a>);
   }
 
-  return links
-
+  return links;
 }
 
 const Navbar = (props: NavbarProps) => {
