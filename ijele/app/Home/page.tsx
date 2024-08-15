@@ -44,8 +44,8 @@ const AboutPage: React.FC = () => {
                                 <Image 
                                     src="/Images/home/Cynthia.jpg"
                                     alt="Travel Users"
-                                    width={128} // Adjust based on your needs
-                                    height={128} // Adjust based on your needs
+                                    width={128} 
+                                    height={128} 
                                     layout="intrinsic"
                                     objectFit="cover" />
                             </div>
@@ -66,8 +66,8 @@ const AboutPage: React.FC = () => {
                                 <Image 
                                       src="/Images/home/Jennifer.jpg"
                                       alt="Travel Users"
-                                      width={128} // Adjust based on your needs
-                                      height={128} // Adjust based on your needs
+                                      width={128} 
+                                      height={128} 
                                       layout="intrinsic"
                                       objectFit="cover" />
                             </div>
@@ -78,8 +78,8 @@ const AboutPage: React.FC = () => {
                                 <Image 
                                       src="/Images/home/Rukaiah.jpg"
                                       alt="Travel Users"
-                                      width={128} // Adjust based on your needs
-                                      height={128} // Adjust based on your needs
+                                      width={128} 
+                                      height={128} 
                                       layout="intrinsic"
                                       objectFit="cover" />
                             </div>
