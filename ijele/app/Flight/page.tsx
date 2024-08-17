@@ -255,7 +255,7 @@ const FlightPage: React.FC = () => {
         <div className="flex">
           {/* Original search bar */}
           <div className="p-6 flex-grow">
-            <h1 className="text-3xl font-bold mb-4 text-ijele_gold">Flight Page</h1>
+            <h1 className="text-3xl font-bold font-junge mb-4 text-ijele_gold">Where would you like to go?</h1>
             <div className="mb-6">
               <h2 className="text-2xl font-semibold mb-2 text-ijele_cream">Search Flights</h2>
               <div className="flex flex-col space-y-4">
