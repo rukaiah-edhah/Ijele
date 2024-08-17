@@ -10,6 +10,6 @@ export const hotelCarouselImages =
     "/Images/hotel/hotel_w_stars.jpg",]
 
 
+export const flightCarouselImages = [
 
-
-
+]
