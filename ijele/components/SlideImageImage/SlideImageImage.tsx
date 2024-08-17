@@ -30,11 +30,11 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
             <img
               src={leftImageUrl}
               alt="Left Sliding Image"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
             />
             <Link href={leftPage} passHref>
               <button
-                className="absolute bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300"
+                className="absolute bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-ijele_deepGold transition-colors duration-300"
                 style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
               >
                 {leftButtonText}
@@ -45,11 +45,11 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
             <img
               src={rightImageUrl}
               alt="Right Sliding Image"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
             />
             <Link href={rightPage} passHref>
               <button
-                className="absolute bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors duration-300"
+                className="absolute bg-blue-500 text-white font-bold py-2 px-4 rounded-lg hover:bg-ijele_deepGold transition-colors duration-300"
                 style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
               >
                 {rightButtonText}

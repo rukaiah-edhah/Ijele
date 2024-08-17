@@ -17,9 +17,9 @@ const Home: React.FC = () => {
             <SlideImageImage
                 imageOnLeft={true}
                 leftImageUrl="/Images/home/flight3.jpg"
-                rightImageUrl="/Images/home/hotel.jpg"
-                leftButtonText="Go to Flight"
-                rightButtonText="Go to Hotel"
+                rightImageUrl="/Images/home/hotel1.jpg"
+                leftButtonText="Search Flights"
+                rightButtonText="Search Hotels"
                 leftPage="/Flight"
                 rightPage="/Hotel"
             />

@@ -257,7 +257,7 @@ const FlightPage: React.FC = () => {
           <div className="p-6 flex-grow">
             <h1 className="text-3xl font-bold font-junge mb-4 text-ijele_gold">Where would you like to go?</h1>
             <div className="mb-6">
-              <h2 className="text-2xl font-semibold mb-2 text-ijele_cream">Search Flights</h2>
+              <h2 className="text-2xl font-semibold font-junge mb-2 text-ijele_cream">Search Flights</h2>
               <div className="flex flex-col space-y-4">
                 <div className="relative">
                   {/* Input for origin */}
@@ -276,21 +276,21 @@ const FlightPage: React.FC = () => {
                   <div className="absolute top-full left-0 mt-1 bg-white shadow-lg z-10"></div>
                 </div>
 
-                <label className="text-black">Enter departure date</label>
+                <label className="text-black font-junge">Enter departure date</label>
                 <input
                   type="date"
                   value={departureDate}
                   onChange={(e) => setDepartureDate(e.target.value)}
                   className="input input-bordered w-full max-w-md"
                 />
-                <label className="text-black">Enter return date</label>
+                <label className="text-black font-junge">Enter return date</label>
                 <input
                   type="date"
                   value={returnDate}
                   onChange={(e) => setReturnDate(e.target.value)}
                   className="input input-bordered w-full max-w-md"
                 />
-                <label className="text-black">Enter number of Adults</label>
+                <label className="text-black font-junge">Enter number of Adults</label>
                 <input
                   type="number"
                   value={adults}
