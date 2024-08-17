@@ -6,14 +6,11 @@ import {
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 
-
 type NavbarProps = {
   currentPage: string,
 }
 
 const navlist = ["Home","Flight","Hotel","Cart","Dashboard"]
-
-
 
 function buildNavLinks(currentPage: string) {
   const links: JSX.Element[] = [];

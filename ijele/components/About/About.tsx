@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 
-const AboutPage: React.FC = () => {
+const About: React.FC = () => {
     return (
         <div>
             <div className="min-h-screen bg-white p-4 md:p-10">
@@ -104,4 +104,4 @@ const AboutPage: React.FC = () => {
     );
 };
 
-export default AboutPage;
+export default About;
