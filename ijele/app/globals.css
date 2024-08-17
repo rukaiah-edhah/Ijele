@@ -47,7 +47,7 @@
 
     .sidebar-container {
         float: right;
-        @apply bg-ijele_teal min-h-screen w-80 sticky top-0;
+        @apply bg-ijele_teal min-h-screen w-[35%] sticky top-0;
     }
 
     .sidebar-inputfield {

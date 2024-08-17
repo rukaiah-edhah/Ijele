@@ -64,7 +64,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({ onSelect, type }) => {
           value={query}
           onChange={handleInputChange}
           placeholder={placeholderText[type]}
-          className="sidebar-inputfield w-40 h-8 m-2 pl-2 focus:outline-none"
+          className="sidebar-inputfield w-full h-8 m-2 pl-2 focus:outline-none"
         />
         {suggestions.length > 0 && (
           <div className="absolute top-full left-0 mt-1 w-full max-h-60 overflow-auto bg-white border border-gray-300 rounded-lg z-10">

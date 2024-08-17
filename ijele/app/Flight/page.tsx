@@ -13,6 +13,10 @@ import createFlightOrder from "@/lib/flight/bookFlight";
 import { useCart } from "@/components/Payment/cartContent";
 import LocationSearch from "@/components/HotelListPage/LocationSearch";
 import styles from '@/components/Flight/FlightPage.module.css';
+import { HotelSideBar } from "@/components/SearchPage/hotel-sidebar";
+import FlightFilterSection from "@/components/SearchPage/flight-sidebar";
+import { AutoCarousel } from "@/components/SearchPage/carousel";
+import { hotelCarouselImages } from "@/components/ImageMapping";
 
 const FlightPage: React.FC = () => {
   const router = useRouter();
@@ -23,6 +27,7 @@ const FlightPage: React.FC = () => {
   const [adults, setAdults] = useState<string>("1");
   const [flights, setFlights] = useState<Flight[]>([]);
   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
+  const [resultsPop, setResultsPopulated] = useState(false); {/*ADDED FOR HIDING CAROUSEL*/}
   const [selectedLocation, setSelectedLocation] = useState<{
     name: string;
     iataCode: string;
@@ -69,10 +74,14 @@ const FlightPage: React.FC = () => {
       setFlights(response.data.data);
       setError(null); // Clear any previous errors
       setSearchPerformed(true); // Mark that a search has been performed
+      setResultsPopulated(true); {/*ADDED FOR HIDING CAROUSEL*/}
+
     } catch (err: any) {
       setFlights([]); // Clear the flights list on error
       setError(err.response ? err.response.data : err.message);
       setSearchPerformed(true); // Mark that a search has been performed
+      setResultsPopulated(false); {/*ADDED FOR HIDING CAROUSEL*/}
+
     }
   };
 
@@ -247,62 +256,90 @@ const FlightPage: React.FC = () => {
     }
   };
 
+  function isVisible(){      {/*ADDED FOR HIDING CAROUSEL*/}
+  return resultsPop ? false : true
+}
+
   return (
     <div>
       <Navbar currentPage="Flight" />
       <SearchNav currentPage="Flight" />
-      <div className={styles.background}>
+
+      {/* <div className={styles.background}> */}
+        <div>
         <div className="flex">
-          {/* Original search bar */}
-          <div className="p-6 flex-grow">
-            <h1 className="text-3xl font-bold mb-4 text-ijele_gold">Flight Page</h1>
-            <div className="mb-6">
-              <h2 className="text-2xl font-semibold mb-2 text-ijele_cream">Search Flights</h2>
-              <div className="flex flex-col space-y-4">
-                <div className="relative">
-                  {/* Input for origin */}
-                  <LocationSearch
-                    type="origin"
-                    onSelect={(location) => setOrigin(location.iataCode)}
-                  />
-                  <div className="absolute top-full left-0 mt-1 w-full max-w-md bg-white shadow-lg z-10"></div>
+          <div className="pl-6 flex-grow">
+            <div className="sticky top-0"> {/*contianer for side bar AND CAROUSEL */}
+               {/* carousel container */}
+          <div className="absolute max-h-auto "> 
+            {AutoCarousel(hotelCarouselImages, 'hotelCarouselID', 2100, isVisible())}
+          </div>
+              {/*contianer for side bar */}
+              <div className='max-h-screen overflow-auto sidebar-container no-scrollbar'>
+            <h1 className="text-3xl justify-center align-center font-bold text-ijele_gold">Flight</h1>
+
+                {/* location & destination search */}
+                <div className="flex justify-center mt-2 p-4 items-center space-x-2 text-sm">
+                  <div className="flex">
+                    <button
+                      onClick={fetchFlights}
+                      className="justify-center items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFF6EE"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" /></svg>
+                    </button>
+
+                    {/* Input for origin */}
+                    <LocationSearch
+                      type="origin"
+                      onSelect={(location) => setOrigin(location.iataCode)}
+                    />
+                  </div>
+
+                  {/* input for destination */}
+                  <div className="pr-2">
+                    <LocationSearch
+                      type="destination"
+                      onSelect={(location) => setDestination(location.iataCode)}
+                    />
+                  </div>
+
+                  {/* input number of people */}
+                  <div className='flex items-center bg-ijele_cream rounded-lg w-1/3'>
+                    <input
+                      type="number"
+                      value={adults}
+                      onChange={(e) => setAdults(e.target.value)}
+                      min="1"
+                      className='sidebar-inputfield w-full h-4 rounded-md focus:outline-none'
+                    />
+                    <i className="fa-solid fa-user fa-sm pr-2 font-black" />
+                  </div>
                 </div>
 
-                <div className="relative">
-                  <LocationSearch
-                    type="destination"
-                    onSelect={(location) => setDestination(location.iataCode)}
-                  />
-                  <div className="absolute top-full left-0 mt-1 bg-white shadow-lg z-10"></div>
-                </div>
+                <div className="flex items-center justify-evenly place-items-center text-base text-ijele_cream font-ijele_cream border-b p-4 pt-0">
+                  {/* input dates depart */}
+                  <div className="flex-col  w-[45%]">
+                    <label>Enter departure date</label>
+                    <input
+                      type="date"
+                      value={departureDate}
+                      onChange={(e) => setDepartureDate(e.target.value)}
+                      className="sidebar-inputfield bg-ijele_teal w-full max-w-md"
+                    />
+                  </div>
 
-                <label className="text-black">Enter departure date</label>
-                <input
-                  type="date"
-                  value={departureDate}
-                  onChange={(e) => setDepartureDate(e.target.value)}
-                  className="input input-bordered w-full max-w-md"
-                />
-                <label className="text-black">Enter return date</label>
-                <input
-                  type="date"
-                  value={returnDate}
-                  onChange={(e) => setReturnDate(e.target.value)}
-                  className="input input-bordered w-full max-w-md"
-                />
-                <label className="text-black">Enter number of Adults</label>
-                <input
-                  type="number"
-                  value={adults}
-                  onChange={(e) => setAdults(e.target.value)}
-                  className="input input-bordered w-full max-w-md"
-                />
-                <button
-                  onClick={fetchFlights}
-                  className="btn btn-primary mt-4 w-full max-w-md"
-                >
-                  Search
-                </button>
+                  {/* input dates return */}
+                  <div className="flex-col  w-[45%] ">
+                    <label>Enter return date</label>
+                    <input
+                      type="date"
+                      value={returnDate}
+                      onChange={(e) => setReturnDate(e.target.value)}
+                      className="sidebar-inputfield bg-ijele_teal w-full max-w-md"
+                    />
+                  </div>
+
+                </div>
+                <FlightFilterSection/>
               </div>
             </div>
 
@@ -361,8 +398,6 @@ const FlightPage: React.FC = () => {
             </div>
           )}
         </div>
-
-        {/* Sidebar */}
         {/* <FlightSideBar onSearch={fetchFlights} /> */}
       </div>
     </div>

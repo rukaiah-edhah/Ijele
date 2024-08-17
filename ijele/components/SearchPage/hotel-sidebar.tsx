@@ -1,6 +1,6 @@
 "use client";
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import FilterSection from "./sidebarTEST";
+import FilterSection from "./hotel-filters";
 
 interface HotelReview{
     rating: number
