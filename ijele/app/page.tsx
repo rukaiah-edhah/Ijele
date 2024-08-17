@@ -1,7 +1,6 @@
 import Navbar from "@/components/navbar";
 import SearchNav from "@/components/SearchPage/search-nav";
 import React from 'react';
-import About from "@/components/About/About"
 import SlideText from "@/components/SlideText/SlideText";
 import SlideImageImage from "@/components/SlideImageImage/SlideImageImage";
 
@@ -24,7 +23,6 @@ const Home: React.FC = () => {
                 leftPage="/Flight"
                 rightPage="/Hotel"
             />
-            <About />
         </>
     );
 };
