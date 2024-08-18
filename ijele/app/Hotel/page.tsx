@@ -93,12 +93,12 @@ function isVisible(){      {/*ADDED FOR HIDING CAROUSEL*/}
             </div>
           </div>
 
-          <div className="flex items-center text-sm text-ijele_cream font-ijele_cream border-b">
+          <div className="flex items-center justify-evenly place-items-center text-base text-ijele_cream font-ijele_cream border-b p-4 pt-0">
             <input type="date" value={checkInDate}
-              onChange={(e) => setCheckInDate(e.target.value)} className="sidebar-inputfield bg-ijele_teal w-1/2" />
+              onChange={(e) => setCheckInDate(e.target.value)} className="sidebar-inputfield bg-ijele_teal w-[45%]" />
             -
             <input type="date" value={checkOutDate}
-              onChange={(e) => setCheckOutDate(e.target.value)} className="sidebar-inputfield bg-ijele_teal w-1/2" />
+              onChange={(e) => setCheckOutDate(e.target.value)} className="sidebar-inputfield bg-ijele_teal w-[45%]" />
           </div>
           <HotelSideBar />
         </div>
