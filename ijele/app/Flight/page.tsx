@@ -13,6 +13,10 @@ import createFlightOrder from "@/lib/flight/bookFlight";
 import { useCart } from "@/components/Payment/cartContent";
 import LocationSearch from "@/components/HotelListPage/LocationSearch";
 import styles from '@/components/Flight/FlightPage.module.css';
+import { HotelSideBar } from "@/components/SearchPage/hotel-sidebar";
+import FlightFilterSection from "@/components/SearchPage/flight-sidebar";
+import { AutoCarousel } from "@/components/SearchPage/carousel";
+import { flightCarouselImages, hotelCarouselImages } from "@/components/ImageMapping";
 
 const FlightPage: React.FC = () => {
   const router = useRouter();
@@ -23,6 +27,7 @@ const FlightPage: React.FC = () => {
   const [adults, setAdults] = useState<string>("1");
   const [flights, setFlights] = useState<Flight[]>([]);
   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
+  const [resultsPop, setResultsPopulated] = useState(false); {/*ADDED FOR HIDING CAROUSEL*/ }
   const [selectedLocation, setSelectedLocation] = useState<{
     name: string;
     iataCode: string;
@@ -69,10 +74,14 @@ const FlightPage: React.FC = () => {
       setFlights(response.data.data);
       setError(null); // Clear any previous errors
       setSearchPerformed(true); // Mark that a search has been performed
+      setResultsPopulated(true); {/*ADDED FOR HIDING CAROUSEL*/ }
+
     } catch (err: any) {
       setFlights([]); // Clear the flights list on error
       setError(err.response ? err.response.data : err.message);
       setSearchPerformed(true); // Mark that a search has been performed
+      setResultsPopulated(false); {/*ADDED FOR HIDING CAROUSEL*/ }
+
     }
   };
 
@@ -247,89 +256,143 @@ const FlightPage: React.FC = () => {
     }
   };
 
+  function isVisible() {
+    {/*ADDED FOR HIDING CAROUSEL*/ }
+    return resultsPop ? false : true
+  }
+
   return (
     <div>
       <Navbar currentPage="Flight" />
       <SearchNav currentPage="Flight" />
       <div className={styles.background}>
-        <div className="relative flex items-center justify-center min-h-screen">
-          {/* Original search bar */}
-          <div className="relative flex flex-col items-center justify-center p-6 bg-white bg-opacity-80 rounded-lg w-full max-w-lg">
-            <h1 className="text-3xl font-bold font-junge mb-4 text-ijele_navy">Where would you like to go?</h1>
-            <div className="mb-6">
-              <h2 className="text-2xl font-semibold font-junge mb-2 text-ijele_teal">Search Flights</h2>
-              <div className="flex flex-col space-y-4">
-                <div className="relative">
-                  {/* Input for origin */}
-                  <LocationSearch
-                    type="origin"
-                    onSelect={(location) => setOrigin(location.iataCode)}
-                  />
-                  <div className="absolute top-full left-0 mt-1 w-full max-w-md bg-white shadow-lg z-10"></div>
+        <div className="flex">
+          <div className=" flex-grow">
+            <div className="sticky top-0"> {/*contianer for side bar AND CAROUSEL */}
+              {/* carousel container */}
+              <div className="absolute max-h-auto ">
+                {AutoCarousel(flightCarouselImages, 'hotelCarouselID', 3500, isVisible())}
+              </div>
+              {/*contianer for side bar */}
+              <div className='max-h-screen overflow-auto sidebar-container no-scrollbar'>
+                <h1 className="text-3xl text-center text-lg font-bold font-junge m-4 text-ijele_cream"> - Where would you like to go? - </h1>
+
+                {/* location & destination search */}
+                <div className="flex justify-center p-4 items-center space-x-2 text-sm">
+                  <div className="flex">
+                    <button
+                      onClick={fetchFlights}
+                      className="justify-center items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FFF6EE"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z" /></svg>
+                    </button>
+
+                    {/* Input for origin */}
+                    <LocationSearch
+                      type="origin"
+                      onSelect={(location) => setOrigin(location.iataCode)}
+                    />
+                  </div>
+
+                  {/* input for destination */}
+                  <div className="pr-2">
+                    <LocationSearch
+                      type="destination"
+                      onSelect={(location) => setDestination(location.iataCode)}
+                    />
+                  </div>
+
+                  {/* input number of people */}
+                  <div className='flex items-center bg-ijele_cream rounded-lg w-1/3'>
+                    <input
+                      type="number"
+                      value={adults}
+                      onChange={(e) => setAdults(e.target.value)}
+                      min="1"
+                      className='sidebar-inputfield w-full h-4 rounded-md focus:outline-none'
+                    />
+                    <i className="fa-solid fa-user fa-sm pr-2 font-black" />
+                  </div>
                 </div>
 
-                <div className="relative">
-                  <LocationSearch
-                    type="destination"
-                    onSelect={(location) => setDestination(location.iataCode)}
-                  />
-                  <div className="absolute top-full left-0 mt-1 bg-white shadow-lg z-10"></div>
-                </div>
+                <div className="flex items-center justify-evenly place-items-center text-base text-ijele_cream font-ijele_cream border-b p-4 pt-0">
+                  {/* input dates depart */}
+                  <div className="flex-col  w-[45%]">
+                    <label>Enter departure date</label>
+                    <input
+                      type="date"
+                      value={departureDate}
+                      onChange={(e) => setDepartureDate(e.target.value)}
+                      className="sidebar-inputfield bg-ijele_teal w-full max-w-md"
+                    />
+                  </div>
 
-                <label className="text-ijele_navy font-junge">Enter departure date</label>
-                <input
-                  type="date"
-                  value={departureDate}
-                  onChange={(e) => setDepartureDate(e.target.value)}
-                  className="input input-bordered w-full max-w-md"
-                />
-                <label className="text-ijele_navy font-junge">Enter return date</label>
-                <input
-                  type="date"
-                  value={returnDate}
-                  onChange={(e) => setReturnDate(e.target.value)}
-                  className="input input-bordered w-full max-w-md"
-                />
-                <label className="text-ijele_navy font-junge">Enter number of Adults</label>
-                <input
-                  type="number"
-                  value={adults}
-                  onChange={(e) => setAdults(e.target.value)}
-                  className="input input-bordered w-full max-w-md"
-                />
-                <button
-                  onClick={fetchFlights}
-                  className="btn btn-primary mt-4 w-full max-w-md"
-                >
-                  Search
-                </button>
+                  {/* input dates return */}
+                  <div className="flex-col  w-[45%] ">
+                    <label>Enter return date</label>
+                    <input
+                      type="date"
+                      value={returnDate}
+                      onChange={(e) => setReturnDate(e.target.value)}
+                      className="sidebar-inputfield bg-ijele_teal w-full max-w-md"
+                    />
+                  </div>
+
+                </div>
+                <FlightFilterSection />
               </div>
             </div>
 
-            <div className="mb-6">
-              {searchPerformed && flights.length === 0 ? (
-                <p className="text-red-500">No flights found</p>
-              ) : (
-                flights.length > 0 && (
-                  <FlightList
-                    flights={flights}
-                    onSelectFlight={(flight) => setSelectedFlight(flight)}
-                  />
-                )
-              )}
+            <div >
+
+              <div className="float-left ml-[10%] max-w-70%"> {/*container for results and traveler Details */}
+                <div className="mb-6">
+                  {searchPerformed && flights.length === 0 ? (
+                    <p className="text-red-500">No flights found</p>
+                  ) : (
+                    flights.length > 0 && (
+                      <FlightList
+                        flights={flights}
+                        onSelectFlight={(flight) => setSelectedFlight(flight)}
+                      />
+                    )
+                  )}
+                </div>
+
+                {flights.length > 0 && selectedFlight && (
+                  <div className="flex flex-col items-center mt-6">
+                    <form onSubmit={handleBooking}>
+                      <TravelerDetailForm
+                        travelerDetails={travelerDetails}
+                        handleInputChange={handleInputChange}
+                      />
+                      <button type="submit" className="btn btn-primary mt-2">
+                        Book Flight
+                      </button>
+                    </form>
+                  </div>
+                )}
+
+              </div>
             </div>
 
-            {flights.length > 0 && selectedFlight && (
-              <div className="flex flex-col items-center mt-6">
-                <form onSubmit={handleBooking}>
-                  <TravelerDetailForm
-                    travelerDetails={travelerDetails}
-                    handleInputChange={handleInputChange}
-                  />
-                  <button type="submit" className="btn btn-primary mt-2">
-                    Book Flight
-                  </button>
-                </form>
+            {error && (
+              <div className="mt-6 text-red-500">
+                <p>{error}</p>
+              </div>
+            )}
+
+            {bookingStatus === "booked" && (
+              <div className="mt-6">
+                <p className="text-green-500">Flight booked successfully!</p>
+                <button onClick={handlePayNow} className="btn btn-primary mt-2">
+                  Pay Now
+                </button>
+                <button
+                  onClick={handleAddToCart}
+                  className="btn btn-secondary mt-2 ml-4"
+                >
+                  Add to Cart
+                </button>
               </div>
             )}
 
@@ -339,27 +402,6 @@ const FlightPage: React.FC = () => {
               </div>
             )}
           </div>
-
-          {bookingStatus === "booked" && (
-            <div className="mt-6">
-              <p className="text-green-500">Flight booked successfully!</p>
-              <button onClick={handlePayNow} className="btn btn-primary mt-2">
-                Pay Now
-              </button>
-              <button
-                onClick={handleAddToCart}
-                className="btn btn-secondary mt-2 ml-4"
-              >
-                Add to Cart
-              </button>
-            </div>
-          )}
-
-          {error && (
-            <div className="mt-6 text-red-500">
-              <p>{error}</p>
-            </div>
-          )}
         </div>
       </div>
     </div>

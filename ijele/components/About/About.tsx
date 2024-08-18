@@ -6,7 +6,7 @@ const About: React.FC = () => {
         <div>
             <div className="min-h-screen bg-white p-4 md:p-10">
                 <header className="text-center mb-10">
-                    <h1 className="text-2xl font-bold text-orange-500">The eXpats - The King of Group Travel</h1>
+                    <h1 className="text-2xl font-bold text-orange-500">The King of Group Travel</h1>
                 </header>
                 <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
 
@@ -22,7 +22,7 @@ const About: React.FC = () => {
                                 <strong>ịje</strong> means go, move, travel, journey.
                             </p>
                             <p className="text-gray-700 mt-2">
-                                A masquerade considered the strongest and most powerful among the masquerades. It belongs to the highest and most secret cult of the land. It is believed to be the king of all masquerades when they all display.
+                             <strong>ịjele</strong> A masquerade considered the strongest and most powerful among the masquerades. It belongs to the highest and most secret cult of the land. It is believed to be the king of all masquerades when they all display.
                             </p>
                         </div>
                     </div>

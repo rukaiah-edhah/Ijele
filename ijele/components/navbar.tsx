@@ -6,35 +6,71 @@ import {
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
 
+
 type NavbarProps = {
   currentPage: string,
 }
 
-const navlist = ["Home","Flight","Hotel","Cart","Dashboard","About"]
+const navlist = ["Home", "Search", "Cart", "Dashboard"]
 
-function buildNavLinks(currentPage: string) {
-  const links: JSX.Element[] = [];
-  for (let i = 0; i < navlist.length; i++) {
-    const path = navlist[i] === "Home" ? "/" : `/${navlist[i]}`;
-    const className = currentPage === navlist[i] 
-      ? 'navbarLink text-ijele_deepGold border-b-2' 
-      : 'navbarLink';
-
-    links.push(<a href={path} className={className}>{navlist[i]}</a>);
-  }
-
-  return links;
-}
 
 const Navbar = (props: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-
+  // State to track the currently expanded section
+  const [expandedSection, setExpandedSection] = useState<boolean>(false);
+  // Function to toggle the expansion of a specific section
+const toggleExpansion = (section: boolean) => {
+  setExpandedSection(section)
+};
+  
   // Toggle mobile menu visibility
   const toggleMenu = () => setIsOpen(!isOpen);
-
+  
   // Toggle user menu visibility
   const toggleUserMenu = () => setUserMenuOpen(!userMenuOpen);
+
+  const buildSearchDrpDwn = (currentPage: string) => {
+    return (
+      <div className="dropdown dropdown-hover" onMouseOver={() => toggleExpansion(true)} onMouseLeave={() => toggleExpansion(false)}>
+        <div className="navbarLink">Search</div>
+          {expandedSection ?
+        <ul className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
+            <div>
+              {currentPage === "Flight" ? <div>
+                <li><a href='/Flight' className='navbarLink text-ijele_teal border-b-2'>Flight</a></li>
+                <li><a href='/Hotel' className='navbarLink'>Hotel</a></li>
+              </div>
+                : <div>
+                  <li><a href='/Flight' className='navbarLink'>Flight</a></li>
+                  <li><a href='/Hotel' className='navbarLink text-ijele_teal border-b-2'>Hotel</a></li>
+                </div>}
+            </div> 
+        </ul>
+            : null
+          }
+      </div>
+    )
+  }
+  function buildNavLinks(currentPage: string) {
+    const links: JSX.Element[] = [];
+    for (let i = 0; i < navlist.length; i++) {
+      if (navlist[i]==="Search"){
+          links.push(buildSearchDrpDwn(currentPage))}
+      else {
+        const path = navlist[i] === "Home" ? "/" : `/${navlist[i]}`;
+        const className = currentPage === navlist[i]
+          ? 'navbarLink text-ijele_deepGold border-b-2'
+          : 'navbarLink';
+  
+        links.push(<a href={path} className={className}>{navlist[i]}</a>);
+      }
+    }
+  
+    return links;
+  }
+
+
 
   return (
     <>
@@ -135,7 +171,6 @@ const Navbar = (props: NavbarProps) => {
           <a href="/Hotel" className='navbarLink'>Hotel</a>
           <a href="/Cart" className='navbarLink'>Cart</a>
           <a href="/Dashboard" className='navbarLink'>Dashboard</a>
-          <a href="/About" className='navbarLink'>About</a>
           <a href="/Login" className='navbarLink'>Login</a>
         </div>
       </nav>
