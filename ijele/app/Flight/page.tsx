@@ -252,12 +252,12 @@ const FlightPage: React.FC = () => {
       <Navbar currentPage="Flight" />
       <SearchNav currentPage="Flight" />
       <div className={styles.background}>
-        <div className="flex">
+        <div className="relative flex items-center justify-center min-h-screen">
           {/* Original search bar */}
-          <div className="p-6 flex-grow">
-            <h1 className="text-3xl font-bold font-junge mb-4 text-ijele_gold">Where would you like to go?</h1>
+          <div className="relative flex flex-col items-center justify-center p-6 bg-white bg-opacity-80 rounded-lg w-full max-w-lg">
+            <h1 className="text-3xl font-bold font-junge mb-4 text-ijele_navy">Where would you like to go?</h1>
             <div className="mb-6">
-              <h2 className="text-2xl font-semibold font-junge mb-2 text-ijele_cream">Search Flights</h2>
+              <h2 className="text-2xl font-semibold font-junge mb-2 text-ijele_teal">Search Flights</h2>
               <div className="flex flex-col space-y-4">
                 <div className="relative">
                   {/* Input for origin */}
@@ -276,21 +276,21 @@ const FlightPage: React.FC = () => {
                   <div className="absolute top-full left-0 mt-1 bg-white shadow-lg z-10"></div>
                 </div>
 
-                <label className="text-black font-junge">Enter departure date</label>
+                <label className="text-ijele_navy font-junge">Enter departure date</label>
                 <input
                   type="date"
                   value={departureDate}
                   onChange={(e) => setDepartureDate(e.target.value)}
                   className="input input-bordered w-full max-w-md"
                 />
-                <label className="text-black font-junge">Enter return date</label>
+                <label className="text-ijele_navy font-junge">Enter return date</label>
                 <input
                   type="date"
                   value={returnDate}
                   onChange={(e) => setReturnDate(e.target.value)}
                   className="input input-bordered w-full max-w-md"
                 />
-                <label className="text-black font-junge">Enter number of Adults</label>
+                <label className="text-ijele_navy font-junge">Enter number of Adults</label>
                 <input
                   type="number"
                   value={adults}
@@ -320,7 +320,7 @@ const FlightPage: React.FC = () => {
             </div>
 
             {flights.length > 0 && selectedFlight && (
-              <div className="mb-6">
+              <div className="flex flex-col items-center mt-6">
                 <form onSubmit={handleBooking}>
                   <TravelerDetailForm
                     travelerDetails={travelerDetails}
