@@ -18,6 +18,7 @@ const airlineLogos: Record<string, string> = {
   'SK': '/Images/flight/SK.png',
   'IB': '/Images/flight/IB.png',
   'AF': '/Images/flight/AF.png',
+  'AC': '/Images/flight/AC.png'
 };
 
 type Props = {
