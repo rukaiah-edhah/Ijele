@@ -361,9 +361,6 @@ const FlightPage: React.FC = () => {
             </div>
           )}
         </div>
-
-        {/* Sidebar */}
-        {/* <FlightSideBar onSearch={fetchFlights} /> */}
       </div>
     </div>
   );
