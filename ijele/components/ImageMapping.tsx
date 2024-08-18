@@ -11,6 +11,7 @@ export const hotelCarouselImages =
 
 
 export const flightCarouselImages = [
+    "/Images/flight/flight1.jpg",
     "/Images/flight/pexels-naimbic-2610756.jpg",
     "/Images/flight/getYourShit&go.jpg",
     "/Images/flight/passportMisc.jpg",

@@ -41,7 +41,7 @@ const FlightList: React.FC<Props> = ({ flights, onSelectFlight }) => {
      
       {flights.length > 0 && (
         <div>
-          <h2 className="flights-title">Flights</h2>
+          <h2 className="flights-title text-ijele_gold font-junge pt-4">Flights</h2>
           <ul className="flights-list">
             {flights.map((flight, index) => {
               const itinerary = flight.itineraries[0];

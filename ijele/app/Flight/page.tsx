@@ -267,7 +267,7 @@ const FlightPage: React.FC = () => {
       <SearchNav currentPage="Flight" />
       <div className={styles.background}>
         <div className="flex">
-          <div className="pl-6 flex-grow">
+          <div className=" flex-grow">
             <div className="sticky top-0"> {/*contianer for side bar AND CAROUSEL */}
               {/* carousel container */}
               <div className="absolute max-h-auto ">
@@ -342,35 +342,37 @@ const FlightPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="float-left ml-[10%] max-w-70%"> {/*container for results and travelDetails */}
+            <div >
 
-              <div className="mb-6">
-                {searchPerformed && flights.length === 0 ? (
-                  <p className="text-red-500">No flights found</p>
-                ) : (
-                  flights.length > 0 && (
-                    <FlightList
-                      flights={flights}
-                      onSelectFlight={(flight) => setSelectedFlight(flight)}
-                    />
-                  )
-                )}
-              </div>
-
-              {flights.length > 0 && selectedFlight && (
-                <div className="flex flex-col items-center mt-6">
-                  <form onSubmit={handleBooking}>
-                    <TravelerDetailForm
-                      travelerDetails={travelerDetails}
-                      handleInputChange={handleInputChange}
-                    />
-                    <button type="submit" className="btn btn-primary mt-2">
-                      Book Flight
-                    </button>
-                  </form>
+              <div className="float-left ml-[10%] max-w-70%"> {/*container for results and traveler Details */}
+                <div className="mb-6">
+                  {searchPerformed && flights.length === 0 ? (
+                    <p className="text-red-500">No flights found</p>
+                  ) : (
+                    flights.length > 0 && (
+                      <FlightList
+                        flights={flights}
+                        onSelectFlight={(flight) => setSelectedFlight(flight)}
+                      />
+                    )
+                  )}
                 </div>
-              )}
 
+                {flights.length > 0 && selectedFlight && (
+                  <div className="flex flex-col items-center mt-6">
+                    <form onSubmit={handleBooking}>
+                      <TravelerDetailForm
+                        travelerDetails={travelerDetails}
+                        handleInputChange={handleInputChange}
+                      />
+                      <button type="submit" className="btn btn-primary mt-2">
+                        Book Flight
+                      </button>
+                    </form>
+                  </div>
+                )}
+
+              </div>
             </div>
 
             {error && (
