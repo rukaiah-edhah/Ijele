@@ -72,7 +72,7 @@ function isVisible(){      {/*ADDED FOR HIDING CAROUSEL*/}
       <div className="sticky top-0"> {/* Contianer for side bar AND carousel */}
           {/* carousel container */}
           <div className="absolute max-h-auto "> 
-            {AutoCarousel(hotelCarouselImages, 'hotelCarouselID', 2100, isVisible())}
+            {AutoCarousel(hotelCarouselImages, 'hotelCarouselID', 3500, isVisible())}
           </div>
 
         {/*  side bar container */}

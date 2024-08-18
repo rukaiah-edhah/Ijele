@@ -16,7 +16,7 @@ import styles from '@/components/Flight/FlightPage.module.css';
 import { HotelSideBar } from "@/components/SearchPage/hotel-sidebar";
 import FlightFilterSection from "@/components/SearchPage/flight-sidebar";
 import { AutoCarousel } from "@/components/SearchPage/carousel";
-import { hotelCarouselImages } from "@/components/ImageMapping";
+import { flightCarouselImages, hotelCarouselImages } from "@/components/ImageMapping";
 
 const FlightPage: React.FC = () => {
   const router = useRouter();
@@ -27,7 +27,7 @@ const FlightPage: React.FC = () => {
   const [adults, setAdults] = useState<string>("1");
   const [flights, setFlights] = useState<Flight[]>([]);
   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
-  const [resultsPop, setResultsPopulated] = useState(false); {/*ADDED FOR HIDING CAROUSEL*/}
+  const [resultsPop, setResultsPopulated] = useState(false); {/*ADDED FOR HIDING CAROUSEL*/ }
   const [selectedLocation, setSelectedLocation] = useState<{
     name: string;
     iataCode: string;
@@ -74,13 +74,13 @@ const FlightPage: React.FC = () => {
       setFlights(response.data.data);
       setError(null); // Clear any previous errors
       setSearchPerformed(true); // Mark that a search has been performed
-      setResultsPopulated(true); {/*ADDED FOR HIDING CAROUSEL*/}
+      setResultsPopulated(true); {/*ADDED FOR HIDING CAROUSEL*/ }
 
     } catch (err: any) {
       setFlights([]); // Clear the flights list on error
       setError(err.response ? err.response.data : err.message);
       setSearchPerformed(true); // Mark that a search has been performed
-      setResultsPopulated(false); {/*ADDED FOR HIDING CAROUSEL*/}
+      setResultsPopulated(false); {/*ADDED FOR HIDING CAROUSEL*/ }
 
     }
   };
@@ -256,30 +256,29 @@ const FlightPage: React.FC = () => {
     }
   };
 
-  function isVisible(){      {/*ADDED FOR HIDING CAROUSEL*/}
-  return resultsPop ? false : true
-}
+  function isVisible() {
+    {/*ADDED FOR HIDING CAROUSEL*/ }
+    return resultsPop ? false : true
+  }
 
   return (
     <div>
       <Navbar currentPage="Flight" />
       <SearchNav currentPage="Flight" />
-
-      {/* <div className={styles.background}> */}
-        <div>
+      <div className={styles.background}>
         <div className="flex">
           <div className="pl-6 flex-grow">
             <div className="sticky top-0"> {/*contianer for side bar AND CAROUSEL */}
-               {/* carousel container */}
-          <div className="absolute max-h-auto "> 
-            {AutoCarousel(hotelCarouselImages, 'hotelCarouselID', 2100, isVisible())}
-          </div>
+              {/* carousel container */}
+              <div className="absolute max-h-auto ">
+                {AutoCarousel(flightCarouselImages, 'hotelCarouselID', 3500, isVisible())}
+              </div>
               {/*contianer for side bar */}
               <div className='max-h-screen overflow-auto sidebar-container no-scrollbar'>
-            <h1 className="text-3xl justify-center align-center font-bold text-ijele_gold">Flight</h1>
+                <h1 className="text-3xl text-center text-lg font-bold font-junge m-4 text-ijele_cream"> - Where would you like to go? - </h1>
 
                 {/* location & destination search */}
-                <div className="flex justify-center mt-2 p-4 items-center space-x-2 text-sm">
+                <div className="flex justify-center p-4 items-center space-x-2 text-sm">
                   <div className="flex">
                     <button
                       onClick={fetchFlights}
@@ -339,34 +338,59 @@ const FlightPage: React.FC = () => {
                   </div>
 
                 </div>
-                <FlightFilterSection/>
+                <FlightFilterSection />
               </div>
             </div>
 
-            <div className="mb-6">
-              {searchPerformed && flights.length === 0 ? (
-                <p className="text-red-500">No flights found</p>
-              ) : (
-                flights.length > 0 && (
-                  <FlightList
-                    flights={flights}
-                    onSelectFlight={(flight) => setSelectedFlight(flight)}
-                  />
-                )
+            <div className="float-left ml-[10%] max-w-70%"> {/*container for results and travelDetails */}
+
+              <div className="mb-6">
+                {searchPerformed && flights.length === 0 ? (
+                  <p className="text-red-500">No flights found</p>
+                ) : (
+                  flights.length > 0 && (
+                    <FlightList
+                      flights={flights}
+                      onSelectFlight={(flight) => setSelectedFlight(flight)}
+                    />
+                  )
+                )}
+              </div>
+
+              {flights.length > 0 && selectedFlight && (
+                <div className="flex flex-col items-center mt-6">
+                  <form onSubmit={handleBooking}>
+                    <TravelerDetailForm
+                      travelerDetails={travelerDetails}
+                      handleInputChange={handleInputChange}
+                    />
+                    <button type="submit" className="btn btn-primary mt-2">
+                      Book Flight
+                    </button>
+                  </form>
+                </div>
               )}
+
             </div>
 
-            {flights.length > 0 && selectedFlight && (
-              <div className="mb-6">
-                <form onSubmit={handleBooking}>
-                  <TravelerDetailForm
-                    travelerDetails={travelerDetails}
-                    handleInputChange={handleInputChange}
-                  />
-                  <button type="submit" className="btn btn-primary mt-2">
-                    Book Flight
-                  </button>
-                </form>
+            {error && (
+              <div className="mt-6 text-red-500">
+                <p>{error}</p>
+              </div>
+            )}
+
+            {bookingStatus === "booked" && (
+              <div className="mt-6">
+                <p className="text-green-500">Flight booked successfully!</p>
+                <button onClick={handlePayNow} className="btn btn-primary mt-2">
+                  Pay Now
+                </button>
+                <button
+                  onClick={handleAddToCart}
+                  className="btn btn-secondary mt-2 ml-4"
+                >
+                  Add to Cart
+                </button>
               </div>
             )}
 
@@ -376,29 +400,7 @@ const FlightPage: React.FC = () => {
               </div>
             )}
           </div>
-
-          {bookingStatus === "booked" && (
-            <div className="mt-6">
-              <p className="text-green-500">Flight booked successfully!</p>
-              <button onClick={handlePayNow} className="btn btn-primary mt-2">
-                Pay Now
-              </button>
-              <button
-                onClick={handleAddToCart}
-                className="btn btn-secondary mt-2 ml-4"
-              >
-                Add to Cart
-              </button>
-            </div>
-          )}
-
-          {error && (
-            <div className="mt-6 text-red-500">
-              <p>{error}</p>
-            </div>
-          )}
         </div>
-        {/* <FlightSideBar onSearch={fetchFlights} /> */}
       </div>
     </div>
   );

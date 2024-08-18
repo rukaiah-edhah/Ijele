@@ -27,7 +27,26 @@ const config: Config = {
         'ijele_deepGold': '#CF903F',
         'ijele_gold': '#F2BE5C',
         'ijele_cream': '#FFF6EE' //opacity set to 50% over the sidebar styling
-      }
+      },
+      keyframes: {
+        slideInLeft: {
+          '0%': { transform: 'translateX(-100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideInRight: {
+          '0%': { transform: 'translateX(100%)' },
+          '100%': { transform: 'translateX(0)' },
+        },
+        slideInTop: {
+          '0%': { transform: 'translateY(100%)', opacity: '0' },
+          '100%': { transform: 'translateY(0)', opacity: '1' },
+        },
+    },
+      animation: {
+        slideInLeft: 'slideInLeft 1s ease-out',
+        slideInRight: 'slideInRight 1s ease-out',
+       slideInTop: 'slideInTop 0.5s ease-out forwards',
+      },
     },
   },
   plugins: [
