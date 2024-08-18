@@ -13,6 +13,7 @@ const airlineMap: Record<string, string> = {
     'SK': 'SCANDINAVIAN AIRLINES',
     'IB': 'IBERIA AIRLINE',
     'AF': 'AIR FRANCE',
+    'AC': 'AIR CANADA',
 
 };
 
