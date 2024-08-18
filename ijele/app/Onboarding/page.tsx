@@ -43,12 +43,13 @@ const Onboarding = () => {
   }
 
   return (
-    <div>
+    <div className='place-items-center bg-ijele_teal glass'>
       <h1>Onboarding</h1>
-      <form onSubmit={handleOnboarding}>
+      <div className='flex-col'>
+      <form onSubmit={handleOnboarding} className='flex '>
         <input
           type="text"
-          placeholder="Name"
+          placeholder="create userame"
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
@@ -62,6 +63,7 @@ const Onboarding = () => {
         />
         <button type="submit">Submit</button>
       </form>
+      </div>
     </div>
   );
 };
