@@ -32,8 +32,7 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               src={leftImageUrl}
               alt="Left Sliding Image"
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
-              width={100}
-              height={100}
+              fill
             />
             <Link href={leftPage} passHref>
               <button
@@ -49,8 +48,7 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               src={rightImageUrl}
               alt="Right Sliding Image"
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
-              width={100}
-              height={100}
+              fill
             />
             <Link href={rightPage} passHref>
               <button
@@ -69,8 +67,7 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               src={rightImageUrl}
               alt="Right Sliding Image"
               className="w-full h-full object-cover"
-              width={100}
-              height={100}
+              fill
             />
             <Link href={rightPage} passHref>
               <button
@@ -86,8 +83,7 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               src={leftImageUrl}
               alt="Left Sliding Image"
               className="w-full h-full object-cover"
-              width={100}
-              height={100}
+              fill
             />
             <Link href={leftPage} passHref>
               <button

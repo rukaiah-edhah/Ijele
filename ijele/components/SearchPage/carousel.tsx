@@ -14,8 +14,8 @@ export const StaticCarousel = (imgArr: string[], millisec: number) => {
                             alt="HotelCarousel component"
                             key={`DaisyUICarousel_img_${i}`}
                             id={`DaisyUICarousel_img_${i}`}
-                            width={100}
-                            height={100} />
+                            width={1000}
+                            height={1000} />
 
                     </div>
                 )
@@ -60,8 +60,8 @@ export const AutoCarousel = (imgArr: string[], carouselId: string, millisec: num
                                 alt="HotelCarousel component"
                                 key={`DaisyUICarousel_img_${i}`}
                                 id={`DaisyUICarousel_img_${i}`}
-                                width={100}
-                                height={100} />
+                                width={1000}
+                                height={1000} />
                         </div>
                     )
                 }
