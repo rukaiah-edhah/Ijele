@@ -5,7 +5,7 @@ import {
   LoginLink,
   LogoutLink,
 } from "@kinde-oss/kinde-auth-nextjs/components";
-
+import Image from 'next/image';
 
 type NavbarProps = {
   currentPage: string,
@@ -111,7 +111,7 @@ const toggleExpansion = (section: boolean) => {
             </div>
             {/* logo container */}
             <div className="logo-container flex-shrink-0 flex justify-center items-center h-full w-1/2">
-              <img className="logo object-contained" src="/Images/logo.png" alt="ijele logo" />
+            <Image className="logo object-contained" src="/Images/logo.png" alt="ijele logo" width={100} height={100} />
             </div>
             {/* navigation (desktop) */}
             <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-end">

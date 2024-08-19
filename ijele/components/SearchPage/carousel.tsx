@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Image from 'next/image'
 
 
 export const StaticCarousel = (imgArr: string[], millisec: number) => {
@@ -6,13 +7,16 @@ export const StaticCarousel = (imgArr: string[], millisec: number) => {
         <div className="carousel w-full h-screen" id="carouselId">
             {imgArr.map((url, i) => {
                 return (
-                    <div className="carousel-item w-full duration-700 ease-in-out" >
-                        <img
+                    <div key={`DaisyUICarousel_item_${i}`} className="carousel-item w-full duration-700 ease-in-out" >
+                        <Image
                             src={url}
                             className="w-full"
                             alt="HotelCarousel component"
                             key={`DaisyUICarousel_img_${i}`}
-                            id={`DaisyUICarousel_img_${i}`} />
+                            id={`DaisyUICarousel_img_${i}`}
+                            width={1000}
+                            height={1000} />
+
                     </div>
                 )
             }
@@ -49,13 +53,15 @@ export const AutoCarousel = (imgArr: string[], carouselId: string, millisec: num
             <div className="carousel w-full h-screen" id={carouselId}>
                 {imgArr.map((url, i) => {
                     return (
-                        <div className="carousel-item w-full duration-700 ease-in-out" >
-                            <img
+                        <div key={`DaisyUICarousel_item_${i}`} className="carousel-item w-full duration-700 ease-in-out" >
+                            <Image
                                 src={url}
                                 className="w-full"
                                 alt="HotelCarousel component"
                                 key={`DaisyUICarousel_img_${i}`}
-                                id={`DaisyUICarousel_img_${i}`} />
+                                id={`DaisyUICarousel_img_${i}`}
+                                width={1000}
+                                height={1000} />
                         </div>
                     )
                 }

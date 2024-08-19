@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image'
 
 interface SlideImageImageProps {
   imageOnLeft?: boolean;
@@ -27,10 +28,11 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
       {imageOnLeft ? (
         <>
           <div className="w-1/2 relative overflow-hidden animate-slideInLeft">
-            <img
+            <Image
               src={leftImageUrl}
               alt="Left Sliding Image"
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
+              fill
             />
             <Link href={leftPage} passHref>
               <button
@@ -42,10 +44,11 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
             </Link>
           </div>
           <div className="w-1/2 relative overflow-hidden animate-slideInRight">
-            <img
+            <Image
               src={rightImageUrl}
               alt="Right Sliding Image"
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
+              fill
             />
             <Link href={rightPage} passHref>
               <button
@@ -60,10 +63,11 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
       ) : (
         <>
           <div className="w-1/2 relative overflow-hidden animate-slideInLeft">
-            <img
+            <Image
               src={rightImageUrl}
               alt="Right Sliding Image"
               className="w-full h-full object-cover"
+              fill
             />
             <Link href={rightPage} passHref>
               <button
@@ -75,10 +79,11 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
             </Link>
           </div>
           <div className="w-1/2 relative overflow-hidden animate-slideInRight">
-            <img
+            <Image
               src={leftImageUrl}
               alt="Left Sliding Image"
               className="w-full h-full object-cover"
+              fill
             />
             <Link href={leftPage} passHref>
               <button
