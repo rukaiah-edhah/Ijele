@@ -45,7 +45,7 @@ export const HotelSideBar= ()=>{
                 </div> */}
 
                 {/* img of destination htmlFor flights */}
-                <div> <Image src="" alt="" /></div>
+                {/* <div> <Image src="" alt="" /></div> */}
 
                 {/* Description on hover  */}
                 <div className="pl-6 mb-6">
