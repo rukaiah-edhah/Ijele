@@ -1,6 +1,7 @@
 "use client";
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import FilterSection from "./hotel-filters";
+import Image from 'next/image'
 
 interface HotelReview{
     rating: number
@@ -44,7 +45,7 @@ export const HotelSideBar= ()=>{
                 </div> */}
 
                 {/* img of destination htmlFor flights */}
-                <div> <img src="" alt="" /></div>
+                <div> <Image src="" alt="" /></div>
 
                 {/* Description on hover  */}
                 <div className="pl-6 mb-6">

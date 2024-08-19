@@ -7,6 +7,7 @@ import { Segment } from "next/dist/server/app-render/types";
 import { useRouter } from 'next/navigation';
 import Navbar from "@/components/navbar";
 import SearchNav from "@/components/SearchPage/search-nav";
+import Image from 'next/image'
 
 const TravelCart = () => {
   const { cart, setCart } = useCart(); 
@@ -57,7 +58,7 @@ const TravelCart = () => {
                   <>
                     <h2 className="text-2xl font-semibold">{item.details.name}</h2>
                     <p>{item.details.room?.description.text}</p>
-                    {item.details.image && <img src={item.details.image} alt={item.details.name} className="w-1/2 mt-2 mx-auto" />}
+                    {item.details.image && <Image src={item.details.image} alt={item.details.name || 'Image'} className="w-1/2 mt-2 mx-auto" />}
                   </>
                 ) : (
                   <>
