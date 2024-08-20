@@ -1,0 +1,16 @@
+[
+    {
+      "flightNumber": "AA123",
+      "departure": "2024-09-01T10:00:00Z",
+      "arrival": "2024-09-01T13:00:00Z",
+      "price": "$699",
+      "destination": "Paris"
+    },
+    {
+      "flightNumber": "BB456",
+      "departure": "2024-09-01T15:00:00Z",
+      "arrival": "2024-09-01T18:00:00Z",
+      "price": "$849",
+      "destination": "Paris"
+    }
+  ]

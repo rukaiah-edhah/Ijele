@@ -1,0 +1,7 @@
+{
+    "bookingId": "123456789",
+    "flightNumber": "12345",
+    "travelerName": "John Doe",
+    "travelerEmail": "john.doe@example.com",
+    "status": "confirmed"
+  }
