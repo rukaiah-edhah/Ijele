@@ -26,7 +26,8 @@ const config: Config = {
         'ijele_lightTeal': '#94DBB6',
         'ijele_deepGold': '#CF903F',
         'ijele_gold': '#F2BE5C',
-        'ijele_cream': '#FFF6EE' //opacity set to 50% over the sidebar styling
+        'ijele_cream': '#FFF6EE', //opacity set to 50% over the sidebar styling
+        'ijele_sand': '#DDCCBD'
       },
       keyframes: {
         slideInLeft: {
