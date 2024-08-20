@@ -11,7 +11,7 @@ type NavbarProps = {
   currentPage: string,
 }
 
-const navlist = ["Home", "Search", "Cart", "Dashboard"]
+const navlist = ["Home", "Search", "Cart", "Dashboard","About"]
 
 
 const Navbar = (props: NavbarProps) => {
@@ -171,6 +171,7 @@ const toggleExpansion = (section: boolean) => {
           <a href="/Hotel" className='navbarLink'>Hotel</a>
           <a href="/Cart" className='navbarLink'>Cart</a>
           <a href="/Dashboard" className='navbarLink'>Dashboard</a>
+          <a href="/About" className='navbarLink'>About</a>
           <a href="/Login" className='navbarLink'>Login</a>
         </div>
       </nav>
