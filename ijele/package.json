@@ -41,6 +41,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "cypress": "^13.13.3",
     "daisyui": "^4.11.1",
     "dotenv-cli": "^7.4.2",
     "drizzle-kit": "^0.22.6",
