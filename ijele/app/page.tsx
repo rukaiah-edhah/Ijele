@@ -8,7 +8,7 @@ const Home: React.FC = () => {
 
     return (
         <>
-            <Navbar currentPage={"Home"} />
+            {/* <Navbar currentPage={"Home"} /> */}
             <SlideText
                 textOnLeft={true}
                 text="Welcome to Ijele, what would you like to do first?"
