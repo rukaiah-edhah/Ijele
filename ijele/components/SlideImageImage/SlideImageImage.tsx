@@ -34,7 +34,7 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              style={{ objectFit: 'cover' }} // Optional, depending on your styling needs
+              style={{ objectFit: 'cover' }} // Optional
               priority
             />
             <Link href={leftPage} passHref>
@@ -53,7 +53,8 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-              style={{ objectFit: 'cover' }} // Optional, depending on your styling needs
+              style={{ objectFit: 'cover' }} // Optional
+              priority
             />
             <Link href={rightPage} passHref>
               <button
