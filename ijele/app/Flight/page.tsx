@@ -27,7 +27,7 @@ const FlightPage: React.FC = () => {
   const [adults, setAdults] = useState<string>("1");
   const [flights, setFlights] = useState<Flight[]>([]);
   const [selectedFlight, setSelectedFlight] = useState<Flight | null>(null);
-  const [resultsPop, setResultsPopulated] = useState(false); {/*ADDED FOR HIDING CAROUSEL*/ }
+  const [resultsPop, setResultsPopulated] = useState(false); // ADDED FOR HIDING CAROUSEL
   const [selectedLocation, setSelectedLocation] = useState<{
     name: string;
     iataCode: string;
@@ -77,6 +77,7 @@ const FlightPage: React.FC = () => {
       setResultsPopulated(true); {/*ADDED FOR HIDING CAROUSEL*/ }
 
     } catch (err: any) {
+      console.error(err); // Logging the full error for debugging
       setFlights([]); // Clear the flights list on error
       setError(err.response ? err.response.data : err.message);
       setSearchPerformed(true); // Mark that a search has been performed

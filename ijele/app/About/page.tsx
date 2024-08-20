@@ -6,8 +6,8 @@ import React from 'react';
 const AboutPage: React.FC = () => {
     return (
         <>
-        <Navbar currentPage={"Home"} />
-        <SearchNav currentPage={"Home"} />
+        <Navbar currentPage={"About"} />
+        <SearchNav currentPage={"About"} />
         <About />
     </>
     );
