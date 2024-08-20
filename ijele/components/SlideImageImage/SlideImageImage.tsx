@@ -33,6 +33,8 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               alt="Left Sliding Image"
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectFit: 'cover' }} // Optional, depending on your styling needs
             />
             <Link href={leftPage} passHref>
               <button
@@ -49,6 +51,8 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               alt="Right Sliding Image"
               className="w-full h-full object-cover rounded-lg transition-transform duration-300 ease-in-out transform hover:scale-105"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectFit: 'cover' }} // Optional, depending on your styling needs
             />
             <Link href={rightPage} passHref>
               <button
@@ -68,6 +72,8 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               alt="Right Sliding Image"
               className="w-full h-full object-cover"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectFit: 'cover' }} // Optional, depending on your styling needs
             />
             <Link href={rightPage} passHref>
               <button
@@ -84,6 +90,8 @@ const SlideImageImage: React.FC<SlideImageImageProps> = ({
               alt="Left Sliding Image"
               className="w-full h-full object-cover"
               fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+              style={{ objectFit: 'cover' }} // Optional, depending on your styling needs
             />
             <Link href={leftPage} passHref>
               <button

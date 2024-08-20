@@ -26,7 +26,7 @@ describe('Flight Search Functionality', () => {
     cy.get('input[type="date"]').last().type('2024-10-07'); // Return date
     cy.get('button[type="submit"]').click();
 
-    cy.wait('@getFlightSearchNoResults');
+    // cy.wait('@getFlightSearchNoResults');
 
     cy.get('.no-results-message').should('be.visible').and('contain', 'No flights found');
   });

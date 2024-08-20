@@ -55,22 +55,29 @@ const toggleExpansion = (section: boolean) => {
   function buildNavLinks(currentPage: string) {
     const links: JSX.Element[] = [];
     for (let i = 0; i < navlist.length; i++) {
-      if (navlist[i]==="Search"){
-          links.push(buildSearchDrpDwn(currentPage))}
-      else {
+      if (navlist[i] === "Search") {
+        links.push(
+          <div key={`search-${i}`}>
+            {buildSearchDrpDwn(currentPage)}
+          </div>
+        );
+      } else {
         const path = navlist[i] === "Home" ? "/" : `/${navlist[i]}`;
-        const className = currentPage === navlist[i]
-          ? 'navbarLink text-ijele_deepGold border-b-2'
-          : 'navbarLink';
+        const className =
+          currentPage === navlist[i]
+            ? "navbarLink text-ijele_deepGold border-b-2"
+            : "navbarLink";
   
-        links.push(<a href={path} className={className}>{navlist[i]}</a>);
+        links.push(
+          <a key={navlist[i]} href={path} className={className}>
+            {navlist[i]}
+          </a>
+        );
       }
     }
   
     return links;
   }
-
-
 
   return (
     <>
