@@ -17,6 +17,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
     "@kinde-oss/kinde-auth-nextjs": "^2.2.6",
     "@stripe/react-stripe-js": "^2.7.3",
