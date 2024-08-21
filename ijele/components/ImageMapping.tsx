@@ -34,8 +34,13 @@ export const hotelResultImages = [
     "/Images/hotel/results/vancouver-lobby.jpg"
 ]
 
-export const hotelQuotes = [
-    
+export const expatImages = [
+    "/Images/home/Cynthia.jpg",
+    "/Images/home/Tywayah.jpg",
+    "/Images/home/Rukaiah.jpg",
+    "/Images/home/Jennifer.jpg"
 ]
+
+
 
 

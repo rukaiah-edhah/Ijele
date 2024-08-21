@@ -37,9 +37,6 @@ const Dashboard = () => {
     holder: true,
   });
   const [showingTab, setShowingTab] = useState<TabProps>('Profile');
-  const [newTrip, setNewTrip] = useState({
-       
-  });
 
   useEffect(() => {
     const checkUser = async () => {
@@ -67,7 +64,15 @@ const Dashboard = () => {
   }, [isAuthenticated, user, isLoading, router, kindeIssuerUrl]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className='h-screen justify-center place-items-center items-centerS'>
+    <span className="loading loading-ring loading-xs"></span>
+    <span className="loading loading-ring loading-sm"></span>
+    <span className="loading loading-ring loading-md"></span>
+    <span className="loading loading-ring loading-lg"></span>;
+    <span className="loading loading-ring loading-md"></span>
+    <span className="loading loading-ring loading-sm"></span>
+    <span className="loading loading-ring loading-xs"></span>
+    </div>
   }
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
