@@ -37,6 +37,9 @@ const Dashboard = () => {
     holder: true,
   });
   const [showingTab, setShowingTab] = useState<TabProps>('Profile');
+  const [newTrip, setNewTrip] = useState({
+       
+  });
 
   useEffect(() => {
     const checkUser = async () => {
@@ -74,7 +77,7 @@ const Dashboard = () => {
       [name]: value,
     }));
   };
-
+  
   const navTabs = ["My Trips", "Profile", "Saved", "Chat"]
   function buildNavTabs() {
     const tabs: JSX.Element[] = [];

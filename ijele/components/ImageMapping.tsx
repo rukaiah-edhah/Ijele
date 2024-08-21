@@ -37,3 +37,5 @@ export const hotelResultImages = [
 export const hotelQuotes = [
     
 ]
+
+
