@@ -7,7 +7,7 @@ import Navbar from '@/components/navbar';
 import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
 import Image from 'next/image';
 import { ComingSoon } from '@/components/Dashboard/coming-soon';
-import { UserTrips } from '@/components/Dashboard/trips';
+import { UserTrips } from '@/components/Dashboard/tripTab';
 
 
 type TabProps = 'My Trips' | 'Profile' | 'Saved' | 'Chat'
