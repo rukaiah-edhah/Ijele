@@ -346,12 +346,13 @@ const FlightPage: React.FC = () => {
 
             <div >
 
-              <div className="float-left ml-[10%] max-w-70%"> {/*container for results and traveler Details */}
+              <div className="float-left ml-[10%] max-w-70%">
+                {/* Container for results and traveler details */}
                 <div className="mb-6">
                   {searchPerformed && flights.length === 0 ? (
                     <p className="text-red-500">No flights found</p>
                   ) : (
-                    flights.length > 0 && (
+                    flights && Array.isArray(flights) && flights.length > 0 && (
                       <FlightList
                         flights={flights}
                         onSelectFlight={(flight) => setSelectedFlight(flight)}
@@ -373,37 +374,37 @@ const FlightPage: React.FC = () => {
                     </form>
                   </div>
                 )}
-
               </div>
+
             </div>
-
-            {error && (
-              <div className="mt-6 text-red-500">
-                <p>{error}</p>
-              </div>
-            )}
-
-            {bookingStatus === "booked" && (
-              <div className="mt-6">
-                <p className="text-green-500">Flight booked successfully!</p>
-                <button onClick={handlePayNow} className="btn btn-primary mt-2">
-                  Pay Now
-                </button>
-                <button
-                  onClick={handleAddToCart}
-                  className="btn btn-secondary mt-2 ml-4"
-                >
-                  Add to Cart
-                </button>
-              </div>
-            )}
-
-            {error && (
-              <div className="mt-6 text-red-500">
-                <p>{error}</p>
-              </div>
-            )}
           </div>
+
+          {error && (
+            <div className="mt-6 text-red-500">
+              <p>{error}</p>
+            </div>
+          )}
+
+          {bookingStatus === "booked" && (
+            <div className="mt-6">
+              <p className="text-green-500">Flight booked successfully!</p>
+              <button onClick={handlePayNow} className="btn btn-primary mt-2">
+                Pay Now
+              </button>
+              <button
+                onClick={handleAddToCart}
+                className="btn btn-secondary mt-2 ml-4"
+              >
+                Add to Cart
+              </button>
+            </div>
+          )}
+
+          {error && (
+            <div className="mt-6 text-red-500">
+              <p>{error}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
