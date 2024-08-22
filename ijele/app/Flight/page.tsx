@@ -349,7 +349,7 @@ const FlightPage: React.FC = () => {
               <div className="float-left ml-[10%] max-w-70%">
                 {/* Container for results and traveler details */}
                 <div className="mb-6">
-                  {searchPerformed && flights.length === 0 ? (
+                  {searchPerformed && flights && flights.length === 0 ? (
                     <p className="text-red-500">No flights found</p>
                   ) : (
                     flights && Array.isArray(flights) && flights.length > 0 && (
@@ -360,55 +360,40 @@ const FlightPage: React.FC = () => {
                     )
                   )}
                 </div>
-
-                {flights.length > 0 && selectedFlight && (
-                  <div className="flex flex-col items-center mt-6">
-                    <form onSubmit={handleBooking}>
-                      <TravelerDetailForm
-                        travelerDetails={travelerDetails}
-                        handleInputChange={handleInputChange}
-                      />
-                      <button type="submit" className="btn btn-primary mt-2">
-                        Book Flight
-                      </button>
-                    </form>
-                  </div>
-                )}
               </div>
-
             </div>
+            </div>
+
+            {error && (
+              <div className="mt-6 text-red-500">
+                <p>{error}</p>
+              </div>
+            )}
+
+            {bookingStatus === "booked" && (
+              <div className="mt-6">
+                <p className="text-green-500">Flight booked successfully!</p>
+                <button onClick={handlePayNow} className="btn btn-primary mt-2">
+                  Pay Now
+                </button>
+                <button
+                  onClick={handleAddToCart}
+                  className="btn btn-secondary mt-2 ml-4"
+                >
+                  Add to Cart
+                </button>
+              </div>
+            )}
+
+            {error && (
+              <div className="mt-6 text-red-500">
+                <p>{error}</p>
+              </div>
+            )}
           </div>
-
-          {error && (
-            <div className="mt-6 text-red-500">
-              <p>{error}</p>
-            </div>
-          )}
-
-          {bookingStatus === "booked" && (
-            <div className="mt-6">
-              <p className="text-green-500">Flight booked successfully!</p>
-              <button onClick={handlePayNow} className="btn btn-primary mt-2">
-                Pay Now
-              </button>
-              <button
-                onClick={handleAddToCart}
-                className="btn btn-secondary mt-2 ml-4"
-              >
-                Add to Cart
-              </button>
-            </div>
-          )}
-
-          {error && (
-            <div className="mt-6 text-red-500">
-              <p>{error}</p>
-            </div>
-          )}
         </div>
       </div>
-    </div>
-  );
+      );
 };
 
-export default FlightPage;
+      export default FlightPage;
