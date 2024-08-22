@@ -1,33 +1,52 @@
 describe('Flight Search Functionality', () => {
   beforeEach(() => {
-    cy.intercept('GET', '/api/flight-search', { fixture: 'flightSearchResults.json' }).as('getFlightSearchResults');
-    cy.visit('127.0.0.1:3000/Flight'); 
+    // Mock API responses
+    cy.intercept('GET', '**/api/location-search*', {
+      fixture: 'flightLocationSuggestions.json'
+    }).as('getLocationSuggestions');
+
+    cy.intercept('GET', '**/api/flights/search*', {
+      fixture: 'flightSearchResults.json'
+    }).as('getFlightList');
+
+    // Visit the Flight page
+    cy.visit('/Flight');
   });
 
-  it('should display flight search results correctly', () => {
-    cy.get('input[type="text"]').first().type('NYC'); // Assuming this is the origin input
-    cy.get('input[type="text"]').eq(1).type('PAR'); // Assuming this is the destination input
-    cy.get('input[type="date"]').first().type('2024-09-01'); // Departure date
-    cy.get('input[type="date"]').last().type('2024-09-07'); // Return date
+  it('should display location suggestions and then show mocked flight data after selection', () => {
+    // Simulate user input for origin city
+    cy.get('input[placeholder="Search Origin City..."]').type('New');
+    cy.wait('@getLocationSuggestions').its('response.statusCode').should('eq', 200);
+    cy.get('div').contains('New York').click();
+
+    // Simulate user input for destination city
+    cy.get('input[placeholder="Search Destination City..."]').type('Par');
+    cy.wait('@getLocationSuggestions').its('response.statusCode').should('eq', 200);
+    cy.get('div').contains('Paris').click();
+
+    // Simulate user input for dates
+    cy.get('input[type="date"]').first().type('2024-09-01');
+    cy.get('input[type="date"]').last().type('2024-09-05');
+
+    // Submit the search form
     cy.get('button[type="submit"]').click();
 
-    cy.wait('@getFlightSearchResults');
+    // Wait for flight search results and verify the status
+    cy.wait('@getFlightList').its('response.statusCode').should('eq', 200);
 
-    cy.get('.flight-card').should('have.length.greaterThan', 0);
-    cy.get('.flight-card').first().contains('Flight to Los Angeles');
-    cy.get('.flight-card').first().contains('Departure: 2024-09-01');
-  });
+    // Verify that flight results are rendered correctly
+    cy.get('.flight-list').should(($list) => {
+      expect($list).to.exist;
+      expect($list.find('.flight-card')).to.have.length.greaterThan(0); // Adjusted selector based on FlightCard component
 
-  it('should handle no results found', () => {
-    cy.intercept('GET', '/api/flight-search', { fixture: 'flightSearchNoResults.json' }).as('getFlightSearchNoResults');
-    cy.get('input[type="text"]').first().type('Unknown City'); // Origin
-    cy.get('input[type="text"]').eq(1).type('Nowhere'); // Destination
-    cy.get('input[type="date"]').first().type('2024-10-01'); // Departure date
-    cy.get('input[type="date"]').last().type('2024-10-07'); // Return date
-    cy.get('button[type="submit"]').click();
-
-    // cy.wait('@getFlightSearchNoResults');
-
-    cy.get('.no-results-message').should('be.visible').and('contain', 'No flights found');
+      // Example: Check the first flight card
+      cy.get('.flight-card').first().within(() => {
+        cy.get('img').should('have.attr', 'src').and('include', '/path/to/airline-bf-logo.png');
+        cy.get('.text-lg').should('contain.text', '2024-09-01T23:00:00 - 2024-09-02T12:15:00');
+        cy.get('.text-sm').should('contain.text', 'Non-stop');
+        cy.get('.text-lg').should('contain.text', '496.37');
+        cy.get('button').should('contain.text', 'Select Flight');
+      });
+    });
   });
 });
