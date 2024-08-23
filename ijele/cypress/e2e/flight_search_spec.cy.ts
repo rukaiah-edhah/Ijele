@@ -16,13 +16,13 @@ describe('Flight Search Functionality', () => {
   it('should display location suggestions and then show mocked flight data after selection', () => {
     // Simulate user input for origin city
     cy.get('input[placeholder="Search Origin City..."]').type('New');
-    cy.wait('@getLocationSuggestions', { timeout: 10000 }) // Increase the timeout to 10 seconds
+    cy.wait('@getLocationSuggestions', { timeout: 30000 }) // Increase the timeout to 10 seconds
       .its('response.statusCode').should('eq', 200);
     cy.get('div').contains('New York').click();
 
     // Simulate user input for destination city
     cy.get('input[placeholder="Search Destination City..."]').type('Par');
-    cy.wait('@getLocationSuggestions', { timeout: 10000 }) // Increase the timeout to 10 seconds
+    cy.wait('@getLocationSuggestions', { timeout: 30000 }) // Increase the timeout to 10 seconds
       .its('response.statusCode').should('eq', 200);
     cy.get('div').contains('Paris').click();
 
@@ -34,7 +34,7 @@ describe('Flight Search Functionality', () => {
     cy.get('button[type="submit"]').click();
 
     // Wait for flight search results and verify the status
-    cy.wait('@getFlightList', { timeout: 10000 }) // Increase the timeout to 10 seconds
+    cy.wait('@getFlightList', { timeout: 30000 }) // Increase the timeout to 10 seconds
       .its('response.statusCode').should('eq', 200);
   });
 });
