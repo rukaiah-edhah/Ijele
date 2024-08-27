@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
@@ -149,7 +149,9 @@ const PaymentForm = () => {
 export default function PaymentPage() {
   return (
     <Elements stripe={stripePromise}>
-      <PaymentForm />
+      <Suspense fallback={<div>Loading...</div>}>
+        <PaymentForm />
+      </Suspense>
     </Elements>
   );
 }
