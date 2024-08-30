@@ -6,7 +6,7 @@ export default function SuccessPage() {
     const router = useRouter();
 
     const handleGoToHome = () => {
-        router.push('/Home');
+        router.push('/');
     };
 
     return (
