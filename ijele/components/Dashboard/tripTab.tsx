@@ -7,21 +7,24 @@ import { NewTripForm } from './tripForm'
 import { expatImages } from '../ImageMapping'
 
 
-// interface NewTripProps {
-//     tripDetails: {
-//         title: string,
-//         location: string,
-//         description: string,
-//         travelers: number
-//     };
-// }
-// interface CardArray{
-//     tripDetails: NewTripProps[]
-// }
+// User - ...[schema]
+//          userTrips: Trip[]
+//      
+// Trip - 
+//      trip_id: 
+//      transport: Flights[]
+//      accom: Hotels[]
+//      people: User[]
+//      location: string
+//      description: string
+//      tripTitle: string
+//      tripImg: string (path)
+
+//      peopleImgs: img[]
 
 const cards: JSX.Element[] = [];
 
-function groupMates(travelers: number, ) {
+function groupMates(travelers: number ) {
     const avatars: JSX.Element[] = [];
     for (let i = 0; i < travelers; i++) {
         i < expatImages.length? avatars.push(
