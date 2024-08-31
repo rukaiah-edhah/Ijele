@@ -35,5 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Supabase
+/supabase/
+
 # Drizzle directory
-/.drizzle/
+/drizzle/
+/drizzle1/

@@ -10,7 +10,7 @@ const pushMigrations = async () => {
 
   const migrationDb = drizzle(migrationClient);
 
-  await migrate(migrationDb, { migrationsFolder: './drizzle'});
+  await migrate(migrationDb, { migrationsFolder: './drizzle1'});
 
   await migrationClient.end();
 }
