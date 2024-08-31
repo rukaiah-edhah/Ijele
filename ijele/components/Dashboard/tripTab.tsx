@@ -1,27 +1,32 @@
 "use client"
 
 import { ChangeEvent, useState } from 'react'
+import { useRouter } from 'next/navigation';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import Image from 'next/image'
 import { NewTripForm } from './tripForm'
 import { expatImages } from '../ImageMapping'
 
 
-// interface NewTripProps {
-//     tripDetails: {
-//         title: string,
-//         location: string,
-//         description: string,
-//         travelers: number
-//     };
-// }
-// interface CardArray{
-//     tripDetails: NewTripProps[]
-// }
+
+// User - ...[schema]
+//          userTrips: Trip[]
+//      
+// Trip - 
+//      trip_id: 
+//      transport: Flights[]
+//      accom: Hotels[]
+//      people: User[]
+//      location: string
+//      description: string
+//      tripTitle: string
+//      tripImg: string (path)
+
+//      peopleImgs: img[]
 
 const cards: JSX.Element[] = [];
 
-function groupMates(travelers: number, ) {
+function groupMates(travelers: number ) {
     const avatars: JSX.Element[] = [];
     for (let i = 0; i < travelers; i++) {
         i < expatImages.length? avatars.push(
@@ -111,7 +116,11 @@ export const UserTrips = () => {
         title: "",
         location: "",
         description: "",
-        travelers: 0
+        travelers: 0,
+        tripImage: "",
+        people: "",
+        accom: "",
+        transport: ""
     })
 
     const handleTripInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -125,9 +134,100 @@ export const UserTrips = () => {
     };
 
     const newTripCard = (cardCreated: boolean) => {
+        saveNewTrip()
         setObjectReturned(cardCreated)
     }
 
+    const saveNewTrip = async () => {
+        try {
+            const response = await fetch('/api/add-trip', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(newTrip), 
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to save new trip');
+            }
+
+            alert('Trip saved successfully!');
+            setObjectReturned(true); 
+            setOpen(false); 
+        } catch (error) {
+            console.error('Error saving trip:', error);
+            alert('Failed to save new trip');
+        }
+    };
+    // return (
+    //     <>
+    //         <div className="container mx-auto p-6 bg-white bg-opacity-80 shadow-md rounded-lg">
+    //             <button onClick={() => setOpen(true)} className="bg-ijele_teal text-ijele_cream text-[1.5rem] font-junge font-bold py-1 px-6 rounded-lg hover:bg-ijele_deepGold transition-colors duration-300"> + </button>
+    
+    //             <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
+    //                 <DialogBackdrop
+    //                     transition
+    //                     className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+    //                 />
+    
+    //                 <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
+    //                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+    //                         <DialogPanel
+    //                             transition
+    //                             className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all"
+    //                         >
+    //                             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+    //                                 <div className="sm:flex sm:items-start">
+    //                                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-ijele_gold sm:mx-0 sm:h-10 sm:w-10">
+    //                                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" className='fill-ijele_cream'>
+    //                                             <path d="M280-120q-33 0-56.5-23.5T200-200v-440q0-33 23.5-56.5T280-720h80v-80q0-33 23.5-56.5T440-880h80q33 0 56.5 23.5T600-800v80h80q33 0 56.5 23.5T760-640v440q0 33-23.5 56.5T680-120q0 17-11.5 28.5T640-80q-17 0-28.5-11.5T600-120H360q0 17-11.5 28.5T320-80q-17 0-28.5-11.5T280-120Zm0-80h400v-440H280v440Zm80-40h80v-360h-80v360Zm160 0h80v-360h-80v360Zm-80-480h80v-80h-80v80Zm40 300Z" />
+    //                                         </svg>
+    //                                     </div>
+    //                                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+    //                                         <DialogTitle as="h3" className="text-base font-semibold leading-6 text-gray-900">
+    //                                             Add New Trip
+    //                                         </DialogTitle>
+    //                                         <div className="mt-2">
+    //                                             <p className="text-sm text-gray-500">
+    //                                                 Please Fill the following information completely!
+    //                                             </p>
+    //                                             <form>
+    //                                                 <NewTripForm tripDetails={newTrip} handleInputChange={handleTripInputChange} />
+    //                                             </form>
+    //                                         </div>
+    //                                     </div>
+    //                                 </div>
+    //                             </div>
+    //                             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+    //                                 <button
+    //                                     type="button"
+    //                                     onClick={saveNewTrip} // Save function called on click
+    //                                     className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto"
+    //                                 >
+    //                                     Save
+    //                                 </button>
+    //                                 <button
+    //                                     type="button"
+    //                                     onClick={() => setOpen(false)}
+    //                                     className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+    //                                 >
+    //                                     Cancel
+    //                                 </button>
+    //                             </div>
+    //                         </DialogPanel>
+    //                     </div>
+    //                 </div>
+    //             </Dialog>
+    
+    //             {objectReturned ? (
+    //                 <div className='mt-8 max-h-sm' onChange={() => setObjectReturned(false)}> {/* Directly set state here */}
+    //                     {buildTripCard(newTrip)}
+    //                 </div>
+    //             ) : null}
+    //         </div>
+    //     </>
+    // );
     return (
         <>
             <div className="container mx-auto p-6 bg-white bg-opacity-80 shadow-md rounded-lg">
