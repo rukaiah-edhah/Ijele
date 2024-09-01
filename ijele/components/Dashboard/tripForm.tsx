@@ -2,10 +2,10 @@ import { UserInfo } from "os";
 
 interface NewTripProps {
     tripDetails: {
-        title: string,
+        tripTitle: string,
         location: string,
         description: string,
-        travelers: number
+        people: string
     };
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
@@ -14,9 +14,7 @@ interface CardArray{
     handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-// export const NewTripForm: React.FC<NewTripProps> = ({Trip,
-//     handleInputChange,
-// })=>{
+
 export const NewTripForm: React.FC<NewTripProps> = ({ tripDetails,
     handleInputChange, }) => {
     return (
@@ -50,8 +48,8 @@ export const NewTripForm: React.FC<NewTripProps> = ({ tripDetails,
             </div>
             <div className="h-full">
                 <input
-                    type="number"
-                    name="travelers"
+                    type="text"
+                    name="people"
                     placeholder="0"
                     onChange={handleInputChange}
                     className="input input-bordered w-full min-h-[3rem]"

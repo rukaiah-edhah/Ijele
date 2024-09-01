@@ -6,6 +6,7 @@ import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/re
 import Image from 'next/image'
 import { NewTripForm } from './tripForm'
 import { expatImages } from '../ImageMapping'
+import { error } from 'console';
 
 
 
@@ -26,10 +27,11 @@ import { expatImages } from '../ImageMapping'
 
 const cards: JSX.Element[] = [];
 
-function groupMates(travelers: number ) {
+function groupMates(travelers: string) {
     const avatars: JSX.Element[] = [];
-    for (let i = 0; i < travelers; i++) {
-        i < expatImages.length? avatars.push(
+
+    for (let i = 0; i < Number(travelers); i++) {
+        i < expatImages.length ? avatars.push(
             <div className="avatar">
                 <div className="w-12">
                     <Image src={expatImages[i]} width={100} height={100} alt={'travler'} />
@@ -38,7 +40,7 @@ function groupMates(travelers: number ) {
             : null
     }
 
-    let remainder = travelers - 4
+    let remainder = Number(travelers) - 4
     if (remainder > 0) {
         avatars.push(
             <div className="avatar placeholder">
@@ -102,7 +104,7 @@ function buildTripCard(tripDets: any) {
                 </div>
                 <div className='text-start items-center '>
                     <label htmlFor="Travlers" className='font-kite_one text-gray-400'>Travelers</label>
-                    {groupMates(tripDets.travelers)}
+                    {groupMates(tripDets.people)}
                 </div>
             </div>
         </div>
@@ -112,15 +114,26 @@ export const UserTrips = () => {
 
     const [open, setOpen] = useState(false)
     const [objectReturned, setObjectReturned] = useState(false)
+    //[x] tripId: serial('id').primaryKey(),
+    //[x] owner_id: text('owner').notNull(),
+    //[] tripTitle: text('title'),
+    // location: text('location'),
+    // description: text('description'),
+    // tripImage: text('tripImage'),
+    // people: text('people'),
+    // accom: text('hotels'),
+    // transport: text('flights'),
+    // createdAt: timestamp('created_at').notNull().defaultNow()
     const [newTrip, setNewTrip] = useState({
-        title: "",
-        location: "",
-        description: "",
-        travelers: 0,
-        tripImage: "",
-        people: "",
-        accom: "",
-        transport: ""
+        owner_id: "kp_4b4b0b24c8364971987863d348609188", 
+        tripTitle: "Test-Title",
+        location: "Test-Loacation",
+        description: "Test-Description",
+        tripImage: "src/TestImage",
+        people: "12",
+        accom: "Test-Hotels",
+        transport: "Test-Flights",
+        createdAt: new Date()
     })
 
     const handleTripInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -130,7 +143,7 @@ export const UserTrips = () => {
             [name]: value,
         }));
         cards.push()
-        console.log(newTrip)
+        //console.log(newTrip)
     };
 
     const newTripCard = (cardCreated: boolean) => {
@@ -138,8 +151,35 @@ export const UserTrips = () => {
         setObjectReturned(cardCreated)
     }
 
+    //Orignial
+    // const saveNewTrip = async () => {
+    //     console.log("within saveNewTrip()")
+    //     try {
+    //         const response = await fetch('/api/add-trip', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(newTrip),
+    //         });
+
+    //         if (!response.ok) {
+    //             throw new Error('Failed to save new trip');
+    //         }
+
+    //         alert('Trip saved successfully!');
+    //         // setObjectReturned(true);
+    //         setOpen(false);
+    //     } catch (error) {
+    //         console.error('Error saving trip:', error);
+    //         alert('Failed to save new trip');
+    //     }
+
+    // };
+    //chatGPT
     const saveNewTrip = async () => {
         try {
+            console.log('Saving trip:', newTrip);
             const response = await fetch('/api/add-trip', {
                 method: 'POST',
                 headers: {
@@ -147,11 +187,14 @@ export const UserTrips = () => {
                 },
                 body: JSON.stringify(newTrip), 
             });
-
+    
+            console.log('API Response:', response);
+    
             if (!response.ok) {
+                console.error('Failed to save trip:', response.statusText);
                 throw new Error('Failed to save new trip');
             }
-
+    
             alert('Trip saved successfully!');
             setObjectReturned(true); 
             setOpen(false); 
@@ -164,13 +207,13 @@ export const UserTrips = () => {
     //     <>
     //         <div className="container mx-auto p-6 bg-white bg-opacity-80 shadow-md rounded-lg">
     //             <button onClick={() => setOpen(true)} className="bg-ijele_teal text-ijele_cream text-[1.5rem] font-junge font-bold py-1 px-6 rounded-lg hover:bg-ijele_deepGold transition-colors duration-300"> + </button>
-    
+
     //             <Dialog open={open} onClose={() => setOpen(false)} className="relative z-10">
     //                 <DialogBackdrop
     //                     transition
     //                     className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
     //                 />
-    
+
     //                 <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
     //                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
     //                         <DialogPanel
@@ -219,7 +262,7 @@ export const UserTrips = () => {
     //                     </div>
     //                 </div>
     //             </Dialog>
-    
+
     //             {objectReturned ? (
     //                 <div className='mt-8 max-h-sm' onChange={() => setObjectReturned(false)}> {/* Directly set state here */}
     //                     {buildTripCard(newTrip)}
@@ -277,9 +320,8 @@ export const UserTrips = () => {
                                         type="button"
                                         data-autofocus
                                         onClick={() => {
-                                            newTripCard(true)
+                                            saveNewTrip()
                                             setOpen(false)
-
                                         }}
                                         className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                                     >
@@ -298,7 +340,6 @@ export const UserTrips = () => {
                     : null}
 
             </div>
-            {console.log("isDialogue open?: " + open)}
 
         </>
     )

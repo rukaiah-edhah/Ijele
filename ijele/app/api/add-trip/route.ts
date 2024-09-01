@@ -14,6 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         people,
         accom,
         transport,
+        createdAt
       } = req.body;
 
       const newTrip: InsertTrip = {
@@ -25,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         people,
         accom,
         transport,
-        createdAt: new Date(), 
+        createdAt, 
       };
 
       const result = await db.insert(tripTable).values(newTrip).execute();
