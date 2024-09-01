@@ -381,7 +381,7 @@ const FlightPage: React.FC = () => {
 
           {error && (
             <div className="mt-6 text-red-500">
-              <p>{error}</p>
+              <p>{typeof error === 'string' ? error : JSON.stringify(error)}</p>
             </div>
           )}
 
@@ -402,7 +402,7 @@ const FlightPage: React.FC = () => {
 
           {error && (
             <div className="mt-6 text-red-500">
-              <p>{error}</p>
+              <p>{typeof error === 'string' ? error : JSON.stringify(error)}</p>
             </div>
           )}
         </div>
