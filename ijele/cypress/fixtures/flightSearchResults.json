@@ -1,16 +1,56 @@
 [
-    {
-      "flightNumber": "AA123",
-      "departure": "2024-09-01T10:00:00Z",
-      "arrival": "2024-09-01T13:00:00Z",
-      "price": "$699",
-      "destination": "Paris"
-    },
-    {
-      "flightNumber": "BB456",
-      "departure": "2024-09-01T15:00:00Z",
-      "arrival": "2024-09-01T18:00:00Z",
-      "price": "$849",
-      "destination": "Paris"
-    }
-  ]
+  {
+    "airline": "BF",
+    "departureTime": "2024-09-01T23:00:00",
+    "arrivalTime": "2024-09-02T12:15:00",
+    "stops": "Non-stop",
+    "route": "New York to Paris",
+    "price": "496.37",
+    "logo": "/path/to/airline-bf-logo.png",
+    "details": "Economy class",
+    "currency": "EUR",
+    "segments": [
+      {
+        "departureTime": "2024-09-01T23:00:00",
+        "arrivalTime": "2024-09-02T12:15:00",
+        "stops": "Non-stop",
+        "route": "EWR to ORY",
+        "details": "Flight BF721"
+      },
+      {
+        "departureTime": "2024-09-05T18:50:00",
+        "arrivalTime": "2024-09-05T21:00:00",
+        "stops": "Non-stop",
+        "route": "ORY to EWR",
+        "details": "Flight BF720"
+      }
+    ]
+  },
+  {
+    "airline": "TX",
+    "departureTime": "2024-09-01T23:00:00",
+    "arrivalTime": "2024-09-02T12:15:00",
+    "stops": "Non-stop",
+    "route": "New York to Paris",
+    "price": "520.00",
+    "logo": "/path/to/airline-tx-logo.png",
+    "details": "Economy class",
+    "currency": "EUR",
+    "segments": [
+      {
+        "departureTime": "2024-09-01T23:00:00",
+        "arrivalTime": "2024-09-02T12:15:00",
+        "stops": "Non-stop",
+        "route": "EWR to ORY",
+        "details": "Flight TX6721"
+      },
+      {
+        "departureTime": "2024-09-05T18:50:00",
+        "arrivalTime": "2024-09-05T21:00:00",
+        "stops": "Non-stop",
+        "route": "ORY to EWR",
+        "details": "Flight TX6720"
+      }
+    ]
+  }
+]

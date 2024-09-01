@@ -31,7 +31,7 @@ const HotelList: React.FC<HotelListProps> = ({ hotels, handleViewOffers }) => {
         {hotels.map((hotel) => (
           <div key={hotel.hotelId}
           onClick={() =>handleViewOffers(hotel.hotelId) }>
-            <Image src="/Images/Hotel_placeholderImage.png" alt="" className="max-w-sm rounded-lg rounded-t-[25%] hover:rounded-tr-none" />
+            <Image src="/Images/Hotel_placeholderImage.png" alt="" className="max-w-sm rounded-lg rounded-t-[25%] hover:rounded-tr-none" height={1000} width={1000}/>
             <div className="max-w-sm flex p-4 justify-around relative bg-zinc-100/80 rounded-b-lg border bottom-14">
               <h3 key={hotel.hotelId} className="font-kite_one md:text-base">{TitleCase(hotel.name)}</h3>
               <Image src="" alt="|" />

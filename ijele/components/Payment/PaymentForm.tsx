@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements, CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
@@ -17,9 +17,17 @@ const PaymentForm = () => {
   const [currency, setCurrency] = useState("usd");
   const [currentParty, setCurrentParty] = useState(0);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [showAlert, setShowAlert] = useState(true); // New state variable
 
   const parties = parseInt(searchParams.get("parties") || "1");
   const contributions = (searchParams.get("contributions") || "").split(",").map(Number);
+
+  useEffect(() => {
+    if (showAlert) {
+      alert("Site in TESTING - Please DO NOT Enter Actual Payment information!!!");
+      setShowAlert(false); // Disable alert after showing
+    }
+  }, [showAlert]);
 
   useEffect(() => {
     setAmounts(new Array(parties).fill(0));
@@ -99,6 +107,7 @@ const PaymentForm = () => {
       <div className="flex items-center justify-center min-h-screen">
         <div className="container max-w-md mx-auto p-4">
           <form onSubmit={handlePaymentSubmit} className="space-y-4">
+          <h1>Page in Testing Status - Please do not enter actual payment info!!!</h1>
             <h3 className="text-lg font-semibold mb-2">Party {currentParty + 1}</h3>
             <div>
               <label className="block text-sm font-medium text-gray-700">Card Details</label>
@@ -149,7 +158,9 @@ const PaymentForm = () => {
 export default function PaymentPage() {
   return (
     <Elements stripe={stripePromise}>
-      <PaymentForm />
+      <Suspense fallback={<div>Loading...</div>}>
+        <PaymentForm />
+      </Suspense>
     </Elements>
   );
 }

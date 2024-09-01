@@ -56,7 +56,7 @@ const FlightCard: React.FC<FlightCardProps> = ({
   return (
     <div className="flex flex-col mb-4 shadow-lg overflow-hidden rounded-tr-[25%] border bg-ijele_navy">
       <div className={`flex items-center p-4 border-black ${isExpanded ? 'bg-ijele_teal text-white' : 'bg-white'}`}>
-        <Image src={logo} alt={`${airline} logo`} className="w-12 h-12 mr-4 rounded-full border" />
+        <Image src={logo} alt={`${airline} logo`} className="w-12 h-12 mr-4 rounded-full border" height={1000} width={1000} />
         <div className="flex-1">
           <div className="flex justify-between">
             <div>
