@@ -4,7 +4,7 @@ import { usersTable } from './users';
 
 export const tripTable = pgTable('trip', {
     tripId: serial('id').primaryKey(),
-    owner_id: uuid('owner').notNull().references(()=> usersTable.id),
+    // owner_id: uuid('owner').notNull().references(()=> usersTable.userId),
     tripTitle: text('title'),
     location: text('location'),
     description: text('description'),
