@@ -1,12 +1,13 @@
 "use client"
 
-import { ChangeEvent, useState } from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { useRouter } from 'next/navigation';
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import Image from 'next/image'
 import { NewTripForm } from './tripForm'
 import { expatImages } from '../ImageMapping'
 import { error } from 'console';
+import { usersTable } from '@/db/schemas';
 
 
 
@@ -24,7 +25,9 @@ import { error } from 'console';
 //      tripImg: string (path)
 
 //      peopleImgs: img[]
-
+type Props = {
+    user: string | undefined
+}
 const cards: JSX.Element[] = [];
 
 function groupMates(travelers: string) {
@@ -110,27 +113,17 @@ function buildTripCard(tripDets: any) {
         </div>
     )
 }
-export const UserTrips = () => {
+const UserTrips: React.FC<Props> = ({user}) => {
 
     const [open, setOpen] = useState(false)
     const [objectReturned, setObjectReturned] = useState(false)
-    //[x] tripId: serial('id').primaryKey(),
-    //[x] owner_id: text('owner').notNull(),
-    //[] tripTitle: text('title'),
-    // location: text('location'),
-    // description: text('description'),
-    // tripImage: text('tripImage'),
-    // people: text('people'),
-    // accom: text('hotels'),
-    // transport: text('flights'),
-    // createdAt: timestamp('created_at').notNull().defaultNow()
     const [newTrip, setNewTrip] = useState({
-        owner_id: "kp_4b4b0b24c8364971987863d348609188", 
-        tripTitle: "Test-Title",
-        location: "Test-Loacation",
-        description: "Test-Description",
+        owner_id: `${user}`, 
+        tripTitle: "",
+        location: "",
+        description: "",
         tripImage: "src/TestImage",
-        people: "12",
+        people: "",
         accom: "Test-Hotels",
         transport: "Test-Flights",
         createdAt: new Date()
@@ -143,7 +136,6 @@ export const UserTrips = () => {
             [name]: value,
         }));
         cards.push()
-        //console.log(newTrip)
     };
 
     const newTripCard = (cardCreated: boolean) => {
@@ -151,32 +143,6 @@ export const UserTrips = () => {
         setObjectReturned(cardCreated)
     }
 
-    //Orignial
-    // const saveNewTrip = async () => {
-    //     console.log("within saveNewTrip()")
-    //     try {
-    //         const response = await fetch('/api/add-trip', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //             },
-    //             body: JSON.stringify(newTrip),
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error('Failed to save new trip');
-    //         }
-
-    //         alert('Trip saved successfully!');
-    //         // setObjectReturned(true);
-    //         setOpen(false);
-    //     } catch (error) {
-    //         console.error('Error saving trip:', error);
-    //         alert('Failed to save new trip');
-    //     }
-
-    // };
-    //chatGPT
     const saveNewTrip = async () => {
         try {
             console.log('Saving trip:', newTrip);
@@ -203,6 +169,9 @@ export const UserTrips = () => {
             alert('Failed to save new trip');
         }
     };
+    const getTrips = async () => {
+        
+    }
     // return (
     //     <>
     //         <div className="container mx-auto p-6 bg-white bg-opacity-80 shadow-md rounded-lg">
@@ -344,3 +313,5 @@ export const UserTrips = () => {
         </>
     )
 }
+
+export default UserTrips
