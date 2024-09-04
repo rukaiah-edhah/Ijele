@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
     };
 
     const result = await db.insert(tripTable).values(newTrip).execute();
-
+    // const tripToUser = await db.insert()
     return new Response(JSON.stringify({ message: 'Trip added successfully!', result }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },

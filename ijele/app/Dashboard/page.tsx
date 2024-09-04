@@ -7,7 +7,7 @@ import Navbar from '@/components/navbar';
 import TravelerDetailForm from '@/components/Flight/TravelerDetailForm';
 import Image from 'next/image';
 import { ComingSoon } from '@/components/Dashboard/coming-soon';
-import { UserTrips } from '@/components/Dashboard/tripTab';
+import UserTrips  from '@/components/Dashboard/tripTab';
 import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
 
 type TabProps = 'My Trips' | 'Profile' | 'Saved' | 'Chat';
@@ -75,7 +75,7 @@ const Dashboard = () => {
 
   if (isLoading) {
     return (
-      <div className='h-screen justify-center place-items-center items-center'>
+      <div className='flex items-center justify-center h-screen text-center'>
         <span className="loading loading-ring loading-xs"></span>
         <span className="loading loading-ring loading-sm"></span>
         <span className="loading loading-ring loading-md"></span>
@@ -154,8 +154,8 @@ const Dashboard = () => {
                   handleInputChange={handleInputChange}
                 />
               )}
-              {showingTab === "My Trips" && <UserTrips />}
-              {showingTab === "Chat" && <ComingSoon />}
+              {showingTab === "My Trips" && <UserTrips user={user?.id}/>}
+              {showingTab === "Chat" && <ComingSoon/>}
               {showingTab === "Saved" && <ComingSoon />}
             </div>
           </div>
