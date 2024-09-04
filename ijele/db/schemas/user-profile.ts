@@ -8,5 +8,5 @@ export const userProfileTable = pgTable ('user_profile', {
     tripId: text('trip_id').array().notNull().default(sql`'{}'::text[]`),
 })
 
-export type InsertTrip = typeof userProfileTable.$inferInsert;
-export type SelectTrip = typeof userProfileTable.$inferSelect;
+export type InsertUserProfile = typeof userProfileTable.$inferInsert;
+export type SelectUserProfile = typeof userProfileTable.$inferSelect;

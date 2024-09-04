@@ -23,7 +23,7 @@ const getHotelOffers = async (
   for (const hotelId of hotelIds) {
     try {
       const response = await axios.get(
-        "https://test.api.amadeus.com/v3/shopping/hotel-offers",
+        "https://api.amadeus.com/v3/shopping/hotel-offers",
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

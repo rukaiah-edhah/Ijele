@@ -15,7 +15,7 @@ const getFlightOffersPrice = async (
     const accessToken = await getAccessToken();
 
     const response = await axios.post<FlightOffersPrice>(
-      "https://test.api.amadeus.com/v1/shopping/flight-offers/pricing?forceClass=false",
+      "https://api.amadeus.com/v1/shopping/flight-offers/pricing?forceClass=false",
       flightOffersData,
       {
         headers: {

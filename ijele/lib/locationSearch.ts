@@ -21,7 +21,7 @@ const locationSearch = async (query: string): Promise<LocationData[]> => {
       ca: ca,
     });
     const response = await axios.get<LocationSearchResponse>(
-      "https://test.api.amadeus.com/v1/reference-data/locations",
+      "https://api.amadeus.com/v1/reference-data/locations",
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

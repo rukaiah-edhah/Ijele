@@ -32,7 +32,7 @@ const bookHotel = async (offerId: string, guestInfo: GuestInfo, paymentInfo: Pay
       },
     };
 
-    const response = await axios.post<BookingResponse>('https://test.api.amadeus.com/v2/booking/hotel-orders', bookingRequest, {
+    const response = await axios.post<BookingResponse>('https://api.amadeus.com/v2/booking/hotel-orders', bookingRequest, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/vnd.amadeus+json',
