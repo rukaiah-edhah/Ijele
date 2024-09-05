@@ -7,7 +7,7 @@ const createFlightOrder = async (flightOrderRequest: FlightOrderRequest): Promis
     const accessToken = await getAccessToken();
 
     const response = await axios.post<FlightOrderResponse>(
-      'https://api.amadeus.com/v1/booking/flight-orders',
+      'https://test.api.amadeus.com/v1/booking/flight-orders',
       flightOrderRequest,
       {
         headers: {

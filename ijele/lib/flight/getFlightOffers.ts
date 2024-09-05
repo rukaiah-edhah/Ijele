@@ -24,7 +24,7 @@ const getFlightOffers = async (
   try {
     const accessToken = await getAccessToken();
 
-    const response = await axios.get<FlightDataResponse>('https://api.amadeus.com/v2/shopping/flight-offers', {
+    const response = await axios.get<FlightDataResponse>('https://test.api.amadeus.com/v2/shopping/flight-offers', {
       headers: {
         Authorization: `Bearer ${accessToken}`, 
       },

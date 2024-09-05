@@ -132,6 +132,7 @@ const Navbar = (props: NavbarProps) => {
                 <div className="flex justify-evenly space-x-4">
                   {buildNavLinks(props.currentPage)}
                   <LoginLink className="navbarLink">Login </LoginLink>
+                  <LogoutLink className="navbarLink">Logout </LogoutLink>
                 </div>
               </div>
             </div>

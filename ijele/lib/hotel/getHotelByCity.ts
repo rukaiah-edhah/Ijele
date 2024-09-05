@@ -12,7 +12,7 @@ const getHotelsByCity = async (cityCode: string): Promise<HotelDataResponse> => 
   try {
     const accessToken = await getAccessToken();
 
-    const response = await axios.get<HotelDataResponse>('https://api.amadeus.com/v1/reference-data/locations/hotels/by-city', {
+    const response = await axios.get<HotelDataResponse>('https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city', {
       headers: {
         Authorization: `Bearer ${accessToken}`, 
       },
